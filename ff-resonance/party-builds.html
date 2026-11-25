@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en" class="nojs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FFR Party Builds</title>
+<!-- Design system shared with guide_ff-resonance-ch5.html (Marcellus + Atkinson Hyperlegible, OKLCH ink-teal/amber, 6/12 radius, edges not shadows).
+     Signature move: the "one job" plate on every character + a Path switch (Guide consensus vs Arms Akimbo/Expert) that re-filters every sheet. -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+:root{--bg:oklch(97.5% 0.006 220);--surface:oklch(99.5% 0.003 220);--surface-2:oklch(95% 0.01 220);--fg:oklch(24% 0.03 230);--muted:oklch(48% 0.02 230);--border:oklch(88% 0.012 225);--brand:oklch(42% 0.07 210);--brand-fg:oklch(98% 0.01 210);--accent:oklch(70% 0.14 75);--accent-ink:oklch(45% 0.1 65);--ok:oklch(52% 0.12 150);--warn:oklch(58% 0.14 55);--err:oklch(52% 0.17 25);
+--wind:oklch(52% 0.11 160);--water:oklch(50% 0.12 240);--light:oklch(58% 0.12 90);--fire:oklch(55% 0.17 35);--ice:oklch(55% 0.09 210);--bolt:oklch(58% 0.13 95);--dark:oklch(42% 0.09 300);--earth:oklch(48% 0.07 60);
+--tank:oklch(50% 0.12 35);--break:oklch(50% 0.1 250);--heal:oklch(50% 0.11 150);--buff:oklch(52% 0.1 300);--dps:oklch(55% 0.12 75);
+--r1:6px;--r2:12px;--dur:180ms;--ease:cubic-bezier(.2,.7,.2,1);--display:"Marcellus",Georgia,serif;--body:"Atkinson Hyperlegible",Verdana,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:oklch(17% 0.015 230);--surface:oklch(21% 0.016 230);--surface-2:oklch(25% 0.018 230);--fg:oklch(92% 0.01 220);--muted:oklch(70% 0.02 225);--border:oklch(32% 0.02 230);--brand:oklch(72% 0.08 205);--brand-fg:oklch(18% 0.02 230);--accent:oklch(78% 0.12 80);--accent-ink:oklch(82% 0.11 80);--ok:oklch(74% 0.11 150);--warn:oklch(76% 0.12 60);--err:oklch(72% 0.14 25);
+--wind:oklch(76% 0.1 160);--water:oklch(74% 0.1 240);--light:oklch(82% 0.11 92);--fire:oklch(74% 0.14 40);--ice:oklch(80% 0.08 205);--bolt:oklch(84% 0.12 95);--dark:oklch(74% 0.09 300);--earth:oklch(74% 0.07 65);
+--tank:oklch(74% 0.12 40);--break:oklch(74% 0.09 250);--heal:oklch(76% 0.1 150);--buff:oklch(76% 0.09 300);--dps:oklch(80% 0.11 80)}}
+:root[data-theme="dark"]{--bg:oklch(17% 0.015 230);--surface:oklch(21% 0.016 230);--surface-2:oklch(25% 0.018 230);--fg:oklch(92% 0.01 220);--muted:oklch(70% 0.02 225);--border:oklch(32% 0.02 230);--brand:oklch(72% 0.08 205);--brand-fg:oklch(18% 0.02 230);--accent:oklch(78% 0.12 80);--accent-ink:oklch(82% 0.11 80);--ok:oklch(74% 0.11 150);--warn:oklch(76% 0.12 60);--err:oklch(72% 0.14 25);--wind:oklch(76% 0.1 160);--water:oklch(74% 0.1 240);--light:oklch(82% 0.11 92);--fire:oklch(74% 0.14 40);--ice:oklch(80% 0.08 205);--bolt:oklch(84% 0.12 95);--dark:oklch(74% 0.09 300);--earth:oklch(74% 0.07 65);--tank:oklch(74% 0.12 40);--break:oklch(74% 0.09 250);--heal:oklch(76% 0.1 150);--buff:oklch(76% 0.09 300);--dps:oklch(80% 0.11 80)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
+a{color:var(--brand);text-underline-offset:2px}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+main{max-width:1060px;margin:0 auto;padding:0 16px 72px}
+.mast{padding:28px 0 18px;border-bottom:1px solid var(--border)}
+.kicker{font-size:13px;color:var(--muted);margin:0 0 4px}
+h1{font:400 clamp(30px,5vw,46px)/1.05 var(--display);margin:0}
+.lede{margin:10px 0 0;color:var(--muted);max-width:64ch}
+.party{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:20px 0 0}
+@media(max-width:760px){.party{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pm{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:10px;text-align:center;cursor:pointer;font:inherit;color:inherit;transition:border-color var(--dur) var(--ease)}
+.pm:hover{border-color:var(--brand)}
+.pm img{width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:var(--r1);background:var(--surface-2)}
+.pm b{display:block;font:400 18px/1.2 var(--display);margin-top:6px}
+.pm span{font-size:12px;font-weight:700}.pm.alt{border-style:dashed}
+.pathbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:18px 0 0;padding:12px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface)}
+.pathbar .lbl{font-size:14px;font-weight:700}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:99px;overflow:hidden}
+.seg button{font:700 13px/1 var(--body);padding:10px 14px;min-height:40px;border:0;background:transparent;color:var(--fg);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.pathbar .hint{font-size:13px;color:var(--muted);flex:1 1 260px}
+.bar{position:sticky;top:0;z-index:10;background:color-mix(in oklch,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--border);margin:0 -16px;padding:0 16px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;max-width:1060px;margin:0 auto}.tabs::-webkit-scrollbar{display:none}
+.tabs button{font:700 14px/1 var(--body);color:var(--muted);background:none;border:0;border-bottom:2px solid transparent;padding:14px 12px 12px;cursor:pointer;white-space:nowrap;min-height:44px;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.tabs button:hover{color:var(--fg)}.tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+.js .panel{display:none}.js .panel.on{display:block}
+.js body.p-guide .only-akimbo,.js body.p-akimbo .only-guide{display:none}
+h2{font:400 26px/1.2 var(--display);margin:34px 0 12px}h3{font:700 17px/1.3 var(--body);margin:0 0 6px}h4{font:700 14px/1.3 var(--body);margin:16px 0 6px;color:var(--muted)}
+p{margin:6px 0}ul,ol{margin:6px 0;padding-left:20px}li{margin:3px 0}.mut{color:var(--muted)}.sm{font-size:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px}
+.stack>*+*{margin-top:12px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+.role{display:inline-block;font:700 12px/1 var(--body);padding:5px 9px;border-radius:99px;border:1px solid currentColor}
+.role.tank{color:var(--tank)}.role.break{color:var(--break)}.role.heal{color:var(--heal)}.role.buff{color:var(--buff)}.role.dps{color:var(--dps)}
+.el{font-weight:700;white-space:nowrap}.el.wind{color:var(--wind)}.el.water{color:var(--water)}.el.light{color:var(--light)}.el.fire{color:var(--fire)}.el.ice{color:var(--ice)}.el.bolt{color:var(--bolt)}.el.dark{color:var(--dark)}.el.earth{color:var(--earth)}
+.sheet{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:760px){.sheet{grid-template-columns:1fr}}
+.portrait{position:sticky;top:60px}
+@media(max-width:760px){.portrait{position:static;display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start}}
+.portrait img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:var(--r2);border:1px solid var(--border);background:var(--surface-2)}
+.job{margin-top:10px;padding:10px 12px;border-radius:var(--r1);background:var(--surface-2);font-size:14px}
+.job b{display:block;font:400 18px/1.25 var(--display)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r1);overflow:hidden;margin-top:10px;font-variant-numeric:tabular-nums}
+.stats div{background:var(--surface);padding:6px;text-align:center;font-size:12px;color:var(--muted)}
+.stats b{display:block;font-size:15px;color:var(--fg)}
+.vis{display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:start;padding:12px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface)}
+.vis img,.vis .ph{width:56px;height:56px;object-fit:contain;background:var(--surface-2);border-radius:var(--r1)}
+.vis .tag{font-size:12px;font-weight:700;color:var(--accent-ink)}
+.vis.main{border-color:var(--accent)}
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:540px}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top}th{font-weight:700;color:var(--muted);font-size:13px;background:var(--surface-2)}tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.key td{background:color-mix(in oklch,var(--accent) 10%,var(--surface))}
+tr.bad td{color:var(--muted)}
+.callout{border-left:3px solid var(--accent);padding:8px 12px;background:var(--surface-2);border-radius:0 var(--r1) var(--r1) 0;font-size:14px}
+.callout.warn{border-left-color:var(--warn)}.callout.ok{border-left-color:var(--ok)}
+.now{font-size:12px;font-weight:700;color:var(--ok)}.later{font-size:12px;font-weight:700;color:var(--muted)}
+.src{font-size:12px;color:var(--muted)}
+.turns{counter-reset:t;list-style:none;padding:0}
+.turns li{counter-increment:t;position:relative;padding:10px 12px 10px 52px;border:1px solid var(--border);border-radius:var(--r1);background:var(--surface);margin:6px 0}
+.turns li::before{content:counter(t);position:absolute;left:12px;top:10px;width:28px;height:28px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;font:400 15px var(--display);color:var(--brand)}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body class="p-guide"><main>
+
+<header class="mast">
+  <p class="kicker">Final Fantasy Resonance · Build guide for your party · researched in 5 passes</p>
+  <h1>Rain, Lasswell, Fina, Nichol + Jake</h1>
+  <p class="lede">Almost every build guide and video agrees your four main characters are the best story party. Rain <b>tanks</b>, Lasswell <b>staggers</b>, Fina <b>heals</b> and Nichol <b>buffs</b>, and none of their jobs overlap. This page covers which Visions to equip and level, what to buy and equip, how to open each fight, and when to bring in Jake.</p>
+  <div class="party">
+    <button class="pm" data-go="rain"><img src="https://ffresonanceguide.com/_astro/character-01-art.B64cLvHa_Z1qAk4.webp" alt=""><b>Rain</b><span class="role tank">Tank</span></button>
+    <button class="pm" data-go="lass"><img src="https://ffresonanceguide.com/_astro/character-02-art.IB3GAug3_1KUyKc.webp" alt=""><b>Lasswell</b><span class="role break">Stagger</span></button>
+    <button class="pm" data-go="fina"><img src="https://ffresonanceguide.com/_astro/character-03-art.CYPnWIIt_ZTYYS9.webp" alt=""><b>Fina</b><span class="role heal">Healer</span></button>
+    <button class="pm" data-go="nichol"><img src="https://ffresonanceguide.com/_astro/character-07-art.DNeUf-y7_ZgFrvV.webp" alt=""><b>Nichol</b><span class="role buff">Support</span></button>
+    <button class="pm alt" data-go="jake"><img src="https://ffresonanceguide.com/_astro/character-08-art.VDEsfiAF_2obTeI.webp" alt=""><b>Jake</b><span class="role dps">Sub · DPS</span></button>
+  </div>
+  <div class="pathbar">
+    <span class="lbl">Build path:</span>
+    <div class="seg" role="group" aria-label="Build path">
+      <button aria-pressed="true" data-path="guide">Role-match (most guides)</button>
+      <button aria-pressed="false" data-path="akimbo">Arms Akimbo (Expert / YouTube)</button>
+    </div>
+    <span class="hint" id="pathhint">The safe pick: each character's Vision matches their role (WoL, Firion, Leah, Tronn). Strong from Chapter 3 on and easy to level.</span>
+  </div>
+</header>
+
+<div class="bar"><div class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-t="over">Overview</button>
+  <button role="tab" aria-selected="false" data-t="rain">Rain</button>
+  <button role="tab" aria-selected="false" data-t="lass">Lasswell</button>
+  <button role="tab" aria-selected="false" data-t="fina">Fina</button>
+  <button role="tab" aria-selected="false" data-t="nichol">Nichol</button>
+  <button role="tab" aria-selected="false" data-t="jake">Jake</button>
+  <button role="tab" aria-selected="false" data-t="turn">How to fight</button>
+  <button role="tab" aria-selected="false" data-t="gear">Gear now (Ch 5)</button>
+  <button role="tab" aria-selected="false" data-t="level">Leveling Visions</button>
+  <button role="tab" aria-selected="false" data-t="src">Sources &amp; conflicts</button>
+</div></div>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="panel on" id="over">
+  <h2>The setup at a glance</h2>
+  <div class="tw only-guide"><table>
+    <thead><tr><th>Character</th><th>Job</th><th>Vision now</th><th>Later / endgame</th><th>First Mastery goal</th><th>Stat pick</th></tr></thead>
+    <tbody>
+      <tr><td><b>Rain</b></td><td><span class="role tank">Cover tank</span></td><td>Warrior of Light</td><td>Wilhelm (Guard −75%)</td><td>Multi-Cover · MR 3</td><td>Stamina +3</td></tr>
+      <tr><td><b>Lasswell</b></td><td><span class="role break">Breaker</span></td><td>Firion (Cloud early)</td><td>Bartz (Dual Spellblade)</td><td>Critical Stagger · Cloud MR 7</td><td>Strength +3</td></tr>
+      <tr><td><b>Fina</b></td><td><span class="role heal">Healer</span></td><td>Leah</td><td>Ayaka (Ch 7)</td><td>Pass the Torch · MR 5</td><td>MP +10</td></tr>
+      <tr><td><b>Nichol</b></td><td><span class="role buff">Synergist</span></td><td>Tronn</td><td>Tronn + borrowed LB/First Strike</td><td>Half MP Cost · MR 9</td><td>Speed +3</td></tr>
+      <tr><td><b>Jake</b> (sub)</td><td><span class="role dps">Physical DPS</span></td><td>Aileen or Squall</td><td>Sephiroth / Cecil</td><td>Double Action (Squall MR 9)</td><td>Strength +3</td></tr>
+    </tbody></table></div>
+  <div class="tw only-akimbo"><table>
+    <thead><tr><th>Character</th><th>Vision to equip</th><th>Borrowed Mastery (AP)</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><b>Rain</b></td><td><b>Firion</b> → MR 9</td><td>Multi-Cover (WoL MR 3, 25) · later Grit, Half MP Cost</td><td>Firion's own <b>Arms Akimbo</b> lets him Cover <i>and</i> attack in the same turn, with no AP cost</td></tr>
+      <tr><td><b>Lasswell</b></td><td><b>Squall</b> → MR 9</td><td>Bladeblitz (Firion MR 3, 25) · later Arms Akimbo, Half MP Cost</td><td>Squall's own <b>Double Action</b> plus Trigger (+30% damage and stagger on standard attacks and skills)</td></tr>
+      <tr><td><b>Fina</b></td><td><b>Leah</b> → MR 5</td><td>Observe &amp; Recover HP (Onion Knight MR 5) · Reflex (Noctis MR 3)</td><td>Pass the Torch hands her turn to whoever can end the fight</td></tr>
+      <tr><td><b>Nichol</b></td><td><b>Tidus</b> → MR 3</td><td>Observe &amp; Recover HP · Reflex · later Arms Akimbo, Half MP Cost, Grit</td><td><b>First Strike</b>: he buffs the party before enemies act</td></tr>
+    </tbody></table>
+    <p class="src" style="padding:8px 12px">From KultZ, "Start This Build Early — Make Expert Easier". The starter version needs no MR 9 abilities, and every character stays under about 100 AP.</p></div>
+
+  <h2>How the four fit together</h2>
+  <div class="grid2">
+    <div class="card"><h3>Each turn has a job</h3><p class="sm"><b>Nichol</b> buffs the party with Formations (Assail gives +30% stagger power). <b>Rain</b> draws enemy attacks with Multi-Cover. <b>Lasswell</b> breaks the enemy. <b>Fina</b> heals, or passes her turn. Once the enemy is <b>staggered</b>, everyone goes all out: Limit Bursts like Infinity Drive deal +50% to staggered targets.</p></div>
+    <div class="card"><h3>Two rules every source agrees on</h3><p class="sm">1. <b>Keep a defender and a healer in every fight.</b> Build your damage around them.<br>2. <b>Elements change from boss to boss. Jobs don't.</b> Swap Visions to hit weaknesses, but never give up Rain's Cover, Lasswell's stagger or your healing to do it.</p></div>
+  </div>
+
+  <h2>When Jake comes in</h2>
+  <div class="card stack">
+    <p>Jake has the highest physical damage in the cast, plus <span class="el wind">Wind</span> attacks of both kinds and <span class="el bolt">Lightning</span>. He's built around <b>Luck</b> (see his tab).</p>
+    <div class="tw"><table><thead><tr><th>Situation</th><th>Swap</th><th>Why</th></tr></thead><tbody>
+      <tr><td>The boss is weak to Wind (Slagworm, Tellus)</td><td>Jake in for <b>Nichol</b></td><td>Both kinds of Wind. Keeps Rain and Fina for safety.</td></tr>
+      <tr><td>The boss counters magic</td><td>Jake in for <b>Nichol</b></td><td>All-physical damage</td></tr>
+      <tr><td>You're farming EXP, gil or MRP</td><td>Jake in for <b>Fina</b></td><td>Fast kills. Benched characters still earn EXP and MRP.</td></tr>
+      <tr class="bad"><td>Don't</td><td>Jake in for Rain</td><td>Without a tank, everyone gets hit, so you lose fights before you can stagger</td></tr>
+    </tbody></table></div>
+    <p class="callout">Keep a Vision equipped on Jake while he's on the bench. He keeps earning MRP for it.</p>
+  </div>
+
+  <h2>Party presets</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Situation</th><th>Active four</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr class="key"><td>Story &amp; exploring</td><td>Rain · Lasswell · Fina · Nichol</td><td>KeenGamer, GamerFuzion, AllThingsHow, KultZ</td></tr>
+      <tr><td>Long magic boss</td><td>Rain · Fina · Nichol · Sakura</td><td>KeenGamer, GamerFuzion, Jay Dunna</td></tr>
+      <tr><td>Wind-weak boss</td><td>Rain · Lasswell · Fina · Jake</td><td>Matchup data</td></tr>
+      <tr><td>Farming</td><td>Rain · Lasswell · Nichol · Lid or Jake</td><td>KeenGamer, GamerFuzion</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- ============ RAIN ============ -->
+<section class="panel" id="rain">
+  <h2>Rain: cover tank</h2>
+  <div class="sheet">
+    <div class="portrait"><img src="https://ffresonanceguide.com/_astro/character-01-art.B64cLvHa_Z1qAk4.webp" alt="Rain">
+      <div><div class="job"><span class="mut">His one job</span><b>Take every hit so nobody else does</b></div>
+      <div class="stats"><div><b>200</b>HP</div><div><b>35</b>MP</div><div><b>35</b>Str</div><div><b>28</b>Sta</div></div>
+      <p class="sm mut">Greatsword · Heavy/Light armor · Fire · most HP in the party</p></div></div>
+    <div class="stack">
+      <div class="vis main only-guide"><img src="https://ffresonanceguide.com/_astro/vision-01.DC4EjoA1_14U11J.webp" alt=""><div><span class="tag">EQUIP · Sentinel · Ch 1, Sanctum NW of Kol</span><h3>Warrior of Light</h3>
+        <p class="sm">Physical Def +20% and Stagger +30%. <b>Vanguard Glaive</b> also Provokes. Thunder/Stone Blade hit <span class="el bolt">Lightning</span> and <span class="el earth">Earth</span> weaknesses. 1★ Protectga · 2★ Regen, Resist Dark · 3★ <b>Curaga, Dark Immunity</b>. Use it against Dark enemies: WoL is immune and his counters add Light damage.</p></div></div>
+      <div class="vis main only-akimbo"><img src="https://ffresonanceguide.com/_astro/vision-02.BAMf2vDw_1i3Roe.webp" alt=""><div><span class="tag">EQUIP · Breaker · Ch 3, Sanctum NW of the Olderion beach</span><h3>Firion</h3>
+        <p class="sm"><b>Fulminating Strike</b> gives Rain a temporary stagger boost. Bladeblitz (MR 3) is a free-MP group attack. At <b>MR 9, Arms Akimbo</b> lets him use Multi-Cover and attack in the same turn, and since Firion is equipped it costs no AP. Watch out: a Light attack can give his physical hits a Light imbue, which heals enemies that absorb Light.</p></div></div>
+      <div class="vis"><div class="ph"></div><div><span class="tag">ENDGAME TANK · Ch 5 quest "O General! My General!"</span><h3>Wilhelm</h3>
+        <p class="sm">His kit includes <b>Supreme Defense</b> (−80%) and <b>Unmoving Bulwark</b> (−25% physical damage when he hasn't hit an enemy that round). <b>Guard</b> (MR 5) cuts damage taken by 75% until his next turn. Late-game combo: <b>Multi-Cover → Guard → Arms Akimbo</b> makes the unkillable tank (GamerFuzion, Jay Dunna).</p></div></div>
+      <h4>Mastery to collect</h4>
+      <div class="tw"><table><thead><tr><th>From</th><th class="num">MR</th><th>Ability</th><th class="num">AP</th><th>Why</th></tr></thead><tbody>
+        <tr class="key"><td>WoL</td><td class="num">3</td><td><b>Multi-Cover</b></td><td class="num">25</td><td>His core job, in every build</td></tr>
+        <tr><td>WoL</td><td class="num">1</td><td>Restore HP on Stagger</td><td class="num">20</td><td>Free healing whenever Lasswell breaks an enemy</td></tr>
+        <tr><td>WoL</td><td class="num">5</td><td>Physical Counter</td><td class="num">20</td><td>He takes the hits, so he gets to hit back</td></tr>
+        <tr><td>WoL</td><td class="num">9</td><td>Grit</td><td class="num">40</td><td>Survives a hit that would KO him</td></tr>
+        <tr><td>Wilhelm</td><td class="num">5</td><td><b>Guard</b></td><td class="num">15</td><td>−75% damage</td></tr>
+        <tr><td>Firion</td><td class="num">9</td><td>Arms Akimbo</td><td class="num">60</td><td>Two actions per turn</td></tr>
+        <tr><td>Aileen</td><td class="num">7</td><td>Observe &amp; Charge LB</td><td class="num">20</td><td>+15% LB when he takes a non-damage action, which is what Cover is</td></tr>
+        <tr><td>Tronn</td><td class="num">7</td><td>Stagger Power +20%</td><td class="num">40</td><td>Optional, if he's helping to break</td></tr>
+      </tbody></table></div>
+      <p class="callout">Counter-everything setup (community tip): <b>Physical Counter</b> (WoL) + <b>Magic Counter</b> (Cecil) + <b>Critical Counter</b> (Wilhelm) lets him counter any attack type.</p>
+      <h4>His kit</h4>
+      <ul class="sm"><li><b>Provoke</b> (6) and <b>Protectga</b> (22): open boss fights with these.</li><li><b>Infinity Drive</b> (Limit Burst): +50% damage to staggered targets. Use it on a single staggered enemy. <b>Crimson Onslaught</b> (Lv 25) for groups.</li><li>Fire magic up to Firaga, and Banishing Raid (37). <b>Unity</b> (17) helps the party act before the enemy next turn.</li></ul>
+      <h4>Gear</h4>
+      <div class="grid2"><div class="card sm"><span class="now">NOW (Ch 5) · verified on MeowDB</span><br><b>Kaiser Sword</b>: Greatsword, Phys 144, +20% damage on weakness hits (Speed −20)<br><b>Tyr's Armor</b>: Heavy, HP +250, auto-Protect below half HP (Speed −38)<br>Accessory: <b>Knight's Medallion</b> once you have it, otherwise a Star Pendant or Ribbon for the fight</div>
+      <div class="card sm"><span class="later">ENDGAME</span><br><b>Save the Vermillion</b> (Aileen's forge, 1 Adamantite: −20% damage taken) or <b>Ragnarok+</b> (Chamber of Arms, needs Rain Lv 70)<br>Tatenashi Armor+ or Mirage Vest<br><b>Knight's Medallion</b> (his quest A New Leaf: +10% LB when hit)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LASSWELL ============ -->
+<section class="panel" id="lass">
+  <h2>Lasswell: stagger breaker</h2>
+  <div class="sheet">
+    <div class="portrait"><img src="https://ffresonanceguide.com/_astro/character-02-art.IB3GAug3_1KUyKc.webp" alt="Lasswell">
+      <div><div class="job"><span class="mut">His one job</span><b>Break the stagger bar fast</b></div>
+      <div class="stats"><div><b>170</b>HP</div><div><b>40</b>MP</div><div><b>28</b>Str</div><div><b>11</b>Spd</div></div>
+      <p class="sm mut">Katana · Heavy/Light armor · Ice · fastest in the party</p></div></div>
+    <div class="stack">
+      <div class="vis only-guide"><img src="https://ffresonanceguide.com/_astro/vision-07.SATQ5QpA_7yVHI.webp" alt=""><div><span class="tag">EARLY · Breaker · Ch 1, Sanctum SW of the Cavern of Swords</span><h3>Cloud</h3>
+        <p class="sm">Crit +10%, <b>Braver</b> (1★), <b>Cross-Slash</b> (2★, big stagger), <span class="el bolt">Thunder</span>/<span class="el water">Water</span> Surge. Train him to <b>MR 7</b> for <b>Critical Stagger</b> (+40% stagger on crits), then keep it equipped after you switch.</p></div></div>
+      <div class="vis main only-guide"><img src="https://ffresonanceguide.com/_astro/vision-02.BAMf2vDw_1i3Roe.webp" alt=""><div><span class="tag">EQUIP NOW · Breaker · Ch 3</span><h3>Firion</h3>
+        <p class="sm">Stagger +30%. <b>Fulminating Strike</b> gives +50% stagger power for 3 turns. <span class="el wind">Aero</span>/<span class="el bolt">Thunder</span> Knife, plus Light. <b>Aero Knife is physical Wind</b>, exactly what you need for Tellus in Chapter 5. MR 9 gives <b>Arms Akimbo</b>. KeenGamer's #1 pick.</p></div></div>
+      <div class="vis main only-akimbo"><img src="https://ffresonanceguide.com/_astro/vision-08.Bffx0gsy_17Qk7c.webp" alt=""><div><span class="tag">EQUIP · Commando · Ch 3, NE Olderion</span><h3>Squall</h3>
+        <p class="sm">Improvement (MR 1) and <b>Trigger</b> (MR 5): +30% damage and stagger on standard attacks and battle skills. <b>Gut Rip</b> (MR 3). At MR 9, <b>Double Action</b> is free while Squall is equipped. 1★ adds <b>Deprotect</b> for longer fights. Pair with Bladeblitz (free MP), and later Mug (Zidane MR 5) for 0-MP turns.</p></div></div>
+      <div class="vis"><div class="ph"></div><div><span class="tag">ENDGAME · Ch 5, Sanctum north of Mysidia</span><h3>Bartz</h3>
+        <p class="sm"><b>Spellblade Mastery</b> halves Spellblade MP costs. Wind, Lightning and Stone Spellblades get +30% stagger at full HP. <b>Dual Spellblade</b> (Mastery) casts each Spellblade twice. games.gg rates him SSS. Jay Dunna's endgame Lasswell uses him.</p></div></div>
+      <h4>Mastery to collect</h4>
+      <div class="tw"><table><thead><tr><th>From</th><th class="num">MR</th><th>Ability</th><th class="num">AP</th></tr></thead><tbody>
+        <tr class="key"><td>Cloud</td><td class="num">7</td><td><b>Critical Stagger</b> (+40% stagger on crits)</td><td class="num">40</td></tr>
+        <tr><td>Cloud</td><td class="num">1</td><td>Restore MP on Critical Hit</td><td class="num">20</td></tr>
+        <tr><td>Firion</td><td class="num">3</td><td>Bladeblitz (free-MP group attack)</td><td class="num">25</td></tr>
+        <tr><td>Tronn</td><td class="num">1 / 3</td><td>Restore MP on Stagger · Fill LB on Stagger</td><td class="num">20 / 20</td></tr>
+        <tr><td>WoL</td><td class="num">1</td><td>Restore HP on Stagger</td><td class="num">20</td></tr>
+        <tr class="key"><td>Firion</td><td class="num">9</td><td><b>Arms Akimbo</b></td><td class="num">60</td></tr>
+        <tr><td>Squall</td><td class="num">9</td><td>Double Action</td><td class="num">50</td></tr>
+        <tr><td>Terra</td><td class="num">9</td><td>Break the Limit (raises the damage cap)</td><td class="num">30</td></tr>
+      </tbody></table></div>
+      <p class="callout ok"><b>Sustain loop</b> (GamerFuzion): equip Restore HP on Stagger (WoL), Restore MP on Stagger and Fill LB on Stagger (Tronn). Every break then heals him, refills his MP and charges his Limit Burst.</p>
+      <h4>His kit</h4>
+      <ul class="sm"><li><b>Opener</b> (KeenGamer): Null Moon (Limit Burst: target is easier to stagger for 3 turns) → <b>Hone Senses</b> (+40% skill damage, +20% crit) → <b>Placidity</b> (Speed and stagger) → <b>Tranquility in Quietus</b>.</li><li><b>Haste / Hastega</b> (12 / 28) on turn 1 if Nichol is busy.</li><li>Ice up to Blizzaga and <b>Absolving Hailstorm</b>. Use them on Ice-weak bosses.</li></ul>
+      <h4>Gear</h4>
+      <div class="grid2"><div class="card sm"><span class="now">NOW (Ch 5) · verified on MeowDB</span><br><b>Hyosetsumaru</b>: Katana, Phys 132, <b>Ice +40%</b> (Sunioo shop, 26,500 gil). The best match for his Ice kit.<br><b>Kikokusenga</b>: Katana, Phys 113, +50% crit vs staggered enemies (Ch 4 castle chest)<br><b>Stagger Ring</b>: +10% stagger (chest / Tablet Shard safe)<br><span class="mut">Skip <b>Genmato</b>: it's a magic katana (Mag 207, Phys 71).</span></div>
+      <div class="card sm"><span class="later">ENDGAME</span><br><b>Shisui</b> (forge: starts battle with Hone Senses + Placidity) or <b>Sasuke's Blade+</b> (crit +20%, evasion)<br>Mirage Vest (nullifies one hit per battle) · <b>Genji Gloves</b> (crit +50%, from Gilgamesh's quest) · Crest of Criticality (his quest)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINA ============ -->
+<section class="panel" id="fina">
+  <h2>Fina: healer</h2>
+  <div class="sheet">
+    <div class="portrait"><img src="https://ffresonanceguide.com/_astro/character-03-art.CYPnWIIt_ZTYYS9.webp" alt="Fina">
+      <div><div class="job"><span class="mut">Her one job</span><b>Nobody stays down</b></div>
+      <div class="stats"><div><b>160</b>HP</div><div><b>65</b>MP</div><div><b>35</b>Spr</div><div><b>8</b>Spd</div></div>
+      <p class="sm mut">Bow · Robe/Light armor · Light · Spirit and Sanctity power her heals</p></div></div>
+    <div class="stack">
+      <div class="vis main"><div class="ph"></div><div><span class="tag">EQUIP · Medic · Ch 1, Mitra story</span><h3>Leah</h3>
+        <p class="sm">Healing Magic +30%, Nullify Charm, <span class="el light">Banish</span>. 1★ Cura, Shellga, Esuna, Nullify Poison · <b>2★ Raise, Curaga, Protect/Haste at Half HP</b> · 3★ <b>Reraise</b>, Reflect. Her Resonance, <b>Healing Wind</b>, heals the whole party (it can overheal past max HP) and adds Regen. It's what carried GamerFuzion through the final boss.</p></div></div>
+      <div class="vis"><div class="ph"></div><div><span class="tag">UPGRADE · Ch 7 quest "The Admirable Apprentice", Sian</span><h3>Ayaka</h3>
+        <p class="sm">Healing +30%, Nullify Instant Death and Silence, Speed +10%. <b>Divine Tidings</b> doubles both the MP cost and the potency of healing. <b>LB Charge on Heal</b> (+25% LB). <b>Angelic Advocate</b> makes buffs last longer. Purify and Arise. Most sources call her Fina's best Vision late in the game.</p></div></div>
+      <h4>Mastery to collect</h4>
+      <div class="tw"><table><thead><tr><th>From</th><th class="num">MR</th><th>Ability</th><th class="num">AP</th><th>Why</th></tr></thead><tbody>
+        <tr class="key"><td>Leah</td><td class="num">5</td><td><b>Pass the Torch</b></td><td class="num">30</td><td>Gives her turn to Lasswell, or later Sakura, when no one needs healing</td></tr>
+        <tr><td>Leah</td><td class="num">3</td><td>Healing Magic +10%</td><td class="num">20</td><td>Stronger heals</td></tr>
+        <tr><td>Leah</td><td class="num">7</td><td>Pharmacology</td><td class="num">30</td><td>Items heal 50% more</td></tr>
+        <tr><td>Leah</td><td class="num">9</td><td>Auto-Cure Ailments</td><td class="num">40</td><td>Cures status effects automatically (costs MP)</td></tr>
+        <tr><td>Onion Knight</td><td class="num">5</td><td>Observe &amp; Recover HP</td><td class="num">20</td><td>Heals her on non-damage turns</td></tr>
+        <tr><td>Terra / Cloud</td><td class="num">5</td><td>LB Double Charge · Fill Gauge</td><td class="num">—</td><td>More Radiant Restoration casts</td></tr>
+        <tr><td>Victoria</td><td class="num">1</td><td>Arcane Reclamation</td><td class="num">—</td><td>Restores MP equal to 2% of damage dealt (endgame)</td></tr>
+        <tr><td>Tronn</td><td class="num">9</td><td>Half MP Cost</td><td class="num">50</td><td>Every source eventually wants this</td></tr>
+      </tbody></table></div>
+      <p class="callout warn"><b>Chapter 5:</b> Fina leaves the party for the Nameless Ruins and Fina's psyche section. Before that, <b>put Leah on Nichol</b> so you still have a healer.</p>
+      <h4>Her kit</h4>
+      <ul class="sm"><li>Cure → Cura (17) → <b>Raise</b> (23) → <b>Curaga</b> (35) → Arise (53) → Reraise (59). Put Reraise on Rain.</li><li><b>Light Veil</b> blocks a status ailment or debuff. Use <b>Shellga</b> (29) before magic attacks.</li><li>Limit Bursts: <b>Holy Ray</b> (Lv 1, Light damage) and <b>Radiant Restoration</b> (Lv 25, revives and heals everyone, the best recovery LB in the game).</li><li><span class="el light">Light</span> damage: Shining Arrow and Luminant Cannon (32), for Dark Fina, Umbra and other Dark enemies.</li></ul>
+      <h4>Gear</h4>
+      <div class="grid2"><div class="card sm"><span class="now">NOW (Ch 5) · verified on MeowDB</span><br><b>Seraphim Bow</b>: Sanctity 94, healing +10% (chest behind the Mysidia shops)<br><b>Guarding Gown</b>: Robe, Phys Def 188, Sanctity 29 (top of the Tower of Mysidia)<br><b>Ribbon</b>: blocks every ailment except Instant Death (Dark Fina drop)<br><span class="mut">Loxley Bow (Sunioo shop, Sanctity 83) is a step down from Seraphim.</span></div>
+      <div class="card sm"><span class="later">MID → ENDGAME</span><br><b>Behemoth Suit</b> (Robe, Sanctity 141, shop/Colosseum, 44,000 gil) · <b>Minerva Bustier</b> (airship shop, 50,000 gil)<br><b>Elysium</b> (forge, healing +20%), then <b>Artemis Bow+</b><br><b>Blessed Pendant</b> (her quest Shimmering Reflections, healing +20%) · <b>Power Stone</b> (starts battle with 50% LB)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NICHOL ============ -->
+<section class="panel" id="nichol">
+  <h2>Nichol: synergist</h2>
+  <div class="sheet">
+    <div class="portrait"><img src="https://ffresonanceguide.com/_astro/character-07-art.DNeUf-y7_ZgFrvV.webp" alt="Nichol">
+      <div><div class="job"><span class="mut">His one job</span><b>Make the other three stronger</b></div>
+      <div class="stats"><div><b>170</b>HP</div><div><b>55</b>MP</div><div><b>30</b>Mag</div><div><b>10</b>Spd</div></div>
+      <p class="sm mut">Grimoire · Robe/Light armor · Water · the game's only Synergist</p></div></div>
+    <div class="stack">
+      <p class="callout ok">Every video and most comments agree he's the strongest character in the party. One build-video creator says the damage from his buffs <i>probably</i> beats anyone's personal damage. His HP and physical defense are low, so give him your best armor and keep Rain covering him.</p>
+      <div class="vis main only-guide"><div class="ph"></div><div><span class="tag">EQUIP · Breaker · Ch 1, Mitra story</span><h3>Tronn</h3>
+        <p class="sm">Stagger +30%, MP +10%. <span class="el fire">Fire</span>/<span class="el ice">Ice</span>/<span class="el bolt">Thunder</span> magic, which together with his own Water covers four elements. 2★ Dispel, Speed +10%. <b>MR 9 Half MP Cost</b> (his abilities are expensive). <b>Hibernal Fury</b> Resonance: Ice, 5 hits. KeenGamer, GamerFuzion and Jay Dunna all pick Tronn. Onion Knight is the alternative some guides name.</p></div></div>
+      <div class="vis main only-akimbo"><div class="ph"></div><div><span class="tag">EQUIP · Ch 3, western tip of Olderion</span><h3>Tidus</h3>
+        <p class="sm">You only need <b>MR 3</b>, for <b>First Strike</b>: he acts at the start of battle and can buff the party before enemies move. MR 4 adds AP +8. Awakening 2★ adds Haste and <b>Haste Opener</b>. You don't need Tidus at MR 9 for this role.</p></div></div>
+      <h4>Mastery to collect, in order</h4>
+      <div class="tw"><table><thead><tr><th>From</th><th class="num">MR</th><th>Ability</th><th class="num">AP</th><th>Why</th></tr></thead><tbody>
+        <tr class="key"><td>Tidus</td><td class="num">3</td><td><b>First Strike</b></td><td class="num">—</td><td>Buffs go up before enemies move. "Essential."</td></tr>
+        <tr><td>Onion Knight</td><td class="num">5</td><td>Observe &amp; Recover HP</td><td class="num">20</td><td>Heals 10% of max HP on turns he doesn't deal damage</td></tr>
+        <tr><td>Aileen</td><td class="num">5</td><td><b>LB Charge Opener</b></td><td class="num">25</td><td>Starts battle with 50% LB</td></tr>
+        <tr><td>Aileen</td><td class="num">7</td><td>Observe &amp; Charge LB</td><td class="num">20</td><td>Builds LB on buff turns</td></tr>
+        <tr><td>Onion Knight</td><td class="num">9</td><td>LB Triple Charge</td><td class="num">50</td><td>Gets his 200% LB going fast</td></tr>
+        <tr class="key"><td>Tronn</td><td class="num">9</td><td><b>Half MP Cost</b></td><td class="num">50</td><td>Keeps his Formations and Tactics affordable</td></tr>
+        <tr class="key"><td>Firion</td><td class="num">9</td><td><b>Arms Akimbo</b></td><td class="num">60</td><td>Combined with Fluid Warfare, up to 4 actions a turn</td></tr>
+      </tbody></table></div>
+      <p class="callout"><b>Endgame Limit Burst loop</b> (community tip, confirmed by Jay Dunna's build): LB Charge Opener + Observe &amp; Charge LB + LB Triple Charge + <b>Power Stone</b> + First Strike. His 200% LB <b>Mirroring Prism</b> (Lv 30: every ally performs their action twice) is then up almost every turn.</p>
+      <h4>His kit, and how to use it</h4>
+      <ul class="sm">
+        <li><b>Tactic: Fluid Warfare</b> (Lv 19): after a Formation he gets one extra action per turn. Use it on a safe turn in long fights. Skip it against small trash fights.</li>
+        <li><b>Formations:</b> <b>Assail</b> (+30% stagger power for the party, the default opener) · <b>Charge</b> (+30% crit chance) · <b>Bulwark</b> (defense) · <b>Regroup</b> (Lv 34, party attack).</li>
+        <li><b>Stratagem</b> (11): the enemy takes +30% stagger for 3 turns. <b>Dispel / Dispelga</b> remove Reflect and Protect. <b>Libra</b> shows weaknesses. <b>Faith</b> and <b>Slow</b>.</li>
+        <li><span class="el water">Water</span> up to Waterga, plus Aqua Blast. Key against Ignis, the Emperor and Dark Fina.</li>
+        <li><b>God of Water's Blessing</b> (Lv 40) makes buffs last longer.</li>
+      </ul>
+      <h4>Gear</h4>
+      <div class="grid2"><div class="card sm"><span class="now">NOW (Ch 5) · verified on MeowDB</span><br><b>Luminous Grimoire</b>: Mag 134, <b>buffs last +1 turn</b> (world-map pickup near the Lightning sanctum, Mysidia). Perfect for him.<br><b>Arcane Coat</b>: Light armor, Mag Def 129 (Sunioo)<br>Accessory: <b>Enchanted Ring</b> (Nichol's Duty, also +1 turn on buffs) · <b>Gale Hairpin</b> (acts first, drop/steal) · Power Stone</div>
+      <div class="card sm"><span class="later">ENDGAME</span><br><b>Codex Providentiae</b> (forge: acts first and starts with Fluid Warfare active, so <b>all 4 Formations on turn 1</b> with Arms Akimbo) or <b>Last Resort+</b><br>Behemoth Suit or Elegant Robe · <b>Gold Hairpin</b> (halves MP cost) or Enchanted Ring</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JAKE ============ -->
+<section class="panel" id="jake">
+  <h2>Jake: Luck-based physical attacker (sub)</h2>
+  <div class="sheet">
+    <div class="portrait"><img src="https://ffresonanceguide.com/_astro/character-08-art.VDEsfiAF_2obTeI.webp" alt="Jake">
+      <div><div class="job"><span class="mut">His one job</span><b>Build Luck, then cash it in on the weakness</b></div>
+      <div class="stats"><div><b>190</b>HP</div><div><b>36</b>MP</div><div><b>30</b>Str</div><div><b>7</b>Spd</div></div>
+      <p class="sm mut">Gun · Light/Heavy armor · Wind &amp; Lightning · joins Ch 4</p></div></div>
+    <div class="stack">
+      <div class="vis main"><div class="ph"></div><div><span class="tag">OPTION A · Breaker · Ch 5 quest "Forger of Wills", Dilmagia</span><h3>Aileen</h3>
+        <p class="sm">KeenGamer and Gaming ProMax's pick. Stagger +30%. <span class="el ice">Ice</span>/<span class="el earth">Earth</span> Surge gives him four elements total. <b>Crust Driver</b> Deprotects staggered enemies. Protect and Shell. Her Mastery (LB Charge Opener, Observe &amp; Charge LB) also feeds Nichol and Rain's builds.</p></div></div>
+      <div class="vis"><img src="https://ffresonanceguide.com/_astro/vision-08.Bffx0gsy_17Qk7c.webp" alt=""><div><span class="tag">OPTION B · Commando · Ch 3</span><h3>Squall</h3>
+        <p class="sm">AllThingsHow and ffresonanceguide's pick. <b>Physical Attack +30%</b>, Fire/Water magic, <b>Fated Circle</b> (2★). MR 9 gives <b>Double Action</b>. Better if Jake is going to be a long-term damage dealer.</p></div></div>
+      <p class="sm mut">Endgame alternatives: <b>Sephiroth</b> (crit; Whirlpool Hollow fight) or <b>Cecil</b> (games.gg).</p>
+      <h4>The Luck system (from Gaming ProMax and KeenGamer)</h4>
+      <div class="tw"><table><thead><tr><th>Move</th><th class="num">Lv</th><th>Luck</th><th>Use</th></tr></thead><tbody>
+        <tr class="key"><td><b>Coin Toss</b></td><td class="num">1</td><td>+5 heads / +2 tails</td><td><b>Always open with it.</b> It costs 0 MP.</td></tr>
+        <tr><td>Gale Strike</td><td class="num">6</td><td>+1</td><td>Physical Wind</td></tr>
+        <tr><td>Gamble Shot</td><td class="num">19</td><td>—</td><td>8 hits, guaranteed crits. More Luck means more of them land.</td></tr>
+        <tr><td>Hide</td><td class="num">22</td><td>−3</td><td>His next attack is a guaranteed crit</td></tr>
+        <tr><td>Glücksschmied (LB)</td><td class="num">30</td><td>resets</td><td>Damage scales with Luck</td></tr>
+        <tr><td>Blitzstrahl</td><td class="num">33</td><td>−3</td><td><span class="el bolt">Lightning</span>; stagger scales with Luck</td></tr>
+        <tr class="key"><td><b>Energized Assault</b></td><td class="num">37</td><td>needs 9+</td><td>+50% physical damage, doesn't use his turn, resets Luck</td></tr>
+        <tr><td>Demolisher Rush</td><td class="num">40</td><td>needs 8+, −5</td><td>His only area attack (Wind)</td></tr>
+      </tbody></table></div>
+      <p class="sm">Luck caps at 10. <b>Trick Coin</b> (his quest Token Legacy) makes Coin Toss always land heads. <b>Caelum Renatum</b> (forge) starts the battle at +8 Luck.</p>
+      <p class="callout warn"><b>Gentleman's Gambit</b> (Lv 26) is disputed. Gaming ProMax says he acts after each female ally. A detailed YouTube comment says he acts last with +25% damage per female ally. In your party only Fina counts, so it's weak here either way.</p>
+      <h4>Gear</h4>
+      <div class="grid2"><div class="card sm"><span class="now">NOW (Ch 5) · verified on MeowDB</span><br><b>Barrel Blazer</b>: Gun, Phys 157, <b>stagger +10%</b> (Fina's psyche chest). His best gun right now.<br>Firefly (Sunioo shop, Phys 153) · Musketoon (Mysidia shop, Phys 142, heals 10% on stagger)<br><span class="mut">Skip <b>Magi-Blaster</b>: it's a magic gun (Mag 162, Phys 76).</span></div>
+      <div class="card sm"><span class="later">MID → ENDGAME</span><br><b>Shinobi Gear</b> (Sian, Speed +35) · Silver-Round Rifle (Sian, crit +10%)<br><b>Caelum Renatum</b> (forge) → <b>Arcturus+</b> (LB +10% and +1 Luck each turn)<br><b>Trick Coin</b> (+100 HP, +30 MP, +30 Str, +20 End)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW TO FIGHT ============ -->
+<section class="panel" id="turn">
+  <h2>Turn 1 against a boss (core party)</h2>
+  <ol class="turns">
+    <li><b>Nichol</b>: <b>Formation: Assail</b> (+30% stagger). In long fights, put up Fluid Warfare first on a safe turn. Once you have First Strike he acts before the enemy.</li>
+    <li><b>Rain</b>: <b>Provoke</b> or <b>Multi-Cover</b>, then <b>Protectga</b> if it isn't up yet. With Wilhelm, add Guard.</li>
+    <li><b>Lasswell</b>: <b>Null Moon</b> (if his LB is full) → Hone Senses → Placidity → big stagger hit. Hit the weakness Nichol revealed with Libra.</li>
+    <li><b>Fina</b>: <b>Shellga</b> or Light Veil before big magic. Otherwise <b>Pass the Torch</b> to Lasswell to speed up the break.</li>
+  </ol>
+  <h2>Next turns</h2>
+  <div class="grid2">
+    <div class="card sm"><h3>Before the break</h3><ul><li>Nichol uses <b>Stratagem</b> (+30% stagger taken for 3 turns).</li><li>Rain attacks with Tackle or the weak element.</li><li>Watch the stagger preview to see who can finish the break. Don't just add up percentages in your head, because some effects overlap.</li><li>Against groups, try to stagger <b>all of them on the same turn</b> (a sweeping stagger gives the party bonus actions).</li></ul></div>
+    <div class="card sm"><h3>During the stagger</h3><ul><li>Switch to <b>damage</b>. Don't spend more MP on stagger.</li><li>Fire your Limit Bursts now: <b>Infinity Drive</b> does +50% to staggered targets.</li><li>Pick a Resonance: <b>Healing Wind</b> if you need it, a damage Resonance if you're healthy.</li><li>Staggering a boss also cancels its big telegraphed attack (Dystopia, Crushing Breath and so on).</li></ul></div>
+  </div>
+  <p class="callout">Against trash fights, just attack. Every guide says not to run the full buff routine against weak enemies.</p>
+
+  <h2>Expert mode notes</h2>
+  <div class="card sm stack">
+    <ul>
+      <li>On Expert your damage is <b>80% of Normal</b>, and enemies have more HP, bigger stagger bars, more speed and harder hits. You also earn <b>×1.5 MRP</b>.</li>
+      <li>You can change difficulty outside of battle: Options → Gameplay → Difficulty. Dropping to Casual for one boss and switching back is allowed.</li>
+      <li>Suggested levels on Expert (KultZ): Ch 3 about 20–28, Ch 4 high 20s to low 30s. Chapter 5 bosses are Lv 33–39.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ GEAR NOW ============ -->
+<section class="panel" id="gear">
+  <h2>Equip this right now (Chapter 5)</h2>
+  <p class="mut sm">Every item below was checked against MeowDB's equipment database (type, stats and effect).</p>
+  <div class="tw"><table>
+    <thead><tr><th>Who</th><th>Slot</th><th>Item</th><th>Type</th><th class="num">Key stat</th><th>Effect</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr class="key"><td>Rain</td><td>Weapon</td><td><b>Kaiser Sword</b></td><td>Greatsword</td><td class="num">Phys 144</td><td>+20% damage on weakness hits (Spd −20)</td><td>Ch 4 throne room</td></tr>
+      <tr><td>Rain</td><td>Weapon alt</td><td>Stagger Blade</td><td>Greatsword</td><td class="num">Phys 123</td><td>+10% stagger</td><td>Sunioo shop</td></tr>
+      <tr class="key"><td>Rain</td><td>Armor</td><td><b>Tyr's Armor</b></td><td>Heavy</td><td class="num">HP +250</td><td>Auto-Protect below half HP (Spd −38)</td><td>Nameless Ruins statue chest</td></tr>
+      <tr class="key"><td>Lasswell</td><td>Weapon</td><td><b>Hyosetsumaru</b></td><td>Katana</td><td class="num">Phys 132</td><td><b>Ice +40%</b></td><td>Sunioo shop, 26,500 gil</td></tr>
+      <tr><td>Lasswell</td><td>Weapon alt</td><td>Kikokusenga</td><td>Katana</td><td class="num">Phys 113</td><td>+50% crit vs staggered enemies</td><td>Ch 4 castle</td></tr>
+      <tr><td>Lasswell</td><td>Accessory</td><td>Stagger Ring</td><td>Accessory</td><td class="num">—</td><td>+10% stagger</td><td>Chest / Tablet Shard safe</td></tr>
+      <tr class="key"><td>Fina</td><td>Weapon</td><td><b>Seraphim Bow</b></td><td>Bow</td><td class="num">Sanctity 94</td><td>Healing +10%</td><td>Behind the Mysidia shops</td></tr>
+      <tr class="key"><td>Fina</td><td>Armor</td><td><b>Guarding Gown</b></td><td>Robe</td><td class="num">Phys Def 188</td><td>Sanctity 29</td><td>Top of the Tower of Mysidia</td></tr>
+      <tr><td>Fina</td><td>Accessory</td><td>Ribbon</td><td>Accessory</td><td class="num">—</td><td>Blocks all ailments except Instant Death</td><td>Dark Fina drop</td></tr>
+      <tr class="key"><td>Nichol</td><td>Weapon</td><td><b>Luminous Grimoire</b></td><td>Grimoire</td><td class="num">Mag 134</td><td><b>Buffs last +1 turn</b></td><td>Mysidia continent, world map</td></tr>
+      <tr><td>Nichol</td><td>Armor</td><td>Arcane Coat</td><td>Light</td><td class="num">Mag Def 129</td><td>—</td><td>Sunioo, north path</td></tr>
+      <tr class="key"><td>Jake</td><td>Weapon</td><td><b>Barrel Blazer</b></td><td>Gun</td><td class="num">Phys 157</td><td>+10% stagger</td><td>Fina's psyche camp chest</td></tr>
+      <tr><td>Anyone</td><td>Accessory</td><td><b>Mastery Pendant</b></td><td>Accessory</td><td class="num">—</td><td><b>Doubles MRP</b></td><td>World map (Mysidia Radar treasure)</td></tr>
+      <tr><td>Anyone</td><td>Accessory</td><td>Power Stone</td><td>Accessory</td><td class="num">—</td><td>Starts battle with 50% LB</td><td>Shop / world map</td></tr>
+      <tr><td>Fight-specific</td><td>Accessory</td><td>Star Pendant · Headband</td><td>Accessory</td><td class="num">—</td><td>Block Poison · block Sleep</td><td>Shops</td></tr>
+    </tbody></table></div>
+
+  <h2>Chapter 5 items that look right but aren't</h2>
+  <div class="tw"><table><thead><tr><th>Item</th><th>Type</th><th>Why to skip it for your party</th></tr></thead><tbody>
+    <tr class="bad"><td>Genmato</td><td>Katana</td><td>Magic-heavy (Mag 207, Phys 71). Lasswell is a physical attacker.</td></tr>
+    <tr class="bad"><td>Magi-Blaster</td><td>Gun</td><td>Magic-heavy (Mag 162, Phys 76). Jake is a physical attacker.</td></tr>
+    <tr class="bad"><td>Knight's Sword</td><td>Greatsword</td><td>Magic-heavy (Mag 147, Phys 60). Rain is better off with the Kaiser Sword.</td></tr>
+    <tr><td>Impact Wand · Resonate Staff</td><td>Rod</td><td>Sakura's weapons</td></tr>
+    <tr><td>Bullseye Mace</td><td>Hammer</td><td>Lid's weapon</td></tr>
+    <tr><td>Lunar Whip</td><td>Whip</td><td>Archwitch Fina's weapon</td></tr>
+  </tbody></table></div>
+
+  <h2>Aileen's forge (one weapon per character)</h2>
+  <div class="card sm stack">
+    <p>The forge opens with the quest <b>Forger of Wills</b>: talk to the Gossiping Girl near the Dilmagia entrance (Ch 5), then visit Aileen on the airship (Ch 6 per games.gg). Each weapon costs <b>1 Adamantite</b>.</p>
+    <ul><li>Rain: <b>Save the Vermillion</b> (−20% damage taken) · Lasswell: <b>Shisui</b> (starts with Hone Senses + Placidity) · Fina: <b>Elysium</b> (healing +20%) · Nichol: <b>Codex Providentiae</b> (acts first and starts with Fluid Warfare) · Jake: <b>Caelum Renatum</b> (+8 Luck at start)</li></ul>
+    <p class="mut">Adamantite comes from Colosseum first clears (Fledgling 2, Brawler 2 and 3), Tablet Shard safes at 80/89, a Rugged Mountain Path chest, Mysidia Radar treasure, or the Merchant Ship (35,000 gil). Priority: <b>Codex for Nichol first</b>, since it's his whole opener.</p>
+  </div>
+</section>
+
+<!-- ============ LEVELING ============ -->
+<section class="panel" id="level">
+  <h2>Three separate kinds of progress</h2>
+  <div class="grid3">
+    <div class="card sm"><h3>Character level</h3><p>Unlocks the character's <b>own</b> moves (for example, Nichol gets Fluid Warfare at Lv 19).</p></div>
+    <div class="card sm"><h3>Mastery Rank (MRP)</h3><p>Belongs to that <b>character + Vision</b> pair. Rain mastering Firion doesn't help Fina. Each rank gives either an ability or a permanent stat boost.</p></div>
+    <div class="card sm"><h3>Awakening ★ (Magicite)</h3><p>Unlocks more of the Vision's skills: Shard → 1★, Magicite → 2★, Cryst → 3★. Getting a Vision to MR 9 does <b>not</b> unlock its stars.</p></div>
+  </div>
+
+  <h2>AP: your ability budget</h2>
+  <div class="card sm stack">
+    <ul>
+      <li>Each character has <b>8 ability slots</b> and an <b>AP pool</b> of about 100–108 by Chapter 3. Each Vision adds <b>+8 AP at MR 4 and again at MR 9</b>.</li>
+      <li>The <b>equipped Vision's own abilities cost no AP.</b> AP only pays for Mastery abilities you borrow from <i>other</i> Visions. Attacks cost MP, not AP.</li>
+      <li><b>Spirit of X</b> (MR 9) bundles all of a Vision's Mastery abilities into one slot, but costs <b>90–130 AP</b>. It's only worth it if you want most of that bundle.</li>
+      <li>If you're a few AP short, a quick MR 4 on a fresh Vision (+8) is cheaper than pushing another Vision to MR 9.</li>
+    </ul>
+    <p class="callout">KultZ's AP budgets: the starter setup is under 100 for everyone. The full setup is about 150 for Rain and Nichol, about 165 for Lasswell and about 170 for Fina. Optional extras push it to 205–235.</p>
+  </div>
+
+  <h2>What to level first</h2>
+  <div class="tw"><table><thead><tr><th class="num">#</th><th>Goal</th><th>For</th><th class="num">MRP</th><th>Unlocks</th></tr></thead><tbody>
+    <tr class="key"><td class="num">1</td><td>WoL → MR 3 on Rain</td><td>Rain</td><td class="num">95</td><td>Multi-Cover</td></tr>
+    <tr class="key"><td class="num">2</td><td>Leah → MR 5 on Fina</td><td>Fina</td><td class="num">395</td><td>Pass the Torch</td></tr>
+    <tr class="key"><td class="num">3</td><td>Tidus → MR 3 on Nichol</td><td>Nichol</td><td class="num">95</td><td>First Strike</td></tr>
+    <tr><td class="num">4</td><td>Cloud → MR 7 on Lasswell (or Squall → MR 5)</td><td>Lasswell</td><td class="num">1,195 / 395</td><td>Critical Stagger / Trigger</td></tr>
+    <tr><td class="num">5</td><td>Aileen → MR 5 on Nichol</td><td>Nichol</td><td class="num">395</td><td>LB Charge Opener</td></tr>
+    <tr><td class="num">6</td><td>Tronn → MR 9 (on Nichol, then others)</td><td>Everyone</td><td class="num">4,695</td><td>Half MP Cost</td></tr>
+    <tr><td class="num">7</td><td>Firion → MR 9 on each character who needs it</td><td>Everyone</td><td class="num">4,975</td><td>Arms Akimbo</td></tr>
+  </tbody></table></div>
+  <p class="sm mut">The tip every source gives: <b>finish one useful upgrade at a time</b> and put it to work before you start the next long grind.</p>
+
+  <h2>Where to spend Magicite</h2>
+  <div class="tw"><table><thead><tr><th class="num">#</th><th>Awaken</th><th>Gets you</th></tr></thead><tbody>
+    <tr class="key"><td class="num">1</td><td>Leah 2★</td><td>Raise, Curaga, Haste/Protect at Half HP</td></tr>
+    <tr class="key"><td class="num">2</td><td>WoL 1★</td><td>Protectga, Shell at Half HP</td></tr>
+    <tr><td class="num">3</td><td>Firion or Cloud 2★</td><td>Saber of Adversity / Cross-Slash</td></tr>
+    <tr><td class="num">4</td><td>Tidus 2★ (Akimbo path)</td><td>Haste, Haste Opener</td></tr>
+    <tr><td class="num">5</td><td>Squall 1★ (Akimbo path)</td><td>Deprotect</td></tr>
+    <tr><td class="num">6</td><td>Leah 3★ · WoL 3★</td><td>Reraise · Curaga + Dark Immunity</td></tr>
+  </tbody></table></div>
+  <p class="sm mut">Unlock awakening by talking to the Moogle of Light in Grandport twice after Siren's Tower (the first talk gives a free Shard). The Colosseum shop sells all three tiers later: 10k, 50k and 250k gil.</p>
+
+  <h2>Farming MRP</h2>
+  <div class="card sm stack">
+    <ul>
+      <li><b>Chapter 5 right now:</b> <b>Cactuar</b> in Dirnado (west of the Onion Knight sanctum) or Zoldaad (volcano area), 220 MRP each. Stagger it first, because it stops dodging while staggered.</li>
+      <li>Later: <b>Gigantuar</b> in Gronoa / Pharm (600 MRP).</li>
+      <li><b>Sparkling pots:</b> give them the item they ask for instead of attacking. Each pot is a one-off bonus, from about 180 to 1,800 MRP (Elixir pot = 1,800).</li>
+      <li>Bonuses: <b>×1.3 for finishing during stagger</b>, ×1.5 on Expert, <b>×2 Mastery Pendant</b>. Victoria's MRP +50% doesn't stack with the Pendant.</li>
+      <li>Equip a Vision on <b>every</b> party member first, because benched members earn MRP too. Skip Metal enemies when farming MRP: they give lots of EXP but little MRP.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section class="panel" id="src">
+  <h2>How this was researched</h2>
+  <div class="grid2">
+    <div class="card sm"><h3>Pass 1: Vision pairings</h3><p>KeenGamer (two guides), games.gg tier list, GamerFuzion, AllThingsHow (two guides), Gaming ProMax (Jake), Geeky Inc, plus the ffresonanceguide.com Best Builds page.</p></div>
+    <div class="card sm"><h3>Pass 2: Gear</h3><p>games.gg (early, endgame and physical-build guides), GamingDeputy (FR), and MeowDB's equipment, Aileen's forge and Chamber of Arms pages.</p></div>
+    <div class="card sm"><h3>Pass 3: YouTube</h3><p>Full transcripts read in the in-app browser: <b>GamerFuzion</b> "Best Party &amp; Builds", <b>Jay Dunna</b> "Strongest Party Build", <b>KultZ</b> "Make Expert Easier". Comments read on <b>Joesephyr</b> "Ranking Party Members".</p></div>
+    <div class="card sm"><h3>Pass 4: Mechanics · Pass 5: Verification</h3><p>AllThingsHow (Mastery, AP, Magicite, difficulty), MeowDB (Vision mechanics), games.gg (progression, Limit Bursts), Power Up Gaming (MRP farming). Item types and stats checked against all 30 pages of MeowDB's equipment list.</p></div>
+  </div>
+
+  <h2>Every site used</h2>
+  <div class="grid2">
+    <div class="card sm"><h3>ffresonanceguide.com</h3><ul>
+      <li><a href="https://ffresonanceguide.com/best-builds/">ffresonanceguide.com: Best Builds</a></li>
+      <li><a href="https://ffresonanceguide.com/visions/">ffresonanceguide.com: All 26 Visions (skills and Mastery)</a></li>
+      <li>ffresonanceguide.com character pages: <a href="https://ffresonanceguide.com/characters/rain/">Rain</a>, <a href="https://ffresonanceguide.com/characters/lasswell/">Lasswell</a>, <a href="https://ffresonanceguide.com/characters/fina/">Fina</a>, <a href="https://ffresonanceguide.com/characters/nichol/">Nichol</a>, <a href="https://ffresonanceguide.com/characters/jake/">Jake</a></li>
+      <li>ffresonanceguide.com: <a href="https://ffresonanceguide.com/magicite/">Magicite</a>, <a href="https://ffresonanceguide.com/farming/">Farming</a>, <a href="https://ffresonanceguide.com/legendary-arms/">Legendary Arms</a>, <a href="https://ffresonanceguide.com/choices/">Choices</a></li>
+    </ul></div>
+    <div class="card sm"><h3>Build and Vision guides</h3><ul>
+      <li><a href="https://www.keengamer.com/articles/guides/final-fantasy-resonance-best-visions-for-every-character/">KeenGamer: Best Visions for Every Character</a></li>
+      <li><a href="https://www.keengamer.com/articles/guides/final-fantasy-resonance-best-character-builds/">KeenGamer: Best Character Builds</a></li>
+      <li><a href="https://games.gg/final-fantasy-resonance/guides/best-visions-tier-list/">games.gg: Visions Tier List</a></li>
+      <li><a href="https://www.gamerfuzion.com/final-fantasy-resonance-best-party-builds-rain-lasswell-fina-nichol/">GamerFuzion: Best Party Builds</a></li>
+      <li><a href="https://allthings.how/final-fantasy-resonance-best-builds/">AllThingsHow: Best Builds</a> · <a href="https://allthings.how/final-fantasy-resonance-best-visions-for-each-character/">Best Visions</a> · <a href="https://allthings.how/final-fantasy-resonance-vision-tier-list/">Vision Tier List</a></li>
+      <li><a href="https://gamingpromax.com/final-fantasy-resonance-jake-character-guide/">Gaming ProMax: Jake Guide</a></li>
+      <li><a href="https://www.geekyinc.com/final-fantasy-resonance-best-builds-party-guide-2026/">Geeky Inc: Best Builds &amp; Party</a></li>
+    </ul></div>
+    <div class="card sm"><h3>Gear</h3><ul>
+      <li><a href="https://meowdb.com/db/final-fantasy-resonance/equipment">MeowDB: Equipment database</a> (item types and stats checked here)</li>
+      <li><a href="https://meowdb.com/db/final-fantasy-resonance/mechanics/aileens-forge">MeowDB: Aileen's Forge</a> · <a href="https://meowdb.com/db/final-fantasy-resonance/chamber-of-arms">Chamber of Arms</a></li>
+      <li><a href="https://games.gg/final-fantasy-resonance/guides/early-game-weapons-and-equipment/">games.gg: Early-game Weapons</a> · <a href="https://games.gg/final-fantasy-resonance/guides/best-ff-resonance-weapons-endgame-tier-list/">Endgame Weapons Tier List</a> · <a href="https://games.gg/final-fantasy-resonance/guides/ff-resonance-physical-damage-build/">Physical Damage Build</a></li>
+      <li><a href="https://www.gamingdeputy.com/france/ff-resonance-meilleures-armes-equipements/">GamingDeputy (FR): Best Weapons &amp; Equipment</a></li>
+    </ul></div>
+    <div class="card sm"><h3>Mechanics &amp; farming</h3><ul>
+      <li><a href="https://allthings.how/final-fantasy-resonance-vision-mastery-rank/">AllThingsHow: Vision Mastery Rank</a> · <a href="https://allthings.how/how-to-equip-abilities-final-fantasy-resonance/">Equipping Abilities</a> · <a href="https://allthings.how/final-fantasy-resonance-how-to-raise-awakening-level-magicite-guide/">Awakening &amp; Magicite</a> · <a href="https://allthings.how/final-fantasy-resonance-casual-vs-normal-vs-expert-difficulty-and-can-you-change-it/">Difficulty</a></li>
+      <li><a href="https://meowdb.com/db/final-fantasy-resonance/mechanics/visions-and-abilities">MeowDB: Visions &amp; Abilities</a> · <a href="https://meowdb.com/db/final-fantasy-resonance/tutorials/strengthening-visions-visionability">Strengthening Visions</a></li>
+      <li><a href="https://games.gg/final-fantasy-resonance/guides/ff-resonance-character-progression-leveling-guide/">games.gg: Progression &amp; Leveling</a> · <a href="https://games.gg/final-fantasy-resonance/guides/all-limit-bursts/">All Limit Bursts</a></li>
+      <li><a href="https://powerupgaming.co.uk/2026/10/24/final-fantasy-resonance-best-mrp-farming-methods/">Power Up Gaming: Best MRP Farming</a></li>
+    </ul></div>
+    <div class="card sm"><h3>YouTube</h3><ul>
+      <li><a href="https://www.youtube.com/watch?v=-bwzPdsnpzU">GamerFuzion: Best Party &amp; Builds Guide</a> (transcript)</li>
+      <li><a href="https://www.youtube.com/watch?v=s2ykT0N9YXA">Jay Dunna: Strongest Party Build</a> (transcript and comments)</li>
+      <li><a href="https://www.youtube.com/watch?v=dNADhgKYBFI">KultZ: Start This Build Early, Make Expert Easier</a> (transcript)</li>
+      <li><a href="https://www.youtube.com/watch?v=33eC5nsuBUM">Joesephyr: Ranking the Party Members with Full Builds</a> (comments)</li>
+    </ul></div>
+    <div class="card sm"><h3>Tried, couldn't read</h3><ul class="mut">
+      <li>Prima Games tier lists (blocked us, HTTP 403)</li>
+      <li>Noobfeed Expert and Crit builds (blocked us, HTTP 403)</li>
+      <li>Driffle weapons ranking (page not found, HTTP 404)</li>
+      
+    </ul></div>
+  </div>
+
+  <h2>Where the sources disagree</h2>
+  <div class="tw"><table><thead><tr><th>Question</th><th>Says A</th><th>Says B</th><th>This page</th></tr></thead><tbody>
+    <tr><td>Rain's Vision</td><td>WoL (KeenGamer, AllThingsHow, GamerFuzion, Geeky Inc)</td><td>Bartz (games.gg) · Firion (KultZ)</td><td>WoL, or Firion on the Akimbo path</td></tr>
+    <tr><td>Lasswell's Vision</td><td>Firion (KeenGamer)</td><td>Cloud early (GamerFuzion, Geeky Inc) · Tronn (AllThingsHow) · Bartz (games.gg, Jay Dunna) · Squall (KultZ)</td><td>Cloud → Firion, or Squall on the Akimbo path</td></tr>
+    <tr><td>Fina's Vision</td><td>Leah → Ayaka (almost everyone)</td><td>Y'shtola (games.gg)</td><td>Leah → Ayaka</td></tr>
+    <tr><td>Nichol's Vision</td><td>Tronn (KeenGamer, GamerFuzion, Jay Dunna)</td><td>Onion Knight · Shantotto (AllThingsHow) · Tidus (KultZ)</td><td>Tronn, or Tidus on the Akimbo path</td></tr>
+    <tr><td>Jake's Vision</td><td>Aileen (KeenGamer, Gaming ProMax)</td><td>Squall (AllThingsHow) · Firion / Sephiroth (Geeky Inc)</td><td>Both shown</td></tr>
+    <tr><td>Who's the tank</td><td>Rain (everyone)</td><td>games.gg also calls Lasswell "one of the best tanks"</td><td>Rain</td></tr>
+    <tr><td>Do role matches matter?</td><td>No hidden bonus (AllThingsHow)</td><td>Guides still pick Visions by role</td><td>Pick by what the character needs</td></tr>
+    <tr><td>Vision tiers</td><td>AllThingsHow S: Leah, Tronn, WoL, Terra</td><td>games.gg SSS: Bartz · S: Terra, Cloud, Squall, Shantotto, Noctis, Tronn, Ayaka, Sephiroth</td><td>Both agree Tronn and Terra are top tier</td></tr>
+    <tr><td>Forger of Wills timing</td><td>Ch 5 (MeowDB)</td><td>Forge visit on the Ch 6 airship (games.gg)</td><td>Start it in Ch 5</td></tr>
+  </tbody></table></div>
+  <p class="sm mut">Numbers like MR thresholds and AP costs come from the ffresonanceguide.com Vision database and AllThingsHow, and they match. Effects you can't verify with numbers (Gentleman's Gambit, Spirit AP costs) are labeled as disputed or single-source.</p>
+</section>
+
+<footer>
+  <p>Built from (ffresonanceguide.com Best Builds, character pages, Vision database, Magicite, Farming, Legendary Arms) plus <a href="https://www.keengamer.com/articles/guides/final-fantasy-resonance-best-character-builds/">KeenGamer</a>, <a href="https://games.gg/final-fantasy-resonance/guides/best-visions-tier-list/">games.gg</a>, <a href="https://www.gamerfuzion.com/final-fantasy-resonance-best-party-builds-rain-lasswell-fina-nichol/">GamerFuzion</a>, <a href="https://allthings.how/final-fantasy-resonance-best-builds/">AllThingsHow</a>, <a href="https://gamingpromax.com/final-fantasy-resonance-jake-character-guide/">Gaming ProMax</a>, <a href="https://www.geekyinc.com/final-fantasy-resonance-best-builds-party-guide-2026/">Geeky Inc</a>, <a href="https://meowdb.com/db/final-fantasy-resonance/equipment">MeowDB</a>, <a href="https://powerupgaming.co.uk/2026/10/24/final-fantasy-resonance-best-mrp-farming-methods/">Power Up Gaming</a>, and the videos by <a href="https://www.youtube.com/watch?v=-bwzPdsnpzU">GamerFuzion</a>, <a href="https://www.youtube.com/watch?v=s2ykT0N9YXA">Jay Dunna</a>, <a href="https://www.youtube.com/watch?v=dNADhgKYBFI">KultZ</a> and <a href="https://www.youtube.com/watch?v=33eC5nsuBUM">Joesephyr</a>. Art © Square Enix. These are recommendations the sources agree on, not tested damage numbers. Fan-made guide; all game names and art belong to Square Enix.</p>
+</footer>
+</main>
+<script>
+(function(){
+  var d=document.documentElement;d.classList.remove('nojs');d.classList.add('js');
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+  var tabs=[].slice.call(document.querySelectorAll('.tabs button'));
+  function show(id,scroll){tabs.forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.t===id))});
+    [].forEach.call(document.querySelectorAll('.panel'),function(p){p.classList.toggle('on',p.id===id)});
+    store('ffrb-tab',id);if(scroll){var bar=document.querySelector('.bar');window.scrollTo({top:bar.offsetTop})}}
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t,true)})});
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(a){a.addEventListener('click',function(){show(a.dataset.go,true)})});
+  var t=store('ffrb-tab');if(t&&document.getElementById(t))show(t,false);
+  var hints={guide:"The safe pick: each character's Vision matches their role (WoL, Firion, Leah, Tronn). Strong from Chapter 3 on and easy to level.",
+    akimbo:"KultZ's Expert path: Rain on Firion, Lasswell on Squall, Nichol on Tidus, Fina on Leah. Builds toward extra actions every turn (Arms Akimbo, Double Action)."};
+  var pb=[].slice.call(document.querySelectorAll('[data-path]'));
+  function setPath(p){document.body.classList.remove('p-guide','p-akimbo');document.body.classList.add('p-'+p);
+    pb.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.path===p))});document.getElementById('pathhint').textContent=hints[p];store('ffrb-path',p)}
+  pb.forEach(function(b){b.addEventListener('click',function(){setPath(b.dataset.path)})});
+  var sp=store('ffrb-path');if(sp==='akimbo')setPath('akimbo');
+})();
+</script>
+</body></html>

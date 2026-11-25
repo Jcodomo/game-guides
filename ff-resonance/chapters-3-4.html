@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FF Resonance Ch.3–4</title>
+<style>
+:root{--bg:#f3f6f8;--card:#fff;--ink:#16202a;--mute:#566572;--acc:#1f6fa8;--fire:#b4421c;--bolt:#9a6a00;--ice:#1a7f8e;--water:#1f6fa8;--earth:#7a5a2a;--line:#dde4ea;--warn:#a5521a;--quote:#eef3f7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f151b;--card:#18212a;--ink:#e8eef3;--mute:#9aabb8;--acc:#78b8e6;--fire:#ff8a5c;--bolt:#f2c14e;--ice:#6fd3e0;--water:#78b8e6;--earth:#d5ab6a;--line:#27323d;--warn:#e39a62;--quote:#1d2833}}
+:root[data-theme="dark"]{--bg:#0f151b;--card:#18212a;--ink:#e8eef3;--mute:#9aabb8;--acc:#78b8e6;--fire:#ff8a5c;--bolt:#f2c14e;--ice:#6fd3e0;--water:#78b8e6;--earth:#d5ab6a;--line:#27323d;--warn:#e39a62;--quote:#1d2833}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,Segoe UI,sans-serif}
+main{max-width:1000px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:25px;margin:0 0 2px}h2{font-size:18px;margin:34px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}h3{font-size:16px;margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 14px}
+.tabs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tabs button{font:inherit;font-weight:600;padding:8px 16px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--acc);color:var(--card);border-color:var(--acc)}
+.panel{display:none}.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,290px);gap:16px;align-items:start}
+@media(max-width:720px){.row{grid-template-columns:1fr}}
+figure{margin:0}figure img{width:100%;border-radius:8px;display:block;background:var(--line);min-height:110px;object-fit:cover}
+figcaption{font-size:12px;color:var(--mute);margin-top:4px}
+ul{padding-left:20px;margin:6px 0}li{margin:3px 0}p{margin:6px 0}
+.n{display:inline-block;min-width:24px;height:24px;border-radius:50%;background:var(--acc);color:var(--card);text-align:center;font-size:13px;line-height:24px;font-weight:700;margin-right:6px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;border:1px solid var(--line);margin:2px 4px 2px 0}
+.boss{border-left:4px solid var(--warn)}
+.bolt{color:var(--bolt);font-weight:700}.ice{color:var(--ice);font-weight:700}.water{color:var(--water);font-weight:700}.earth{color:var(--earth);font-weight:700}.fire{color:var(--fire);font-weight:700}
+.note{color:var(--warn);font-size:13px}
+.stats{font-size:13px;color:var(--mute)}
+.q{background:var(--quote);border-radius:8px;padding:8px 12px;margin:8px 0;font-style:italic}
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.cast .card{margin:0}.cast img{width:72px;height:72px;object-fit:cover;border-radius:50%;float:left;margin:0 10px 4px 0;background:var(--line)}
+.unk{border:1px dashed var(--warn)}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+a{color:var(--acc)}
+</style></head><body><main>
+<h1>Final Fantasy Resonance: Chapters 3 &amp; 4</h1>
+<p class="sub">Story recap, walkthrough and combat cheat sheet, compiled from fan guides (Nov 2026)</p>
+
+<div class="tabs" role="tablist">
+  <button role="tab" data-t="bg" aria-selected="false">Premise</button>
+  <button role="tab" data-t="c3" aria-selected="true">Chapter 3 · Wardens of the Aquapolis</button>
+  <button role="tab" data-t="c4" aria-selected="false">Chapter 4 · Banner Oath</button>
+</div>
+
+<!-- ================= PREMISE ================= -->
+<section class="panel" id="bg">
+<h2>Story so far</h2>
+<div class="card">
+<p><b>The big picture:</b> Rain and Lasswell, two young knights of Grandshelt, are trying to protect the world's elemental <b>Crystals</b> from a group called the <b>Sworn</b>. Each Sworn member goes after a Crystal, and each chapter's shrine is its own fight. Chapter 1 was Earth (Belmodar), Chapter 2 was Wind (Aether), and Chapter 3 is Water (Alluvion).</p>
+<p><b>Visions</b> are crystallized essences of past FF heroes (Tidus, Squall, Terra, Noctis and others). You equip them to give characters jobs and abilities. <b>Espers</b> are summons. Fina gains the power to call them after the Siren fight.</p>
+</div>
+<div class="card">
+<h3>Chapter 1, "Tailing the Truth"</h3>
+<p>Rain and Lasswell investigate the Earth Shrine, fight Belmodar, and get their first Visions (Leah and Tronn) at Rain's home in Mitra. In Grandshelt Castle they meet Hell's Rider and an Umbra you can't beat. <b>Fina</b> joins them. At the Kolobos Ruins they find <b>Dr. Lazarov</b>'s lab (remember him for Chapter 4). The chapter ends with Siren at Grandport, and then they set sail.</p>
+<h3>Chapter 2, "Eternal Blue"</h3>
+<p>The party travels to Dirnado. <b>Lid</b>, an engineer competing for the title of "Cid", joins at the Dilmagia shipyard. They cross Mt. Thunderclap and the Dwarven Forge, rescue Borin from Mobliz Shipyard (with a 15-minute escape), and beat Aether at the Wind Shrine. The chapter ends aboard Lid's new airship.</p>
+</div>
+<h2>Main cast</h2>
+<div class="cast">
+<div class="card"><b>Rain</b><br><span class="stats">Sentinel · greatsword</span><p>The hero. He led Grandshelt's airship squadron while still young, and he has unresolved feelings about his father Raegen, who disappeared.</p></div>
+<div class="card"><b>Lasswell</b><br><span class="stats">Breaker · katana</span><p>Rain's second-in-command. An orphan raised by Rain's family, and the calm one who keeps up with Rain's impulses.</p></div>
+<div class="card"><b>Fina / Archwitch Fina</b><br><span class="stats">Esper summoner / Saboteur</span><p>A mysterious girl who can summon Espers. Archwitch Fina is her other self, and she takes over during Chapter 3.</p></div>
+<div class="card"><b>Lid</b><br><span class="stats">Engineer · Mechabo</span><p>An airship builder from Dirnado who fights with a mechanical chocobo she built herself.</p></div>
+</div>
+</section>
+
+<!-- ================= CHAPTER 3 ================= -->
+<section class="panel on" id="c3">
+<h2>Chapter 3 story: the full version</h2>
+<div class="card row"><div>
+<p><b>Where you are:</b> Olderion, the "Aquapolis," on the Continent of Water. A family of <b>Wardens of the Waters</b> protects the city, and the city's <b>Water Crystal</b> is the next one the Sworn are after.</p>
+<p><b>Chapter villain:</b> <b>Alluvion</b>, the Sworn member of Water.</p>
+<span class="tag">Rain</span><span class="tag">Lasswell</span><span class="tag">Fina → Archwitch Fina → Fina</span><span class="tag">Lid</span><span class="tag">Nichol (joins)</span><span class="tag">El (joins)</span>
+</div><figure><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/d/d8/Finalfantasyresonance-scene-chapter-3.jpg/360px-Finalfantasyresonance-scene-chapter-3.jpg" alt="" loading="lazy"><figcaption>Chapter 3 title scene (Fextralife)</figcaption></figure></div>
+
+<h2>New characters</h2>
+<div class="cast">
+<div class="card"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/a/a2/Finalfantasyresonance-character-nichol-v2.png/200px-Finalfantasyresonance-character-nichol-v2.png" alt="Nichol"><b>Nichol</b><br><span class="stats">Synergist · grimoires</span><p>A Warden of the Waters. He's the one who brings the party into Olderion's crisis, and he joins in the Cave of Waters.</p></div>
+<div class="card"><b>Luka</b><br><span class="stats">The Water Maiden</span><p>Nichol's sister. She's the only one who can purify Olderion's waters, and she's being held in the Cave of Waters.</p></div>
+<div class="card"><b>El</b><br><span class="stats">Warden of the Waters</span><p>Nichol's brother. He defends Old Town and joins the party after the flood.</p></div>
+<div class="card"><b>Arsha</b><br><span class="stats">El's wife</span><p>She helps evacuate Old Town. At the end of the chapter you have to "go after Arsha."</p></div>
+<div class="card"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/5/5f/Finalfantasyresonance-character-archwitch-fina-v2.png/200px-Finalfantasyresonance-character-archwitch-fina-v2.png" alt="Archwitch Fina"><b>Archwitch Fina</b><br><span class="stats">Saboteur · whip</span><p>Fina's other self. She healed Rain's arm with Crystal-shard power, and she turns back into Fina when that power runs out.</p></div>
+<div class="card"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/c/c3/Finalfantasyresonance-boss-411.png" alt="Alluvion"><b>Alluvion</b><br><span class="stats">Sworn of Water</span><p>Floods the city and goes after the Water Crystal. You fight Alluvion again in Chapter 7.</p></div>
+</div>
+
+<h2>Story beats and walkthrough</h2>
+
+<div class="card row"><div><span class="n">1</span><b>Shot out of the sky</b>
+<p>Lid's new airship starts losing altitude ("I can't maintain altitude!") and crash-lands on a beach south of Olderion. The party walks north into the city.</p>
+<ul><li>Talk to the soldier in the central plaza and the youth in the north plaza (yellow "!"), then find <b>Nichol</b> on the northwest canal pier.</li>
+<li>Nichol explains that the Water Maiden has been taken into the Cave of Waters.</li>
+<li>Olderion loot: Rock Piercer, Jeweled Ring, Mirage Robe (4 shards, 6 chests). The Sanctum of Light has the <b>Tidus, Firion and Squall</b> Visions, but you can only get them on a later visit.</li></ul></div>
+<figure><img src="https://static.allthings.how/wp-content/uploads/2026/10/final-fantasy-resonance-ch3-crash.webp" alt="" loading="lazy"><figcaption>The airship goes down (AllThingsHow)</figcaption></figure></div>
+
+<div class="card row"><div><span class="n">2</span><b>The Cave of Waters: rescue Luka</b> <span class="stats">· rec. Lv 20</span>
+<p>Nichol joins the party inside the cave. You fight your way through to reach his sister.</p>
+<ul><li>Golden Eagles (Lv 24) attack on the switchback road outside.</li>
+<li>There are three raft areas. Hit the switch in each to flood the water so the raft can move.</li>
+<li>Save points are on 1F and on 2F before the boss. Loot: Total Calisthenics, Ninja Gear.</li>
+<li><b>Boss: Wave Lopros.</b> Luka is freed afterward.</li></ul></div>
+<figure><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/594dd71d12f47b4ffb85b377e4d253a307ff26b8583ed2b8436b67a163ed1433.webp" alt="" loading="lazy"><figcaption>Wave Lopros (MeowDB)</figcaption></figure></div>
+
+<div class="card row"><div><span class="n">3</span><b>Cleansing the city's water</b>
+<p>Olderion's water flows through three control points, and Luka has to purify each one. Walk her to the bridge southeast of the central plaza, then to the tip of the northeast arm by the orphanage, then to the west corridor past the north plaza. These are story scenes, with no fights.</p>
+<p>At the third point, <b>El</b> runs up with bad news: monsters are back in <b>Old Town</b>, where his wife <b>Arsha</b> is trying to get people out.</p></div>
+<figure><img src="https://images.keengamer.com/wp-content/uploads/2026/10/Cleansing-Water-1024x553.jpg" alt="" loading="lazy"><figcaption>The cleansing scene (KeenGamer)</figcaption></figure></div>
+
+<div class="card row"><div><span class="n">4</span><b>Old Town under siege</b>
+<p>The first fight happens with El alongside the defenders. Then <b>Lasswell and Nichol stay behind to hold the line</b>, and Rain, Fina and Lid go on alone.</p>
+<ul><li><b class="note">Point of no return:</b> you can't come back through the gate until the event is over.</li>
+<li>Lid doesn't have a Vision yet, so equip her with one here.</li>
+<li><b>Boss: Water Dragon.</b> Afterward Luka says, "We must head to Lake Dorr and check on the God of Water." Lasswell and Nichol rejoin the party.</li></ul></div>
+<figure><img src="https://static.allthings.how/wp-content/uploads/2026/10/final-fantasy-resonance-hb-ot.webp" alt="" loading="lazy"><figcaption>El in Old Town: "There's no end to them!" (AllThingsHow)</figcaption></figure></div>
+
+<div class="card row"><div><span class="n">5</span><b>Lake Dorr: the God of Water goes mad</b> <span class="stats">· rec. Lv 23</span>
+<p>Go back through the Cave of Waters and take the west exit through the north terraces. At the lake, <b>Leviathan</b>, the God of Water that Luka was worried about, has gone mad and attacks. Once you calm it, Luka thanks the party.</p>
+<p class="note">Leviathan becomes an Esper later, through Nichol's character quest "Nichol's Duty," which opens after Chapter 4.</p></div>
+<figure><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/a64a58ac2e89135d250822b4ef427328b159fb9eba41857623e9f07562eacda2.webp" alt="" loading="lazy"><figcaption>Leviathan (MeowDB)</figcaption></figure></div>
+
+<div class="card row"><div><span class="n">6</span><b>The night of the flood</b>
+<p>The party rests at the Olderion inn (100 Gil). That night <b>the city floods and Alluvion appears</b>. In the chaos, <b>Archwitch Fina</b> takes Fina's place in the party.</p>
+<p>Nichol says the way into the Water Shrine starts at <b>Waterfall Way</b>, northwest of the city, and <b>El joins</b> to guide them.</p></div>
+<figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-3-olderion.webp" alt="" loading="lazy"><figcaption>Fighting in Olderion (MeowDB)</figcaption></figure></div>
+
+<div class="card"><span class="n">7</span><b>Waterfall Way, the Altar, and Rain's collapse</b> <span class="stats">· rec. Lv 24</span>
+<p>Climb Waterfall Way to the <b>Altar of the Water Maiden</b>. There's no boss, but on 3F <b>Gilgamesh</b> shows up and asks about the Genji Gloves. At the altar, El explains that the road to Warden's Cape goes through the town of Amore.</p>
+<p>When you reach <b>Amore</b>, <b>Rain collapses</b>. Archwitch Fina says plainly that what she did for him was only a temporary fix, and that he'll die if they don't find a real solution. This is a big character moment: the healing on Rain's arm is running out.</p>
+<ul><li>Waterfall Way loot: Devout's Armor, Guardian Sword, Aquatic Veil. Amore loot: Morning Star, Aegis Robe. Amore doesn't sell Tents.</li></ul></div>
+
+<div class="card"><span class="n">8</span><b>Warden's Cape: a bridge from the sea</b>
+<p>On the coast, Nichol uses the Wardens' magic ("I shall use the magic"), and a stone bridge rises out of the sea to the Water Shrine. At the entrance, <b>Alluvion ambushes the party</b>, traps everyone in water bubbles, and leaves to go after the Crystal. There's no fight here. El runs into the shrine alone, and Rain says, "We have to hurry!"</p></div>
+
+<div class="card row"><div><span class="n">9</span><b>The Water Shrine</b> <span class="stats">· rec. Lv 26</span>
+<ul><li>Activate the seal pedestals in Areas 3, 4 and 2 to open the route. Take the boat to the first switch.</li>
+<li>In the crate room, hit the switches <b>left, right, left</b>. That opens a hidden chest with the <b>R'lyeh Text</b>. Lower the water to reach the lone box. Build crate bridges to get the <b>Calm Armlet</b>, which you'll want for the boss.</li>
+<li>The lift in Area 1 takes you down to B2, where the last save point before the boss is.</li>
+<li><b>Boss: Alluvion.</b></li></ul></div>
+<figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-3-puzzle-crate.webp" alt="" loading="lazy"><figcaption>Crate puzzle, with Rain and Nichol (MeowDB)</figcaption></figure></div>
+
+<div class="card"><span class="n">10</span><b>The price of the Divine Signet</b>
+<p>In the fight, Alluvion uses <b>the Divine Signet</b>, which Charms and Berserks your party. After the battle there's a long scene: using the Divine Signet <b>drained Archwitch Fina's power</b>, and she has to leave for a while. <b>Fina comes back</b> in her place. The party returns to Olderion, <b>goes after Arsha</b>, and boards a ship at the port for the <b>Zoldaad Empire</b>.</p></div>
+
+<div class="card unk"><b>What the guides don't explain yet</b>
+<p class="stats">No guide says what Alluvion ultimately wants, what the Divine Signet really is, what happens to the Water Crystal, or why you have to chase Arsha. The guides only cover the gameplay steps for these parts, so you'll have to play the cutscenes to find out.</p></div>
+
+<h2>Chapter 3 bosses</h2>
+<div class="card row boss"><div><b>Wave Lopros</b> <span class="stats">· Cave of Waters · Lv 20 · 21,000 HP · stagger 600</span>
+<ul><li>Weak to <span class="ice">ICE</span>. It fights alongside Azure and Land Snappers.</li>
+<li><b>Devour</b> eats one of your party, and "lures in more prey" calls in more enemies. <b>Stagger it</b> to stop both.</li>
+<li>It gets stronger after each meal and heals itself with Cannibalize (2,000 HP).</li>
+<li>Ice users: Lasswell (Blizzard at Lv 1), or the Noctis, Terra, Tronn and Victoria Visions. Drop: Water Scroll I.</li></ul></div>
+<figure><img src="https://static.allthings.how/wp-content/uploads/2026/10/final-fantasy-resonance-hb-save.webp" alt="" loading="lazy"><figcaption>The save point before the boss (AllThingsHow)</figcaption></figure></div>
+
+<div class="card row boss"><div><b>Water Dragon</b> <span class="stats">· Old Town · Lv 21 · 24,000 HP · stagger 600</span>
+<ul><li>Weak to <span class="bolt">LIGHTNING</span>. It only takes half damage from Water.</li>
+<li>Its big attack is <b>Bubble Breath</b> (three Water hits). Charge can Paralyze, and Octo-Strike hits random targets 8 times.</li>
+<li>Lightning users: Sakura (Lv 3), or the Noctis and Tronn Visions. Drop: Water Scroll I.</li></ul></div>
+<figure><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/06e66d10d371389810a6d00bf1478034f63f9983e1702bf5e83b290d35b7d30f.webp" alt="" loading="lazy"><figcaption>Water Dragon (MeowDB)</figcaption></figure></div>
+
+<div class="card boss"><b>Leviathan</b> <span class="stats">· Lake Dorr · Lv 23 · 40,000 HP · stagger 1,000</span>
+<ul><li>Weak to <span class="bolt">LIGHTNING</span>. Resists Water.</li>
+<li><b>Kill the Orbs of Light first</b> to weaken it. It enrages if the fight drags on.</li>
+<li><b>Tsunami</b> and <b>Killer Tsunami</b> each hit 5 times, and staggering it stops them. Constrict Paralyzes, so equip a Ribbon. Drop: Magicite Shard.</li></ul></div>
+
+<div class="card row boss"><div><b>Alluvion</b> <span class="stats">· Water Shrine B2 · Lv 26 · 48,000 HP · stagger 850</span>
+<ul><li>Weak to <span class="bolt">LIGHTNING</span>. <b>Immune to Water.</b></li>
+<li><b>Prism cores absorbed!</b> Each core it absorbs makes its special attack stronger, so keep your HP high.</li>
+<li><b>The Divine Signet</b> inflicts Charm and Berserk. Equip Monk's Prayer Beads against Charm and a Calm Armlet against Berserk (a Ribbon covers both), and bring Remedies.</li>
+<li>Maelstrom hits the whole party. Graceful Deluge removes your Protect and Shell.</li>
+<li>Drops: Azure Amulet, Water Scroll II.</li></ul></div>
+<figure><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/3db3543eeb6c9cc6f40255f5be8be534f93f4c3aef9a1d6eeeb443d6489eeb68.webp" alt="" loading="lazy"><figcaption>Alluvion (MeowDB)</figcaption></figure></div>
+
+<h2>Chapter 3 combat rules</h2>
+<div class="card"><ul>
+<li><b>Bring Lightning</b> for 3 of the 4 bosses. Use Ice for Wave Lopros.</li>
+<li><b>Never cast Water.</b> Every boss here resists it or is immune.</li>
+<li>Save your strongest hits for the stagger bar, because staggering a boss cancels its most dangerous attacks.</li>
+<li>Bring protection against Paralysis (Leviathan) and Charm/Berserk (Alluvion).</li></ul></div>
+
+<h2>Collectibles</h2>
+<div class="card"><table>
+<tr><th>Side quest</th><th>Where</th><th>Reward</th></tr>
+<tr><td>Medicinal Mission</td><td>Olderion (Ilias)</td><td>Magicite Shard, 1,500 gil</td></tr>
+<tr><td>The Tide from the Sky</td><td>Town of Amore (soldier)</td><td>Magicite Shard, 1,500 gil</td></tr>
+</table>
+<p><b>Tablet Shards (15):</b> Olderion 4 · Cave of Waters 3 · Waterfall Way 3 · Amore 2 · Water Shrine 3</p></div>
+</section>
+
+<!-- ================= CHAPTER 4 ================= -->
+<section class="panel" id="c4">
+<h2>Chapter 4 story: the full version</h2>
+<div class="card row"><div>
+<p><b>Where you are:</b> the <b>Zoldaad Empire</b>, an industrial nation run by an emperor and protected by an army. Its people are oppressed, and a rebel army operates in tunnels under the capital.</p>
+<p><b>Antagonists:</b> the <b>Emperor of Zoldaad</b>, <b>Ignis</b> (a fire-wielding Sworn-tier boss you meet again in Chapter 7), and <b>Dr. Lazarov</b>, the scientist whose lab you found in the Kolobos Ruins in Chapter 1.</p>
+<span class="tag">Rain</span><span class="tag">Lasswell</span><span class="tag">Fina</span><span class="tag">Lid</span><span class="tag">Nichol</span><span class="tag">Jake (joins)</span><span class="tag">Gilgamesh (on the train)</span>
+</div><figure><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/1/13/Finalfantasyresonance-scene-chapter-4.jpg/360px-Finalfantasyresonance-scene-chapter-4.jpg" alt="" loading="lazy"><figcaption>Chapter 4 title scene (Fextralife)</figcaption></figure></div>
+
+<h2>New characters</h2>
+<div class="cast">
+<div class="card"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/9/9d/Finalfantasyresonance-character-jake-v2.png/200px-Finalfantasyresonance-character-jake-v2.png" alt="Jake"><b>Jake</b><br><span class="stats">Commando · guns · joins Lv 27</span><p>Leader of the rebel army. He seems laid-back and easily distracted, but he'll do anything to free his people. His character quest is "Token Legacy."</p></div>
+<div class="card"><b>Shera</b><br><span class="stats">Prisoner in the castle</span><p>Held in the castle dungeon, and rescuing her is a main objective. After the chapter you can find her in Zoldaad Castle during Jake's quest.</p></div>
+<div class="card"><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/98ac9e41ab95356945f85ffac18ea88c4d85ed793199193876bf47c1bf0eeef1.webp" alt="Ignis"><b>Ignis</b><br><span class="stats">Fire boss · Human</span><p>Guards the weapons factory, which was built where the Fire Shrine once stood. He beats you the first time.</p></div>
+<div class="card"><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/b11aef3a2db42e6a67a9bc26a8e786e7ac5cbaed360f7122970985434f90e2bb.webp" alt="Emperor"><b>Emperor of Zoldaad</b><br><span class="stats">Possibly named "Sozhe" or "Sosa"</span><p>The ruler the rebels are fighting. Ghostly praetorian guards protect him in the throne room.</p></div>
+<div class="card"><b>Evan</b><br><span class="stats">Swordsman · rooftop duel</span><p>Duels Rain one-on-one on the castle roof, then gives up once he's taken enough damage.</p></div>
+<div class="card"><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/0d3cb09e420805d8e5128acc598a52e57f31c6ed12797d52db060b458effb54a.webp" alt="Lazarov"><b>Dr. Lazarov</b><br><span class="stats">Mad scientist</span><p>From the Kolobos Ruins lab in Chapter 1. He fights with his own test subjects and can inject "Frenzied Blood."</p></div>
+</div>
+
+<h2>Story beats and walkthrough</h2>
+
+<div class="card row"><div><span class="n">1</span><b>Arrival and the Mozul train</b>
+<p>The ship from Olderion lands you in Zoldaad territory. Head southeast to <b>Mozul Station</b> and talk to the railway officer to board. As in Chapter 2, the region is locked when you arrive.</p>
+<p>On board, talk to every companion and to <b>Gilgamesh</b>, who is riding along. Then <b>imperial soldiers storm the train</b> from the left. Run right toward the back of the train. You only have to fight if they catch you (or farm them if you like).</p>
+<ul><li>Mozul Station: 1 Tablet Shard.</li></ul></div>
+<figure><img src="https://img.game8.co/npc2x6bx78v72ylbqaw6arx4x2yf" alt="" loading="lazy"><figcaption>Running to the back of the train (Game8, via GamingDeputy)</figcaption></figure></div>
+
+<div class="card row"><div><span class="n">2</span><b>The imperial capital</b>
+<p>When you arrive at Capital Station, the opening scenes show Zoldaad under the empire's control. A notice board announces "reconstruction" and the reopening of the Colosseum. Look around the Castle Plaza, Capital Market, Imperial Residences and Slums. The <b>Commercial District and the Slums</b> are the parts that matter for the story.</p>
+<ul><li>At the inn, a man tells you about an Esper, and there's a chest behind the counter.</li>
+<li>Then meet your contact in the <b>alley behind the Imperial Hotel</b>.</li>
+<li>The Sanctum of Light here has the <b>Shantotto, Cecil and Y'shtola</b> Visions, but they need a later visit. Titan is optional: take a Hammer of Gaia from the Colosseum to free him in the desert.</li></ul></div>
+<figure><img src="https://img.game8.co/u2s0mivjuxhzq2xonzdcwd8waclm" alt="" loading="lazy"><figcaption>The city of Zoldaad (Game8, via GamingDeputy)</figcaption></figure></div>
+
+<div class="card"><span class="n">3</span><b>Underground: the rebel hideout</b>
+<p>The contact leads you into the <b>Underground Tunnel</b>. Go east to the <b>Rebel Hideout</b>, talk to the rebel soldiers, and go to <b>Jake</b>'s room in the northwest. There you "share your thoughts with Jake," which is where he explains the rebellion and the party agrees to help. You sleep at the hideout inn, and Lasswell has a quiet scene before the big operation.</p>
+<ul><li>Tunnel loot: Lucky Bell (2 shards). Hideout loot: Robe of Roses (2 shards, 3 chests).</li></ul></div>
+
+<div class="card row"><div><span class="n">4</span><b>The weapons factory: a fight you can't win</b>
+<p>The factory stands where the <b>Fire Shrine</b> used to be. When you arrive, <b>Ignis</b> challenges you. The first fight is scripted (he has 999,999 HP and uses Blistering Hellfire), and it ends on its own with the party beaten.</p>
+<ul><li><b>Puzzle:</b> crystals raise and lower platforms, and you rotate catwalks over the lava. From the starting layout, press the left control twice, the middle once and the right once. That connects the walkway. Then activate the large pedestals and drop the ladder next to the big machine to make a shortcut back.</li>
+<li>Loot: Hoodwink Garb, Magicite, Knife of Blind ×3, Mist Potion ×3, Lightning Scroll I ×3 (2 shards, 5 chests).</li>
+<li>At the end of the factory, Ignis blocks the way again, and this time you can win. <b>Boss: Ignis.</b></li></ul></div>
+<figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-4-puzzle-bridge.webp" alt="" loading="lazy"><figcaption>Crystal switches and catwalks over lava (MeowDB)</figcaption></figure></div>
+
+<div class="card"><span class="n">5</span><b>Back at the hideout: Lasswell's moment</b>
+<p>The rebels react to the victory. You get a dialogue choice with Lasswell, and each answer gives a permanent stat bonus:</p>
+<ul><li>"My magic seems more effective": <b>+10 MP</b></li><li>"The battle was intense, it changes you": <b>+3 Strength</b></li><li>"I feel like you move faster": <b>+3 Speed</b></li></ul>
+<p>Then go to Jake's room, where he lays out the plan to <b>sneak into Zoldaad Castle</b>.</p></div>
+
+<div class="card row"><div><span class="n">6</span><b>The dungeon: free Shera</b>
+<p>The break-in starts badly: you begin in a prison cell. Escape it, climb the central staircase, go north and then west, and defeat the soldier carrying the <b>Dungeon Key</b>. Use it to open every cell. A burly prisoner gives you an X-Potion and a Mist Ether, and you find <b>Shera</b> and free her. Leave through the northern passage.</p>
+<ul><li>Dungeon loot: Pulse Cannon (2 shards).</li></ul></div>
+<figure><img src="https://images.keengamer.com/wp-content/uploads/2026/10/Zoldaad-Castle.jpg" alt="" loading="lazy"><figcaption>Zoldaad Castle (KeenGamer)</figcaption></figure></div>
+
+<div class="card"><span class="n">7</span><b>Through the castle: the captain's choice</b>
+<p>When you enter the castle proper, a scene plays in which Ignis appears to briefly join your side. That's a surprising twist, but the guides don't explain it. Head west and beat the Ghost Soldiers in the required fight. Then go upstairs to the captain's room at the far end.</p>
+<ul><li>Ask <i>"Captain, aren't you tired of the situation in Zoldaad?"</i> and he hands over the <b>Throne Room Key</b> without a fight.</li>
+<li>The other answer starts a battle instead.</li>
+<li>Loot: Kikokusenga, plus Hairpin of Compassion from behind a painting (2 shards). There's another shard by the horse statue at the stairs.</li></ul></div>
+
+<div class="card row"><div><span class="n">8</span><b>The throne room</b>
+<p>You confront the <b>Emperor of Zoldaad</b> himself, flanked by ghostly guards. <b>Boss: Emperor of Zoldaad.</b> After the fight, check the left side of the throne for the <b>Kaiser Sword</b>, a new weapon for Rain.</p></div>
+<figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-4-throne.webp" alt="" loading="lazy"><figcaption>The fight in the throne room (MeowDB)</figcaption></figure></div>
+
+<div class="card"><span class="n">9</span><b>The roof: Evan's duel</b>
+<p>Take the west exit up to the top of the castle. <b>Evan</b> challenges Rain to a one-on-one duel and gives up once he's taken enough damage. He only has 4,000 HP, so it's more a story moment than a hard fight.</p></div>
+
+<div class="card row"><div><span class="n">10</span><b>Dr. Lazarov's last experiment</b>
+<p>After more cutscenes, <b>Dr. Lazarov</b> shows up. This is the same scientist behind the Kolobos Ruins lab and The Hunger from Chapter 1. He throws his creations at you: <b>The Hunger v5</b>, <b>Test Subject No. 9</b> and <b>No. 999</b>. <b>Boss: Lazarov.</b> Guides disagree on where the fight happens: either aboard the airship (the <i>Enterprise</i>, or the <i>Invincible</i> on Fextralife) or at the castle.</p></div>
+<figure><img src="https://images.keengamer.com/wp-content/uploads/2026/10/Fighting-Lazarov.jpg" alt="" loading="lazy"><figcaption>The Lazarov fight (KeenGamer)</figcaption></figure></div>
+
+<div class="card"><span class="n">11</span><b>Viva la revolución</b>
+<p>With the Emperor and Lazarov beaten, the rebellion wins. Completing the chapter unlocks the trophy <b>"Viva la revolución."</b> <b>Jake officially joins the party</b> with a final dialogue choice:</p>
+<ul><li>"Glad to have you. We're counting on you.": <b>+30 HP</b></li><li>"Your guns will surely help us.": <b>+3 Strength</b> (guides recommend this one)</li><li>"Let's fight this world, together.": <b>+3 Stamina</b></li></ul>
+<p>The party gets an <b>airship</b>. Chapter 5, <i>"Scars of Time,"</i> opens with you flying it outside the capital. Use its radar to find the hidden continent of <b>Mysidia</b> (south and slightly east of Pharm) and Sakura's home. Zoldaad comes back in Chapters 5 and 8.</p></div>
+
+<div class="card unk"><b>What the guides don't explain yet</b>
+<p class="stats">No guide gives the full story on: why Shera is imprisoned and how she's connected to the Emperor, why Ignis seems to switch sides, whether the Emperor is killed or was being controlled, who Evan really is, what Lazarov is after, or what happens to the Fire Crystal. Walkthroughs only cover the gameplay steps for these parts.</p></div>
+
+<h2>Chapter 4 bosses</h2>
+<div class="card row boss"><div><b>Ignis</b> <span class="stats">· Weapons Factory · Lv 27 · 56,000 HP · stagger 1,000 · 10,000 gil</span>
+<ul><li>Weak to <span class="water">WATER</span>. Takes half damage from Fire.</li>
+<li><b>He enrages when hit, and even more when you hit his weakness.</b> Keep healing high while you pile on Water.</li>
+<li><b>Firaga/Firestorm</b> hits the whole party. <b>Summon Carbuncle</b> to Reflect it.</li>
+<li>Other moves: Blistering Hellfire, Colossus Cleave, Charge, Body Slam.</li>
+<li>Water users: Nichol (learns it at Lv 3), or the Shantotto, Squall and Terra Visions. Drop: Solar Pendant.</li></ul>
+<p class="note">Your Chapter 3 habit of avoiding Water flips here: Water is now your main weapon.</p></div>
+<figure><img src="https://images.keengamer.com/wp-content/uploads/2026/10/Fighting-Ignis.jpg" alt="" loading="lazy"><figcaption>Fighting Ignis (KeenGamer)</figcaption></figure></div>
+
+<div class="card row boss"><div><b>Emperor of Zoldaad</b> <span class="stats">· Throne room · Lv 30 · 52,000 HP · stagger 700 · 30,000 gil</span>
+<ul><li>Weak to <span class="water">WATER</span>.</li>
+<li>He <b>summons ghostly Praetorians</b>, so kill those first.</li>
+<li>He uses <b>Bio (Poison)</b>, Blindga and Gravity. A <b>Star Pendant</b> blocks Poison.</li>
+<li><b>Hell's Pillar</b> is his big Fire attack (3 hits). Carbuncle's Reflect helps against his Fire spells.</li>
+<li>Drop: X-Ether.</li></ul></div>
+<figure><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/a/af/Finalfantasyresonance-boss-426.png" alt="" loading="lazy"><figcaption>Emperor of Zoldaad (Fextralife)</figcaption></figure></div>
+
+<div class="card boss"><b>Evan</b> <span class="stats">· Castle roof · Lv 30 · 4,000 HP · stagger 1,500</span>
+<p>No weakness. He uses Cut, Stab, Blizzard and Thunder. It's a short duel, so just keep Rain healthy.</p></div>
+
+<div class="card boss"><b>Dr. Lazarov</b> <span class="stats">· Lv 30 · 45,000 HP · stagger 700 · 10,000 gil</span>
+<ul><li>Weak to <span class="earth">EARTH</span>. Stone users: the Amelia Vision (from the Errand's End request) and the Onion Knight Vision (Dirnado).</li>
+<li>He <b>puts your party to Sleep</b>. Keep your healer awake with a <b>Headband</b>.</li>
+<li>He also uses Debrave, Deprotect, Aerora, Blizzara and Revenge Blast, plus "Frenzied Blood" injections.</li>
+<li>Each test subject has its own weakness:
+  <ul><li><b>The Hunger v5</b> is weak to <b>Light</b> and <span class="fire">Fire</span>.</li>
+  <li><b>Test Subject No. 9</b> is weak to <span class="water">Water</span>.</li>
+  <li><b>No. 999</b> is weak to <b>Wind</b>.</li></ul></li></ul></div>
+
+<h2>Chapter 4 combat rules</h2>
+<div class="card"><ul>
+<li><b>Switch to Water.</b> Ignis and the Emperor are both weak to it, and Nichol is your Water caster.</li>
+<li><b>Carbuncle's Reflect</b> handles most of the Fire magic in this chapter.</li>
+<li>Set up an <b>Earth</b> user (Amelia or Onion Knight) before the Lazarov fight, and bring a Headband for Sleep and a Star Pendant for Poison.</li>
+<li><b>Stock up in the hideout:</b> after you break into the castle, you can only resupply from the dungeon cells and chests.</li></ul></div>
+
+<h2>Collectibles</h2>
+<div class="card"><table>
+<tr><th>Area</th><th>Shards</th><th>Loot</th></tr>
+<tr><td>Mozul Station</td><td>1</td><td></td></tr>
+<tr><td>Capital Station / Castle Plaza / Residences / Slums</td><td>1 each</td><td>Inn chest, Esper tip</td></tr>
+<tr><td>Underground Tunnel</td><td>2</td><td>Lucky Bell</td></tr>
+<tr><td>Rebel Hideout</td><td>2</td><td>Robe of Roses</td></tr>
+<tr><td>Weapons Factory</td><td>2</td><td>Hoodwink Garb, Magicite</td></tr>
+<tr><td>Dungeon</td><td>2</td><td>Pulse Cannon, X-Potion, Mist Ether</td></tr>
+<tr><td>Zoldaad Castle</td><td>2</td><td>Kikokusenga, Kaiser Sword, Hairpin of Compassion</td></tr>
+</table>
+<p class="note">Guides disagree on the shard total: 15 per MeowDB, 14 per Fextralife, 16 per Prima. The missable choices are the two dialogue stat bonuses, Lasswell's and Jake's.</p></div>
+</section>
+
+<p class="sub" style="margin-top:30px">Sources: <a href="https://finalfantasyresonance.wiki.fextralife.com/Chapter_3:_Wardens_of_the_Aquapolis">Fextralife Ch3</a> · <a href="https://finalfantasyresonance.wiki.fextralife.com/Chapter_4:_Banner_Oath">Fextralife Ch4</a> · <a href="https://meowdb.com/db/final-fantasy-resonance/guides/chapter-3">MeowDB Ch3</a> · <a href="https://meowdb.com/db/final-fantasy-resonance/guides/chapter-4">MeowDB Ch4</a> · <a href="https://allthings.how/final-fantasy-resonance-walkthrough/">AllThingsHow</a> · <a href="https://www.keengamer.com/articles/guides/final-fantasy-resonance-complete-walkthrough-all-8-chapters/">KeenGamer</a> · <a href="https://www.gamingdeputy.com/france/final-fantasy-resonance-soluce-chapitre-4/">GamingDeputy (FR)</a> · <a href="https://www.eliteguias.com/guias/f/ffres/final-fantasy-resonance-p37.php">EliteGuías (ES)</a>. Images load from those sites.</p>
+</main>
+<script>
+(function(){
+  var btns=document.querySelectorAll('.tabs button');
+  function show(id){
+    btns.forEach(function(b){b.setAttribute('aria-selected',b.dataset.t===id)});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.id===id)});
+    try{localStorage.setItem('ffr-tab',id)}catch(e){}
+    window.scrollTo(0,0);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t)})});
+  var start='c3';
+  try{var s=localStorage.getItem('ffr-tab');if(s&&document.getElementById(s))start=s}catch(e){}
+  if(location.hash&&document.getElementById(location.hash.slice(1)))start=location.hash.slice(1);
+  show(start);
+})();
+</script>
+</body></html>

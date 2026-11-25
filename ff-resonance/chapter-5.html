@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en" class="nojs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FF Resonance Ch.5</title>
+<!--
+  Design notes (frontend-design-deslop pass)
+  Artifact: game-guide reference + story cheat sheet. Reader = a player mid-chapter, often on a phone.
+  Adjectives: arcane, archival, legible, quick-to-scan. Essence: "library field notes".
+  Type: Marcellus (inscriptional display, Mysidia/library feel) + Atkinson Hyperlegible (body, glanceable). Scale 1.25, base 16.
+  Color (OKLCH): cool vellum neutrals, deep ink-teal brand, arcane-amber accent used sparingly; element colors are semantic only.
+  Radius: 6 / 12. Shadow: none — defined 1px edges only.
+  Signature move: the spoiler veil — big-spoiler beats are blurred until tapped, with a global reveal switch.
+  Step kinds follow the GTA 6 guidebook system (Story, Boss, Choice, Missable, Loot, Optional, Setup, Finale) with filter chips.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(97.5% 0.006 220);--surface:oklch(99.5% 0.003 220);--surface-2:oklch(95% 0.01 220);
+  --fg:oklch(24% 0.03 230);--muted:oklch(48% 0.02 230);--border:oklch(88% 0.012 225);
+  --brand:oklch(42% 0.07 210);--brand-fg:oklch(98% 0.01 210);
+  --accent:oklch(70% 0.14 75);--accent-ink:oklch(45% 0.1 65);
+  --ok:oklch(52% 0.12 150);--warn:oklch(58% 0.14 55);--err:oklch(52% 0.17 25);
+  --wind:oklch(52% 0.11 160);--water:oklch(50% 0.12 240);--light:oklch(58% 0.12 90);--fire:oklch(55% 0.17 35);--ice:oklch(55% 0.09 210);--bolt:oklch(58% 0.13 95);--dark:oklch(42% 0.09 300);--earth:oklch(48% 0.07 60);
+  --r1:6px;--r2:12px;--sp:8px;
+  --dur:180ms;--ease:cubic-bezier(.2,.7,.2,1);
+  --display:"Marcellus",Georgia,serif;--body:"Atkinson Hyperlegible",Verdana,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:oklch(17% 0.015 230);--surface:oklch(21% 0.016 230);--surface-2:oklch(25% 0.018 230);
+  --fg:oklch(92% 0.01 220);--muted:oklch(70% 0.02 225);--border:oklch(32% 0.02 230);
+  --brand:oklch(72% 0.08 205);--brand-fg:oklch(18% 0.02 230);
+  --accent:oklch(78% 0.12 80);--accent-ink:oklch(82% 0.11 80);
+  --ok:oklch(74% 0.11 150);--warn:oklch(76% 0.12 60);--err:oklch(72% 0.14 25);
+  --wind:oklch(76% 0.1 160);--water:oklch(74% 0.1 240);--light:oklch(82% 0.11 92);--fire:oklch(74% 0.14 40);--ice:oklch(80% 0.08 205);--bolt:oklch(84% 0.12 95);--dark:oklch(74% 0.09 300);--earth:oklch(74% 0.07 65);
+}}
+:root[data-theme="dark"]{
+  --bg:oklch(17% 0.015 230);--surface:oklch(21% 0.016 230);--surface-2:oklch(25% 0.018 230);
+  --fg:oklch(92% 0.01 220);--muted:oklch(70% 0.02 225);--border:oklch(32% 0.02 230);
+  --brand:oklch(72% 0.08 205);--brand-fg:oklch(18% 0.02 230);
+  --accent:oklch(78% 0.12 80);--accent-ink:oklch(82% 0.11 80);
+  --ok:oklch(74% 0.11 150);--warn:oklch(76% 0.12 60);--err:oklch(72% 0.14 25);
+  --wind:oklch(76% 0.1 160);--water:oklch(74% 0.1 240);--light:oklch(82% 0.11 92);--fire:oklch(74% 0.14 40);--ice:oklch(80% 0.08 205);--bolt:oklch(84% 0.12 95);--dark:oklch(74% 0.09 300);--earth:oklch(74% 0.07 65);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
+a{color:var(--brand);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+main{max-width:1060px;margin:0 auto;padding:0 16px 72px}
+
+/* masthead */
+.mast{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:end;padding:28px 0 18px;border-bottom:1px solid var(--border)}
+@media(max-width:760px){.mast{grid-template-columns:1fr}}
+.kicker{font-size:13px;color:var(--muted);margin:0 0 4px}
+h1{font:400 clamp(30px,5vw,46px)/1.05 var(--display);margin:0;letter-spacing:.005em}
+.lede{margin:10px 0 0;color:var(--muted);max-width:56ch}
+.mast img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r2);border:1px solid var(--border);background:var(--surface-2)}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin:18px 0 0}
+.facts div{background:var(--surface);padding:10px 12px}
+@media(max-width:520px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.facts b{display:block;font:400 20px/1.2 var(--display)}
+.facts span{font-size:13px;color:var(--muted)}
+
+/* tabs */
+.bar{position:sticky;top:0;z-index:10;background:color-mix(in oklch,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--border);margin:0 -16px;padding:0 16px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;max-width:1060px;margin:0 auto}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{font:700 14px/1 var(--body);color:var(--muted);background:none;border:0;border-bottom:2px solid transparent;padding:14px 12px 12px;cursor:pointer;white-space:nowrap;min-height:44px;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.tabs button:hover{color:var(--fg)}
+.tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+.js .panel{display:none}.js .panel.on{display:block}
+
+h2{font:400 26px/1.2 var(--display);margin:36px 0 12px}
+h3{font:700 17px/1.3 var(--body);margin:0 0 4px}
+p{margin:6px 0}ul{margin:6px 0;padding-left:20px}li{margin:3px 0}
+.mut{color:var(--muted)}.sm{font-size:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px}
+.stack>*+*{margin-top:12px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+
+/* element + kind pills */
+.el{font-weight:700;white-space:nowrap}
+.el.wind{color:var(--wind)}.el.water{color:var(--water)}.el.light{color:var(--light)}.el.fire{color:var(--fire)}.el.ice{color:var(--ice)}.el.bolt{color:var(--bolt)}.el.dark{color:var(--dark)}.el.earth{color:var(--earth)}
+.k{display:inline-block;font:700 12px/1 var(--body);padding:4px 8px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.k.story{color:var(--brand)}.k.boss{color:var(--err)}.k.choice{color:var(--accent-ink)}.k.missable{color:var(--warn)}.k.loot{color:var(--ok)}.k.optional{color:var(--muted)}.k.setup{color:var(--water)}.k.finale{color:var(--dark)}
+
+/* spoiler veil — signature */
+.veil-toggle{display:flex;align-items:center;gap:10px;margin:14px 0 0;font-size:14px;color:var(--muted)}
+.switch{position:relative;width:44px;height:26px;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);cursor:pointer;flex:none;transition:background var(--dur) var(--ease)}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--muted);transition:transform var(--dur) var(--ease),background var(--dur) var(--ease)}
+.switch[aria-checked="true"]{background:var(--brand)}
+.switch[aria-checked="true"]::after{transform:translateX(18px);background:var(--brand-fg)}
+.spoil{position:relative;border-radius:var(--r1)}
+.js .spoil:not(.open) .sp-body{filter:blur(7px);user-select:none;pointer-events:none}
+.sp-btn{display:none}
+.js .spoil:not(.open) .sp-btn{display:flex;position:absolute;inset:0;align-items:center;justify-content:center;gap:6px;background:color-mix(in oklch,var(--surface) 40%,transparent);border:1px dashed var(--warn);border-radius:var(--r1);font:700 14px var(--body);color:var(--warn);cursor:pointer;z-index:1}
+.reveal-all .spoil .sp-body{filter:none!important;user-select:auto!important;pointer-events:auto!important}
+.reveal-all .spoil .sp-btn{display:none!important}
+
+/* story timeline */
+.tl{list-style:none;padding:0;margin:0;position:relative}
+.tl::before{content:"";position:absolute;left:15px;top:6px;bottom:6px;width:1px;background:var(--border)}
+.tl>li{position:relative;padding:0 0 18px 44px;margin:0}
+.tl>li::before{content:attr(data-n);position:absolute;left:0;top:0;width:31px;height:31px;border-radius:50%;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font:400 15px var(--display);color:var(--brand)}
+.tl>li.big::before{border-color:var(--warn);color:var(--warn)}
+.tl .when{font-size:13px;color:var(--muted)}
+
+/* cast */
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.who{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:start}
+.who img,.who .ph{width:64px;height:64px;border-radius:var(--r1);object-fit:cover;background:var(--surface-2);border:1px solid var(--border)}
+.who .ph{display:grid;place-items:center;font:400 26px var(--display);color:var(--muted)}
+
+/* walkthrough */
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px}
+.filters button{font:700 13px/1 var(--body);padding:8px 12px;min-height:34px;border-radius:99px;border:1px solid var(--border);background:var(--surface);color:var(--fg);cursor:pointer;transition:background var(--dur) var(--ease)}
+.filters button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.progress{font-size:13px;color:var(--muted);margin:0 0 10px}
+.act{font:400 14px var(--display);letter-spacing:.06em;color:var(--muted);margin:26px 0 8px;padding-top:12px;border-top:1px solid var(--border)}
+.step{display:grid;grid-template-columns:28px minmax(0,1fr) minmax(0,220px);gap:12px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);margin:8px 0}
+@media(max-width:760px){.step{grid-template-columns:28px minmax(0,1fr)}.step figure{grid-column:1/-1}}
+.step input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--brand);cursor:pointer}
+.step.done{opacity:.55}
+.step.done h3{text-decoration:line-through;text-decoration-color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 6px}
+.meta .pr{font-size:12px;color:var(--muted)}
+.r{margin-top:8px;font-size:14px;padding:6px 10px;border-radius:var(--r1);background:var(--surface-2)}
+figure{margin:0}figure img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--r1);border:1px solid var(--border);background:var(--surface-2);display:block}
+figcaption{font-size:12px;color:var(--muted);margin-top:4px}
+.hide{display:none!important}
+
+/* tables */
+.tw{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-weight:700;color:var(--muted);font-size:13px;background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* boss cards */
+.boss{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:16px}
+@media(max-width:760px){.boss{grid-template-columns:1fr}}
+.boss img{width:100%;aspect-ratio:1;object-fit:contain;background:var(--surface-2);border-radius:var(--r1);border:1px solid var(--border)}
+.stat{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);margin:2px 0 8px;font-variant-numeric:tabular-nums}
+.callout{border-left:3px solid var(--accent);padding:8px 12px;background:var(--surface-2);border-radius:0 var(--r1) var(--r1) 0;font-size:14px}
+.warn{border-left-color:var(--warn)}
+.unk{border:1px dashed var(--border);background:transparent}
+.verdict{font:400 19px/1.4 var(--display)}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body><main>
+
+<header class="mast">
+  <div>
+    <p class="kicker">Final Fantasy Resonance · Chapter 5 of 8</p>
+    <h1>Scars of Time</h1>
+    <p class="lede">The party gets an airship, finds the hidden city of Mysidia, and goes into Fina's mind to save her. This page has a story cheat sheet, a step-by-step walkthrough, every boss and a checklist for before you leave the chapter.</p>
+    <div class="facts">
+      <div><b>38</b><span>objectives</span></div>
+      <div><b>Lv 33–39</b><span>story bosses</span></div>
+      <div><b>15</b><span>side quests open</span></div>
+      <div><b>Sakura</b><span>joins (Lv 33)</span></div>
+    </div>
+  </div>
+  <img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/4/4d/Finalfantasyresonance-scene-chapter-5.jpg/360px-Finalfantasyresonance-scene-chapter-5.jpg" alt="Chapter 5 title scene">
+</header>
+
+<div class="bar"><div class="tabs" role="tablist" aria-label="Guide sections">
+  <button role="tab" aria-selected="true" data-t="story">Story cheat sheet</button>
+  <button role="tab" aria-selected="false" data-t="walk">Walkthrough</button>
+  <button role="tab" aria-selected="false" data-t="bosses">Bosses</button>
+  <button role="tab" aria-selected="false" data-t="loot">Loot, Visions &amp; quests</button>
+  <button role="tab" aria-selected="false" data-t="before">Before you leave</button>
+  <button role="tab" aria-selected="false" data-t="spot">Character spotlight</button>
+</div></div>
+
+<!-- ============ STORY ============ -->
+<section class="panel on" id="story" role="tabpanel">
+  <div class="veil-toggle"><button class="switch" id="revealAll" role="switch" aria-checked="false" aria-label="Reveal all big spoilers"></button><span>Big spoilers are blurred. Tap one to read it, or flip this switch to show them all.</span></div>
+
+  <h2>The chapter in one breath</h2>
+  <div class="card stack">
+    <p>Now that the party has their own airship, the <b>Enterprise</b>, they hunt for <b>Mysidia, the Magiapolis</b>, a city of magic hidden at sea. There they meet <b>Sakura</b>, a sage who looks like a young girl but talks like someone centuries old. They help with a medicine run to the snowy village of <b>Sunioo</b> and explore the <b>Nameless Ruins</b>. Then things get personal for one of their own, and the chapter turns into a trip back through time.</p>
+    <div class="spoil"><button class="sp-btn" type="button">Big spoiler: tap to reveal</button><div class="sp-body">
+      <p>In the ruins a golden-armored warrior named <b>Tellus</b> blocks their way, and right after that <b>Fina disappears</b>. <b>Archwitch Fina</b> takes her place and warns that the Fina they know may be gone for good. Using a tome from the Arcane Library, the party goes <b>inside Fina's psyche</b>. There they see a war on <b>Paladia seven hundred years ago</b>, in which Archwitch Fina fought for the nation of <b>Hess</b>. They meet the <b>Veritas</b> and <b>Umbra</b> at a camp, beat <b>Dark Fina</b>, beat Tellus for real, and bring both Finas back. Next stop: <b>Gronoa</b>.</p>
+    </div></div>
+  </div>
+
+  <h2>Who matters this chapter</h2>
+  <div class="cast">
+    <div class="card who"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/0/0c/Finalfantasyresonance-character-sakura-v2.png/200px-Finalfantasyresonance-character-sakura-v2.png" alt="Sakura"><div><h3>Sakura</h3><p class="sm mut">Sage of Mysidia · staff · magic attacker</p><p class="sm">She looks like a child but speaks like an elder, and nobody knows how old she really is. She hits harder with magic than anyone else at level 1, using Lightning, Dark and non-elemental spells.</p></div></div>
+    <div class="card who"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/5/5f/Finalfantasyresonance-character-archwitch-fina-v2.png/200px-Finalfantasyresonance-character-archwitch-fina-v2.png" alt="Archwitch Fina"><div><h3>Fina &amp; Archwitch Fina</h3><p class="sm mut">Medic (bow) · Saboteur (whip)</p><p class="sm">Fina's other self first showed up in Chapter 3, when she healed Rain's arm. This chapter is about who these two really are.</p></div></div>
+    <div class="card who"><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/458cfe24c21b32c23056e1619c13df803607ee308de3bfce26bd5623e9c534a0.webp" alt="Tellus"><div><h3>Tellus</h3><p class="sm mut">Golden-armored warrior · weak to Wind</p><p class="sm">He fights by a code and keeps calling out whether he wants magic or martial skill from you. You meet him twice this chapter.</p></div></div>
+    <div class="card who"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/9/9d/Finalfantasyresonance-character-jake-v2.png/200px-Finalfantasyresonance-character-jake-v2.png" alt="Jake"><div><h3>Jake</h3><p class="sm mut">Commando · guns</p><p class="sm">He joins officially at the start of the chapter. He has both physical and magic Wind attacks, which makes him great against Slagworm and Tellus.</p></div></div>
+    <div class="card who"><div class="ph">L</div><div><h3>Lid</h3><p class="sm mut">Pilot of the Enterprise</p><p class="sm">She learns her Limit Break, <b>Enterprise Charge</b>, in the opening scene, and her radar is how you find Mysidia.</p></div></div>
+    <div class="card who"><div class="ph">U</div><div><h3>Umbra</h3><p class="sm mut">You lost to him in Chapter 1</p><p class="sm">He has a camp inside the memory world. The guides don't explain his goals yet.</p></div></div>
+  </div>
+
+  <h2>Beat by beat</h2>
+  <ol class="tl">
+    <li data-n="1"><h3>A new ally and a new ship</h3><p class="when">Zoldaad Castle → outside the capital</p><p>After the revolution, Jake promises to stay with the party. Lid learns Enterprise Charge, and the Enterprise is now yours to fly anywhere in the world.</p></li>
+    <li data-n="2"><h3>A city you can't see</h3><p class="when">Ocean south-southeast of Pharm</p><p>Mysidia is hidden by magic, so flying over it shows nothing. Lid's detector and radar pulses are the only way to find it.</p></li>
+    <li data-n="3"><h3>Sakura</h3><p class="when">Mysidia, west across the bridge</p><p>The ageless sage agrees to guide the party. She sends them to the potion factory to pick up special medicine that the snowbound village of Sunioo badly needs.</p></li>
+    <li data-n="4"><h3>The snowfield and Sunioo</h3><p class="when">North of Mysidia</p><p>A huge Slagworm attacks on the snowy road in. After the medicine is delivered, Sakura has a quiet talk with the party about her magic and how long she has lived.</p></li>
+    <li data-n="5"><h3>The Nameless Ruins</h3><p class="when">Southwest</p><p>The party clears two ancient guardians and reaches the deepest room, where someone is waiting for them.</p></li>
+    <li data-n="6" class="big"><div class="spoil"><button class="sp-btn" type="button">Big spoiler: tap to reveal</button><div class="sp-body"><h3>Tellus, and Fina is gone</h3><p class="when">Nameless Ruins, inner door</p><p>Tellus overwhelms the party in a fight you can't win. Right after, <b>Fina vanishes</b> and <b>Archwitch Fina</b> takes her place. She warns them that the Fina they know may disappear for good.</p></div></div></li>
+    <li data-n="7"><h3>The Arcane Library</h3><p class="when">Mysidia</p><p>Sakura's library holds the answer, but five haunted books have to be beaten first. In the Forbidden Text Wing, a guardian protects the tome that opens a way into a person's mind.</p></li>
+    <li data-n="8" class="big"><div class="spoil"><button class="sp-btn" type="button">Big spoiler: tap to reveal</button><div class="sp-body"><h3>Into Fina's psyche</h3><p class="when">Memory world, first visit</p><p>The party follows Fina's memories through a world that isn't their own. A great gate stays sealed. Some of those memories belong to Sakura too, so they'll have to come back later.</p></div></div></li>
+    <li data-n="9"><h3>The Tower of Mysidia</h3><p class="when">West side of the continent</p><p>At the top of the tower Sakura shares her own memories. That's the missing piece that opens the rest of Fina's mind.</p></li>
+    <li data-n="10" class="big"><div class="spoil"><button class="sp-btn" type="button">Big spoiler: tap to reveal</button><div class="sp-body"><h3>Paladia, 700 years ago</h3><p class="when">Memory world, second visit</p><p>Now the memory world is a war zone. The party passes the Hessian base and reaches a camp with the <b>Veritas</b>, the "Sworn Eight", and <b>Umbra</b>. They learn that <b>Archwitch Fina fought for Hess</b>, against the Veritas of the Dark, with <b>Bahamut</b> at her side. After Rain and Archwitch Fina talk at the gate, it finally opens.</p></div></div></li>
+    <li data-n="11" class="big"><div class="spoil"><button class="sp-btn" type="button">Big spoiler: tap to reveal</button><div class="sp-body"><h3>Dark Fina, then Tellus</h3><p class="when">The battlefield</p><p>Following the flowers leads to <b>Dark Fina</b>. Once she's beaten, <b>Fina and Archwitch Fina are both back</b> in the party. Then Tellus returns, and this time you can win.</p></div></div></li>
+    <li data-n="12"><h3>Back to Sakura's house</h3><p class="when">Mysidia</p><p>The closing scenes play, and the next destination is <b>Gronoa</b>, where Chapter 6 begins.</p></li>
+  </ol>
+
+  <div class="card unk sm"><b>What the guides don't explain yet:</b> Umbra's and the Veritas' goals, the "Sworn Six" vs. "Sworn Eight" naming, which Crystal (if any) this chapter is about, and the full dialogue of Fina's memories. None of the sources describe these beyond the story summary.</div>
+</section>
+
+<!-- ============ WALKTHROUGH ============ -->
+<section class="panel" id="walk" role="tabpanel">
+  <h2>Walkthrough, in order</h2>
+  <p class="mut sm">Tick off steps as you go (your progress is saved on this device). Use the filters to show only certain kinds of steps.</p>
+  <div class="filters" role="group" aria-label="Filter steps">
+    <button aria-pressed="true" data-f="all">All</button>
+    <button aria-pressed="false" data-f="story">Story</button>
+    <button aria-pressed="false" data-f="boss">Boss</button>
+    <button aria-pressed="false" data-f="choice">Choice</button>
+    <button aria-pressed="false" data-f="missable">Missable</button>
+    <button aria-pressed="false" data-f="loot">Loot</button>
+    <button aria-pressed="false" data-f="optional">Optional</button>
+    <button aria-pressed="false" data-f="setup">Setup</button>
+  </div>
+  <p class="progress" id="prog"></p>
+
+  <div class="act">I · TAKING TO THE SKY</div>
+
+  <div class="step" data-k="choice"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k choice">Choice</span><span class="pr">high priority</span></div>
+    <h3>Talk to Jake at Zoldaad Castle</h3>
+    <p>The chapter opens with Jake joining for good. Each answer gives him a different permanent stat:</p>
+    <ul><li>"Glad to have you. We're counting on you." → <b>+30 HP</b></li><li>"Your guns will surely help us." → <b>+3 Strength</b> <span class="mut">(recommended)</span></li><li>"Let's fight this world, together." → <b>+3 Stamina</b></li></ul>
+    <div class="r">Unlocks: Lid's Limit Break <b>Enterprise Charge</b></div></div></div>
+
+  <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span></div>
+    <h3>Board the Enterprise outside the capital</h3>
+    <p>Leave the castle and the city. The airship is parked just outside. Go into its interior for a scene, and after that you can fly freely.</p>
+    <div class="r">Trophy: <b>The Enterprise</b></div></div></div>
+
+  <div class="step" data-k="optional"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k optional">Optional</span></div>
+    <h3>Airship detours (now or later)</h3>
+    <ul>
+      <li><b>Ifrit</b> (Esper): a marked volcano near Zoldaad. Weak to <span class="el water">Water</span>.</li>
+      <li><b>Quarry Cave</b>, on the western islet of Zoldaad: an Ancient Accessory chest. The south tip has Phoenix Pinion ×2.</li>
+      <li><b>Clive</b> Vision: in the Sanctum of Light north of Grandshelt. There's a Power Stone just outside.</li>
+      <li><b>Olderion</b>: Fuma Shuriken ×3 on Lake Dorr's north beach, Ring of Retaliation to the south, and the Rompebarreras weapon on the northwest island.</li>
+      <li><b>Sian</b> (Pharm): a Tablet Shard by the tree near the shops, plus Phoenix Pinions, Ultra Potions and Ether+ hidden behind houses.</li>
+    </ul>
+    <p class="callout warn">The <b>Chamber of Arms</b> (island northwest of Dirnado) has bosses around <b>Lv 50</b> with two phases each. Wait until you're stronger.</p></div></div>
+
+  <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span><span class="pr">high priority</span></div>
+    <h3>Find Mysidia</h3>
+    <p>Fly over the ocean <b>south and slightly east of the Kingdom of Pharm</b> and use the radar pulse. Lid gives you hints, so keep scanning as you move. The city is hidden and you won't spot it just by flying over.</p>
+    <p class="sm mut">You don't need the High-Power Generator or any radar upgrades for this. Lid's story detector is enough.</p></div>
+    <figure><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/8/80/Finalfantasyresonance-mysidia-the-magiapolis-screenshot.jpg/260px-Finalfantasyresonance-mysidia-the-magiapolis-screenshot.jpg" alt="Mysidia" loading="lazy"><figcaption>Mysidia, the Magiapolis (Fextralife)</figcaption></figure></div>
+
+  <div class="act">II · MYSIDIA &amp; THE SNOWFIELD</div>
+
+  <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span></div>
+    <h3>Go to Sakura's house</h3>
+    <p>Cross the bridge to the west. After the scene, <b>Sakura joins the party</b>. Use the teleport stones to get around the districts.</p></div>
+    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-5-sakura.webp" alt="Sakura's house" loading="lazy"><figcaption>At Sakura's house (MeowDB)</figcaption></figure></div>
+
+  <div class="step" data-k="loot"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k loot">Loot</span></div>
+    <h3>Sweep Mysidia town</h3>
+    <ul>
+      <li>Tablet Shards: to the right of the entry stairs, in front of the shops by the crates, and in the south plaza east of the fountain column.</li>
+      <li><b>Seraphim Bow</b> behind the shops on the left · <b>Knife of Silence ×3</b> on the west stairs · <b>Knight's Sword</b> through the right-hand teleporter outside the factory.</li>
+      <li>The shop sells Turbo Ether, X-Potion, Rune Blade, Kiku-Ichimonji, Mythril Armor and Safety Bit.</li>
+    </ul>
+    <p class="sm mut">Guides disagree on the town's shard count: 3 (MeowDB/EliteGuías) or 5 (Fextralife).</p></div>
+    <figure><img src="https://ffresonanceguide.com/_astro/press-sakura-story.CmoERXtS_Z1fCmcp.webp" alt="Sakura with Rain's party" loading="lazy"><figcaption>Sakura guides the party (ffresonanceguide / Square Enix)</figcaption></figure></div>
+
+  <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span></div>
+    <h3>Potion factory: get the special medicine</h3>
+    <p>Use the crystal teleporter outside. Sunioo needs <b>special medicine from the factory</b>, not regular shop Potions, so finish the conversation inside before you leave. The left chest has Vitalizing Fluid ×2.</p></div></div>
+
+  <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">Lv 33</span></div>
+    <h3>Slagworm, on the snowfield road to Sunioo</h3>
+    <p>Use <span class="el wind">Wind</span>, and don't use Earth (it's immune). <b>Swallow</b> takes one party member out for a few turns. Stagger it when the warning shows, and keep a second healer ready. A Star Pendant protects against its poison acid. <a href="#" data-go="bosses">Full boss card →</a></p></div>
+    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/cb6b01c79b2c67e938c7b1b75cf1674898a2276edd17e19072e91bb89a9788ff.webp" alt="Slagworm" loading="lazy"><figcaption>Slagworm (MeowDB)</figcaption></figure></div>
+
+  <div class="step" data-k="loot"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k loot">Loot</span><span class="k missable">Missable-ish</span></div>
+    <h3>Loot Sunioo before you talk to the elder</h3>
+    <ul><li><b>Phoenix Pinion ×2</b> in the elder's house (grab them <i>before</i> talking to him)</li><li>Tablet Shard at the village entrance, and another by the snowman to the east</li><li><b>Resonate Staff</b> in the igloo · <b>Arcane Coat</b> on the north path · <b>Water Scroll II ×2</b> at the inn · Fuma Shuriken ×2 at the frozen lake</li></ul></div></div>
+
+  <div class="step" data-k="choice"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k choice">Choice</span><span class="pr">high priority</span></div>
+    <h3>Deliver the medicine and talk with Sakura</h3>
+    <ul><li>Focus on the power of her magic ("…give the Sworn a hard time") → <b>+10 MP</b></li><li>"You are a wise person, Sakura…" → <b>+3 Magic</b> <span class="mut">(recommended: she's a magic damage dealer)</span></li><li>"Traveling with us, you won't be bored" → <b>+3 Spirit</b></li></ul>
+    <div class="r">Unlocks the side quest <b>Victoria Revivified</b> (talk to Victoria at the northeast save point in Mysidia)</div></div></div>
+
+  <div class="act">III · THE NAMELESS RUINS</div>
+
+  <div class="step" data-k="loot"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k loot">Loot</span><span class="k setup">Puzzle</span></div>
+    <h3>The statue chest (Tyr's Armor)</h3>
+    <p>Examine the locked chest at the entrance first. Then activate the three statues in this order: <b>Broken Sword</b> (by the far save point) → <b>Withered Horse</b> (second area) → <b>Darkness Sealed</b> (next to the chest). Open the chest for <b>Tyr's Armor</b>. If you get the order wrong, start again from Broken Sword.</p>
+    <p class="sm">Also here: <b>Magi-Blaster</b> on the west stairs, and a Tablet Shard with Magicite in the upper-west room (2 shards in the ruins).</p></div>
+    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-5-strategy-statue-chest.webp" alt="Statue and chest" loading="lazy"><figcaption>The statue chest (MeowDB)</figcaption></figure></div>
+
+  <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">guardian 1 of 2</span></div>
+    <h3>Iron Giant (east room)</h3>
+    <p>Use <span class="el bolt">Lightning</span> <b>magic</b>. It counters physical hits, and a Lightning spellblade still counts as physical. Keep your caster and healer up.</p></div>
+    <figure><img src="https://images.keengamer.com/wp-content/uploads/2026/10/Fighting-Iron-Giant.jpg" alt="Iron Giant fight" loading="lazy"><figcaption>Fighting the Iron Giant (KeenGamer)</figcaption></figure></div>
+
+  <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">guardian 2 of 2</span></div>
+    <h3>Liquid Flame (west room)</h3>
+    <p>Use <span class="el water">Water</span> or <span class="el ice">Ice</span>, and <b>never Fire</b>, which heals it. It counters physical hits and puts <b>Reflect</b> on itself, so check its buffs before casting and remove Reflect with Dispel or Magicide. The room also has Vitalizing Fluid ×3.</p></div></div>
+
+  <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span><span class="k boss">Scripted</span></div>
+    <h3>Tellus at the north door: a fight you can't win</h3>
+    <p>Save first. This is a <b>three-turn story battle</b> that ends on its own, so don't waste rare items. The scenes that follow change your party.</p>
+    <div class="spoil"><button class="sp-btn" type="button">Party change spoiler: tap</button><div class="sp-body"><p class="sm">Fina leaves the party and Archwitch Fina rejoins.</p></div></div></div></div>
+
+  <div class="step" data-k="missable"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k missable">Missable</span></div>
+    <h3>Go back to the boss room for the Impact Wand</h3>
+    <p>After the scene, return to the room where you fought Tellus. A chest there has the <b>Impact Wand</b>, and it's easy to walk right past.</p>
+    <div class="r">After the ruins, resting at the <b>Olderion Inn</b> starts Jake's quest <b>Token Legacy</b>.</div></div></div>
+
+  <div class="act">IV · THE ARCANE LIBRARY</div>
+
+  <div class="step" data-k="setup"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k setup">Setup</span></div>
+    <h3>Before you enter: check your levels</h3>
+    <p>One guide warns that an enemy here casts <b>Level 5 Death</b>, which kills anyone whose level is a multiple of 5. Make sure no one is at level 35 or 40 when you go in. <span class="mut sm">(Only one source mentions this.)</span></p></div></div>
+
+  <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span><span class="pr">0 / 5</span></div>
+    <h3>Defeat the five haunted books</h3>
+    <p>Open each marked book and <b>win its fight</b>. Just reading the description doesn't count. The books are: <i>The Art of Death</i>, <i>The Song of Stone</i>, <i>Grimoire Esoterica</i>, <i>The Demesne of the Dead</i> and <i>For Whom the Giant Weeps</i>. The counter has to reach zero.</p>
+    <p class="sm"><b>Elevator loot:</b> II → Mist Potion ×3 · III (down) → Mist Ether ×3 · V (down) → Knife of Blind ×2 · VI (up) → <b>Genmato</b>. There's a Tablet Shard between the tables in the first room.</p>
+    <p class="callout sm"><b>Azure Pot</b> (99,999 HP, 9,999 stagger, no weakness) drops an <b>Elixir</b>. It's not worth fighting it the normal way.</p></div></div>
+
+  <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">Lv 36</span></div>
+    <h3>Forbidden Text Wing: Byblos</h3>
+    <p>Take the restored blue teleporter. The tome on the wall has its own guardian. Use <span class="el fire">Fire</span> or <span class="el dark">Dark</span>. Carbuncle's Reflect helps against its spells. Before the final bookshelf, check the balcony for a Tablet Shard (left) and the <b>Book of Strength</b> (right). Afterward, tell Sakura <b>"yes"</b> to go in.</p></div>
+    <figure><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/6/69/Finalfantasyresonance-boss-428.png" alt="Byblos" loading="lazy"><figcaption>Byblos (Fextralife)</figcaption></figure></div>
+
+  <div class="act">V · FINA'S MEMORIES</div>
+
+  <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span><span class="k missable">Loot here</span></div>
+    <h3>First visit to Fina's psyche (no fights)</h3>
+    <p>Follow Fina west through the scenes, check the large gate, then go to the cliff in the east. <b>The gate will not open on this visit</b>, and that's normal. Leave through the open book when the game tells you to.</p>
+    <p class="sm"><b>Grab:</b> a Tablet Shard by the chain, a Tablet Shard in the left shop, a Tablet Shard at the end of the forest path, and Ultra Potion ×2 in the center shop.</p></div>
+    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-5-fina.webp" alt="Fina on the forest path" loading="lazy"><figcaption>Fina's memories (MeowDB)</figcaption></figure></div>
+
+  <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span><span class="k choice">Answer order</span></div>
+    <h3>Climb the Tower of Mysidia (west side)</h3>
+    <p>Climb the stairways (there are save points along the way). At the top, when Sakura asks if you're ready, answer <b>"not yet"</b>. Explore the top floor for the <b>Guarding Gown</b> (behind a column), then talk to her again and say <b>"yes"</b>.</p>
+    <p class="sm">Also in the tower: <b>Bullseye Mace</b> behind the column on the left balcony, Magicite on the right balcony, Smelling Salts ×3 on the first floor, and 4 Tablet Shards.</p></div></div>
+
+  <div class="step" data-k="setup"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k setup">Setup</span><span class="pr">high priority</span></div>
+    <h3>Move healing to someone else before the second visit</h3>
+    <p><b>Fina isn't available</b>, and this time there are real fights. Give a healing Vision such as <b>Leah</b> to a character who's in your active party, and check that the Cure command actually shows up. Bring Water and Light for the boss ahead (Nichol has Water, Sakura has Light).</p></div></div>
+
+  <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span><span class="k boss">Malboro</span></div>
+    <h3>Second visit: forest, camps, gate</h3>
+    <ol>
+      <li>Cross the new bridge from the east into the forest, then head north.</li>
+      <li>Beat the <b>Malboro</b> at the marked crossroads. It causes lots of status effects, so bring Remedies.</li>
+      <li>Go through the <b>Hessian base</b> to <b>Umbra's camp</b>. <b>Talk to every Veritas</b> on the map, then to Umbra in his tent.</li>
+      <li>Go back to the gate. Once the physical locks are gone, <b>finish the Rain and Archwitch Fina conversation</b>. You don't need a key.</li>
+    </ol>
+    <p class="sm"><b>Grab:</b> <b>Barrel Blazer</b> (hidden chest on the left side of the camp), a Tablet Shard on the right side of the camp, and the <b>Lunar Whip</b> south of the Malboro crossroads.</p></div></div>
+
+  <div class="step" data-k="missable"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k missable">Disputed missable</span></div>
+    <h3>Get the psyche loot now</h3>
+    <p>Guides disagree on whether you can come back later. To be safe, get all <b>4 Tablet Shards, the Barrel Blazer and the Lunar Whip</b> during the story visit.</p></div></div>
+
+  <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">Lv 38</span></div>
+    <h3>The battlefield: follow the flowers to Dark Fina</h3>
+    <p>Random fights start here. Check the flowers along the path. Then use <span class="el water">Water</span> and <span class="el light">Light</span> against her, and don't use Dark. Stagger her to cancel <b>Dystopia</b>. <b>Paradise Lost</b> boosts her Dark attacks, but it does <i>not</i> make her weak to Dark. <a href="#" data-go="bosses">Full card →</a></p>
+    <div class="r">Drop: <b>Ribbon</b> · Trophy for having the full party back: <b>Defying Fate</b></div></div>
+    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/66575658562e11ba104cb8284e2c390c33ea05c1f0525422963866fff2ffcd12.webp" alt="Dark Fina" loading="lazy"><figcaption>Archwitch / Dark Fina (MeowDB)</figcaption></figure></div>
+
+  <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">Lv 39</span></div>
+    <h3>Tellus, the real fight</h3>
+    <p>Bring <span class="el wind">Wind</span> in <b>both physical and magic</b> forms (Jake has both). Follow his call: <i>"Show me majestic magic"</i> means use magic, and <i>"Show me magnificent martial skill"</i> means use physical attacks. While he's fully broken (Full Break) he can't counter, so throw everything at him then. Stagger him to stop Crushing Breath. Some guides say you can field up to 8 party members and rearrange your formation here.</p></div>
+    <figure><img src="https://ffresonanceguide.com/_astro/press-forest-confrontation.q0zR20CW_ZGja5C.webp" alt="Tellus blocking the party" loading="lazy"><figcaption>Tellus blocks the party (ffresonanceguide / Square Enix)</figcaption></figure></div>
+
+  <div class="step" data-k="finale"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k finale">Finale</span></div>
+    <h3>Back to Sakura's house</h3>
+    <p>The closing scenes play, and your next objective is <b>Go to Gronoa</b>. No source names a point of no return, but check the <a href="#" data-go="before">Before you leave</a> tab first.</p>
+    <div class="r">Trophy: <b>In Search of the Truth</b> · Opens: Last Respite (Archwitch Fina, Grandshelt)</div></div></div>
+</section>
+
+<!-- ============ BOSSES ============ -->
+<section class="panel" id="bosses" role="tabpanel">
+  <h2>Story bosses</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Boss</th><th>Where</th><th class="num">Lv</th><th class="num">HP</th><th>Use</th><th>Avoid</th></tr></thead>
+    <tbody>
+      <tr><td>Slagworm</td><td>Snowfield near Sunioo</td><td class="num">33</td><td class="num">90,000</td><td><span class="el wind">Wind</span></td><td>Earth (immune)</td></tr>
+      <tr><td>Iron Giant</td><td>Nameless Ruins, east</td><td class="num">–</td><td class="num">–</td><td><span class="el bolt">Lightning</span> magic</td><td>Physical (counters)</td></tr>
+      <tr><td>Liquid Flame</td><td>Nameless Ruins, west</td><td class="num">–</td><td class="num">–</td><td><span class="el water">Water</span> / <span class="el ice">Ice</span></td><td>Fire (absorbs), Reflect</td></tr>
+      <tr><td>Byblos</td><td>Forbidden Text Wing</td><td class="num">36</td><td class="num">95,000</td><td><span class="el fire">Fire</span> / <span class="el dark">Dark</span></td><td>–</td></tr>
+      <tr><td>Dark Fina</td><td>Fina's psyche, battlefield</td><td class="num">38</td><td class="num">100,000</td><td><span class="el water">Water</span> / <span class="el light">Light</span></td><td>Dark (resists)</td></tr>
+      <tr><td>Tellus</td><td>Ruins (scripted) → finale</td><td class="num">39</td><td class="num">135,000</td><td><span class="el wind">Wind</span></td><td>Earth (resists), wrong attack type</td></tr>
+    </tbody></table></div>
+
+  <h2>Boss cards</h2>
+  <div class="stack">
+  <div class="card boss"><div>
+    <h3>Slagworm</h3><div class="stat"><span>Lv 33</span><span>90,000 HP</span><span>Stagger 450</span><span>Insect</span></div>
+    <ul><li><b>Swallow</b> (devastating): takes one party member out for a couple of turns. Stagger it to stop this.</li>
+    <li>Secrete Acid poisons the whole party (50%), so give everyone a Star Pendant. Snowstorm and Blizzara hit with Ice. Bonebreaker inflicts Deprotect.</li>
+    <li>Immune to Earth and most status effects. Drops a <b>Mist X-Potion</b>.</li></ul></div>
+    <img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/cb6b01c79b2c67e938c7b1b75cf1674898a2276edd17e19072e91bb89a9788ff.webp" alt="Slagworm" loading="lazy"></div>
+
+  <div class="card boss"><div>
+    <h3>Byblos</h3><div class="stat"><span>Lv 36</span><span>95,000 HP</span><span>Stagger 1,200</span><span>Animal</span></div>
+    <ul><li><b>Burn to Ashes</b> (devastating Fire, whole party). Also uses Cyclone, Stonera, Darkra, Graviga and Drain.</li>
+    <li>Confuse (80%) and Crushing Grasp (Paralysis) can wreck your plan, so bring a Ribbon or Remedies.</li>
+    <li>Weak to Fire and Dark. Drops <b>Wind Scroll II</b>. <span class="mut sm">Fextralife lists it as a side-quest boss, but every route guide puts it on the main path.</span></li></ul></div>
+    <img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/6/69/Finalfantasyresonance-boss-428.png" alt="Byblos" loading="lazy"></div>
+
+  <div class="card boss"><div>
+    <h3>Dark Fina / Archwitch Fina</h3><div class="stat"><span>Lv 38</span><span>100,000 HP</span><span>Stagger 800</span><span>Human</span></div>
+    <ul><li><b>Dystopia</b> (devastating Dark, whole party): stagger her to cancel it. If you can't, heal up first.</li>
+    <li><b>Paradise Lost</b>: for 3 turns her Dark damage goes up 50% and other elements do 25% less. Keep using Water and Light anyway.</li>
+    <li>Allure Charms the whole party, Queenly Whip inflicts Debrave/Defaith, and she also casts Death, Doom, Bio, Flare and Graviga. Use Ribbon or Monk's Prayer Beads.</li>
+    <li>Drops a <b>Ribbon</b>.</li></ul></div>
+    <img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/66575658562e11ba104cb8284e2c390c33ea05c1f0525422963866fff2ffcd12.webp" alt="Dark Fina" loading="lazy"></div>
+
+  <div class="card boss"><div>
+    <h3>Tellus</h3><div class="stat"><span>Lv 39</span><span>135,000 HP</span><span>Stagger 1,050</span><span>Human</span></div>
+    <ul><li><b>Rules of engagement</b>: he tells you which attack type he wants (magic or martial), and using the other type triggers a counter. Full Break turns his counters off.</li>
+    <li><b>Crushing Breath</b> (devastating physical, whole party). He also uses Stonega (3 hits), Charge (Paralysis 50%), Guarding Smite and Protect.</li>
+    <li>Drops: Golem Core (ffresonanceguide) <i>or</i> Earth Scroll II (Fextralife). The sources disagree.</li>
+    <li>He comes back stronger in Chapter 7 on the Forest Path.</li></ul></div>
+    <img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/458cfe24c21b32c23056e1619c13df803607ee308de3bfce26bd5623e9c534a0.webp" alt="Tellus" loading="lazy"></div>
+  </div>
+
+  <h2>Optional fights that open now</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Fight</th><th>Where</th><th>Weakness</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Ifrit (Esper)</td><td>Volcano near Zoldaad</td><td><span class="el water">Water</span></td><td>Earns you the Esper</td></tr>
+      <tr><td>Shiva (Esper)</td><td>Vortex on the small western island off Mysidia</td><td><span class="el fire">Fire</span></td><td>Get the Catastrophe weapon (east) and Marked Orb (west) first</td></tr>
+      <tr><td>Typhon</td><td>Enterprise deck (Beyond the Blue)</td><td><span class="el ice">Ice</span></td><td>Snort can remove a character</td></tr>
+      <tr><td>Jotunn · Salome</td><td>Caves on the Mysidia continent</td><td>–</td><td>Cave Masters</td></tr>
+      <tr><td>Bahamut trial</td><td>Airship</td><td>–</td><td>Lv 50, 200,000 HP; it isn't clear when this opens</td></tr>
+      <tr><td>Chamber of Arms</td><td>Island northwest of Dirnado</td><td>–</td><td>Around Lv 50 with two phases each; wait</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- ============ LOOT ============ -->
+<section class="panel" id="loot" role="tabpanel">
+  <h2>New Visions</h2>
+  <div class="grid2">
+    <div class="card"><h3>Bartz</h3><p class="sm">Sanctum of Light, north of Mysidia city.</p></div>
+    <div class="card"><h3>Vaan</h3><p class="sm">Sanctum of Light to the west, past the tower near the Temple of Victoria. The Illusory Jacket is in the forest outside.</p></div>
+    <div class="card"><h3>Lightning</h3><p class="sm">Sanctum of Light in the southeast. A bit east of it are Ultra Potion ×2 and the Luminous Grimoire.</p></div>
+    <div class="card"><h3>Clive</h3><p class="sm">Sanctum of Light north of Grandshelt, with a Power Stone outside.</p></div>
+    <div class="card"><h3>Victoria</h3><p class="sm">Reward from the side quest <i>Victoria Revivified</i> (Mysidia, after Sunioo).</p></div>
+    <div class="card"><h3>Espers</h3><p class="sm">Ifrit (Zoldaad volcano) and Shiva (western island). The Bahamut trial is on the airship.</p></div>
+  </div>
+
+  <h2>Key gear by area</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Area</th><th>Gear</th><th class="num">Shards</th></tr></thead>
+    <tbody>
+      <tr><td>Mysidia town</td><td>Seraphim Bow, Knight's Sword, Knife of Silence ×3, Thunder God's Earrings</td><td class="num">3–5</td></tr>
+      <tr><td>Arcane Library</td><td>Genmato, Book of Strength</td><td class="num">2</td></tr>
+      <tr><td>Village of Sunioo</td><td>Resonate Staff, Arcane Coat, Water Scroll II ×2</td><td class="num">2</td></tr>
+      <tr><td>Nameless Ruins</td><td>Tyr's Armor, Magi-Blaster, Impact Wand</td><td class="num">2</td></tr>
+      <tr><td>Tower of Mysidia</td><td>Guarding Gown, Bullseye Mace</td><td class="num">4</td></tr>
+      <tr><td>Fina's psyche</td><td>Barrel Blazer, Lunar Whip</td><td class="num">4</td></tr>
+      <tr><td>Mysidia continent</td><td>Catastrophe, Illusory Jacket, Luminous Grimoire, Fire Scroll II ×2</td><td class="num">–</td></tr>
+    </tbody></table></div>
+
+  <h2>Side quests this chapter opens</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Quest</th><th>Start</th><th>Reward</th></tr></thead>
+    <tbody>
+      <tr><td>Victoria Revivified</td><td>Victoria at Mysidia's northeast save point, after Sunioo</td><td>Victoria Vision + Magicite</td></tr>
+      <tr><td>Token Legacy (Jake)</td><td>Rest at the Olderion Inn after the ruins</td><td>Trick Coin (+100 HP, +30 MP, +30 Str, +20 End)</td></tr>
+      <tr><td>Errand's End</td><td>Drofox Gazette Vol. 4, Zoldaad Imperial Hotel (after Token Legacy)</td><td>Amelia Vision + Magicite</td></tr>
+      <tr><td>Nichol's Duty</td><td>Nichol in Olderion</td><td>Enchanted Ring + Leviathan</td></tr>
+      <tr><td>Beyond the Blue (Lid)</td><td>Chairman, Dilmagia Shipyard</td><td>Chocobo Nitro (+100 HP, +30 MP, +25 Str, +25 Mag)</td></tr>
+      <tr><td>Forger of Wills</td><td>Gossiping girl in Dilmagia → Aileen</td><td>Aileen Vision + Magicite</td></tr>
+      <tr><td>Mechabo Unleashed</td><td>Dwarven Forge</td><td>Magicite Cryst + Overclock Zero</td></tr>
+      <tr><td>Battle at the Big Bridge</td><td>Gilgamesh on the Enterprise deck</td><td>–</td></tr>
+      <tr><td>The Call from Beyond</td><td>Zoldaad</td><td>Camille Vision + Magicite</td></tr>
+      <tr><td>O General! My General!</td><td>Zoldaad</td><td>Wilhelm Vision + Magicite Cryst</td></tr>
+      <tr><td>Rogue Rebel</td><td>Rebel Hideout</td><td>Rose Diadem + Magicite</td></tr>
+      <tr><td>Mog Tag · More · Even More</td><td>Mysidia Moogles</td><td>Mist X-Potion / Magicite / Magicite Cryst</td></tr>
+      <tr><td>Last Respite (Archwitch Fina)</td><td>Grandshelt, after Mysidia's story</td><td>Moonlight Ring</td></tr>
+    </tbody></table></div>
+  <p class="sm mut">If a Mog Tag Moogle gets stuck or goes missing, restart the game. That's a reported bug.</p>
+</section>
+
+<!-- ============ BEFORE ============ -->
+<section class="panel" id="before" role="tabpanel">
+  <h2>Do these before you follow "Go to Gronoa"</h2>
+  <div class="card stack">
+    <p class="callout warn">No guide names a point of no return in Chapter 5. These are cautious steps for the places where sources disagree.</p>
+    <ul>
+      <li><b>Collect everything in Fina's psyche during the story visit:</b> 4 Tablet Shards, the Barrel Blazer and the Lunar Whip. Guides disagree on whether you can return.</li>
+      <li><b>Get the Impact Wand</b> from the Tellus room in the Nameless Ruins.</li>
+      <li><b>Take the Phoenix Pinions</b> from the Sunioo elder's house.</li>
+      <li><b>Finish Last Respite early.</b> One guide says its hand-in on the airship deck closes late in the game, which would cost you the all-substories trophy.</li>
+      <li><b>Pick Magic +3 for Sakura</b> and <b>Strength +3 for Jake</b>. These are one-time choices.</li>
+      <li><b>Make a separate save</b> at the end of the chapter.</li>
+    </ul>
+  </div>
+  <h2>Easy to forget</h2>
+  <div class="grid2">
+    <div class="card"><h3>The memory gate isn't a key puzzle</h3><p class="sm">If it's sealed, you haven't finished the Tower of Mysidia yet. On the second visit, the Rain and Archwitch Fina conversation is what opens it.</p></div>
+    <div class="card"><h3>Reading a book isn't beating it</h3><p class="sm">Each of the five library books has to be opened <i>and</i> beaten. Watch the counter.</p></div>
+    <div class="card"><h3>Your healer leaves</h3><p class="sm">Fina is gone for the memory fights. Equip Leah (or another healer) on someone in your active party.</p></div>
+    <div class="card"><h3>Tellus' calls</h3><p class="sm">Same element, different attack type. A Wind spell and a Wind sword skill are not the same thing to him.</p></div>
+  </div>
+</section>
+
+<!-- ============ SPOTLIGHT ============ -->
+<section class="panel" id="spot" role="tabpanel">
+  <h2>Character spotlight (no spoilers)</h2>
+  <p class="mut sm">No guide or review talks about these characters' writing, so this is my read of how the chapter uses them, especially their fights and their role in the story.</p>
+
+  <div class="card stack">
+    <div class="who"><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/458cfe24c21b32c23056e1619c13df803607ee308de3bfce26bd5623e9c534a0.webp" alt="Tellus"><div><h3>Tellus</h3><p class="sm mut">The golden-armored duelist</p></div></div>
+    <p><b>His role:</b> he's the wall that stands between the party and the truth about Fina. You lose to him at the start of the mystery and beat him at the end of it, so he's how you can tell the party has grown.</p>
+    <div class="grid2">
+      <div><h3 class="sm">Why it works</h3><ul class="sm">
+        <li><b>His personality is in his fight.</b> He wants to see "magnificent martial skill" or "majestic magic," and he punishes you for giving him the wrong one. That says he's an honorable duelist without a single line of backstory.</li>
+        <li><b>Losing first makes winning matter.</b> The three-turn loss in the ruins and the real win at the end give the chapter a clear beginning and end.</li>
+        <li><b>He's a different kind of fight</b> from Ignis's rage-based one, so the bosses don't blur together.</li></ul></div>
+      <div><h3 class="sm">Why it might not</h3><ul class="sm">
+        <li>Another fight you're meant to lose, right after Ignis did the same thing in Chapter 4. Seeing that twice in a row gets tiring.</li>
+        <li>"Big armored warrior with an honor code" is a very old archetype.</li>
+        <li>He blocks the way into the biggest story moment, so some players will just see him as an obstacle.</li></ul></div>
+    </div>
+    <p class="verdict">Goofy or not: his lines are big and theatrical. They'll land as noble if the voice actor plays them straight and as hammy if he chews the scenery. The mechanic gives him more dignity than the archetype does.</p>
+  </div>
+
+  <div class="card stack" style="margin-top:12px">
+    <div class="who"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/0/0c/Finalfantasyresonance-character-sakura-v2.png/200px-Finalfantasyresonance-character-sakura-v2.png" alt="Sakura"><div><h3>Sakura</h3><p class="sm mut">The ageless sage</p></div></div>
+    <p><b>Her role:</b> she's your guide to Mysidia's magic, and the person whose memories unlock the chapter's last act.</p>
+    <div class="grid2">
+      <div><h3 class="sm">Why it works</h3><ul class="sm">
+        <li><b>She's useful right away.</b> She has the best magic in the game at level 1 and brings Light, which you need soon.</li>
+        <li><b>Her choice is about respect.</b> The best stat answer ("You are a wise person") rewards taking her seriously.</li>
+        <li>The story needs her for more than exposition: her memories at the tower are a real key.</li></ul></div>
+      <div><h3 class="sm">Why it might not</h3><ul class="sm">
+        <li>"Looks like a child, talks like a grandmother" is an overused anime trope, and the joke can wear thin.</li>
+        <li>She shows up in a very busy chapter, alongside a new city, an airship and a mind trip, so she has less room to grow.</li></ul></div>
+    </div>
+    <p class="verdict">Goofy or not: the setup has goofy potential. Whether it lands depends on whether the script uses her age as a running joke or as weight. Her choice and her tower scene suggest weight.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Compiled from (ffresonanceguide.com, Fextralife) plus <a href="https://meowdb.com/db/final-fantasy-resonance/guides/chapter-5">MeowDB</a>, <a href="https://finalfantasyresonance.wiki.fextralife.com/Chapter_5:_Scars_of_Time">Fextralife</a>, <a href="https://www.keengamer.com/articles/guides/final-fantasy-resonance-complete-walkthrough-all-8-chapters/">KeenGamer</a>, <a href="https://www.eliteguias.com/guias/f/ffres/final-fantasy-resonance-p38.php">EliteGuías (ES)</a> and <a href="https://www.gamingdeputy.com/france/final-fantasy-resonance-soluce-chapitre-5/">GamingDeputy (FR)</a>. Images load from those sites, © Square Enix. Fan-made summary; all game names, art and screenshots belong to Square Enix.</p>
+</footer>
+</main>
+<script>
+(function(){
+  var d=document.documentElement;d.classList.remove('nojs');d.classList.add('js');
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+  // tabs
+  var tabs=[].slice.call(document.querySelectorAll('.tabs button'));
+  function show(id,scroll){tabs.forEach(function(b){b.setAttribute('aria-selected',String(b.dataset.t===id))});
+    [].forEach.call(document.querySelectorAll('.panel'),function(p){p.classList.toggle('on',p.id===id)});
+    store('ffr5-tab',id);if(scroll)window.scrollTo({top:0});}
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t,true)})});
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(a){a.addEventListener('click',function(e){e.preventDefault();show(a.dataset.go,true)})});
+  var t=store('ffr5-tab');if(t&&document.getElementById(t))show(t,false);
+  // spoilers
+  [].forEach.call(document.querySelectorAll('.sp-btn'),function(b){b.addEventListener('click',function(){b.parentNode.classList.add('open')})});
+  var sw=document.getElementById('revealAll');
+  function setAll(on){sw.setAttribute('aria-checked',String(on));d.classList.toggle('reveal-all',on);store('ffr5-spoil',on?'1':'0')}
+  sw.addEventListener('click',function(){setAll(sw.getAttribute('aria-checked')!=='true')});
+  if(store('ffr5-spoil')==='1')setAll(true);
+  // steps: checkboxes + filters
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var saved={};try{saved=JSON.parse(store('ffr5-done')||'{}')}catch(e){}
+  var prog=document.getElementById('prog');
+  function count(){var n=steps.filter(function(s){return s.classList.contains('done')}).length;prog.textContent=n+' of '+steps.length+' steps done';}
+  steps.forEach(function(s,i){var c=s.querySelector('input');if(saved[i]){c.checked=true;s.classList.add('done')}
+    c.addEventListener('change',function(){s.classList.toggle('done',c.checked);saved[i]=c.checked;store('ffr5-done',JSON.stringify(saved));count()})});
+  count();
+  var fb=[].slice.call(document.querySelectorAll('.filters button'));
+  fb.forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;
+    fb.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+    steps.forEach(function(s){var ks=s.dataset.k+' '+[].map.call(s.querySelectorAll('.k'),function(k){return k.className}).join(' ');
+      s.classList.toggle('hide',f!=='all'&&ks.indexOf(f)===-1)});
+    [].forEach.call(document.querySelectorAll('.act'),function(a){a.classList.toggle('hide',f!=='all')});
+  })});
+})();
+</script>
+</body></html>

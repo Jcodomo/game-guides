@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Guides</title>
+<meta name="description" content="Fan-made Final Fantasy Resonance guides: chapter walkthroughs, story cheat sheets and party builds.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Marcellus&display=swap" rel="stylesheet">
+<style>
+:root{--bg:oklch(97.5% 0.006 220);--surface:oklch(99.5% 0.003 220);--surface-2:oklch(95% 0.01 220);--fg:oklch(24% 0.03 230);--muted:oklch(48% 0.02 230);--border:oklch(88% 0.012 225);--brand:oklch(42% 0.07 210);--accent:oklch(70% 0.14 75);--r1:6px;--r2:12px;--display:"Marcellus",Georgia,serif;--body:"Atkinson Hyperlegible",Verdana,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:oklch(17% 0.015 230);--surface:oklch(21% 0.016 230);--surface-2:oklch(25% 0.018 230);--fg:oklch(92% 0.01 220);--muted:oklch(70% 0.02 225);--border:oklch(32% 0.02 230);--brand:oklch(72% 0.08 205);--accent:oklch(78% 0.12 80)}}
+:root[data-theme="dark"]{--bg:oklch(17% 0.015 230);--surface:oklch(21% 0.016 230);--surface-2:oklch(25% 0.018 230);--fg:oklch(92% 0.01 220);--muted:oklch(70% 0.02 225);--border:oklch(32% 0.02 230);--brand:oklch(72% 0.08 205);--accent:oklch(78% 0.12 80)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--body)}
+main{max-width:980px;margin:0 auto;padding:40px 16px 72px}
+.kicker{font-size:13px;color:var(--muted);margin:0 0 4px}
+h1{font:400 clamp(32px,6vw,52px)/1.05 var(--display);margin:0}
+h2{font:400 24px/1.2 var(--display);margin:40px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.lede{color:var(--muted);max-width:60ch;margin:10px 0 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+a.card{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:start;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);color:inherit;text-decoration:none;transition:border-color 180ms cubic-bezier(.2,.7,.2,1)}
+a.card:hover{border-color:var(--brand)}
+a.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+a.card img{width:120px;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r1);background:var(--surface-2)}
+a.card b{display:block;font:400 19px/1.25 var(--display)}
+a.card span{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid var(--border);margin-top:8px}
+.tag.new{border-color:var(--accent)}
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body><main>
+<p class="kicker">Fan-made guides</p>
+<h1>Game Guides</h1>
+<p class="lede">Story recaps, chapter walkthroughs and party builds for Final Fantasy Resonance, compiled from guide sites and video guides and checked against each other. Every page credits its sources.</p>
+
+<h2>Final Fantasy Resonance</h2>
+<div class="grid">
+  <a class="card" href="ff-resonance/party-builds.html"><img src="https://ffresonanceguide.com/_astro/character-07-art.DNeUf-y7_ZgFrvV.webp" alt="" loading="lazy"><div><b>Party builds</b><span>Rain, Lasswell, Fina, Nichol and Jake: Visions, Mastery, gear, turn-1 openers and two build paths</span><span class="tag new">Latest</span></div></a>
+  <a class="card" href="ff-resonance/chapter-5.html"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/4/4d/Finalfantasyresonance-scene-chapter-5.jpg/360px-Finalfantasyresonance-scene-chapter-5.jpg" alt="" loading="lazy"><div><b>Chapter 5: Scars of Time</b><span>Story cheat sheet (spoilers hidden until you tap), step-by-step walkthrough, bosses, loot and a before-you-leave checklist</span></div></a>
+  <a class="card" href="ff-resonance/chapters-3-4.html"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/1/13/Finalfantasyresonance-scene-chapter-4.jpg/360px-Finalfantasyresonance-scene-chapter-4.jpg" alt="" loading="lazy"><div><b>Chapters 3 &amp; 4</b><span>Wardens of the Aquapolis and Banner Oath: story, walkthrough and bosses, one tab per chapter</span></div></a>
+  <a class="card" href="ff-resonance/chapter-3-v1.html"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/d/d8/Finalfantasyresonance-scene-chapter-3.jpg/360px-Finalfantasyresonance-scene-chapter-3.jpg" alt="" loading="lazy"><div><b>Chapter 3 cheat sheet (first version)</b><span>The original one-page Chapter 3 recap, before it was merged with Chapter 4</span><span class="tag">v1</span></div></a>
+</div>
+
+<footer>Fan-made and unofficial. Final Fantasy Resonance, its characters, art and screenshots belong to Square Enix. Images load from the credited guide sites. Text is summarized and paraphrased from the sources listed on each page.</footer>
+</main></body></html>
