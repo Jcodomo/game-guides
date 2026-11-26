@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" class="nojs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FF Resonance Ch.5</title>
+<script>try{var t=localStorage.getItem("gg-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script><link rel="icon" href="../favicon.svg" type="image/svg+xml"><meta name="gg-title" content="FF Resonance · Chapter 5"><title>FF Resonance Ch.5</title>
 <!--
   Design notes (frontend-design-deslop pass)
   Artifact: game-guide reference + story cheat sheet. Reader = a player mid-chapter, often on a phone.
@@ -149,6 +149,22 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .verdict{font:400 19px/1.4 var(--display)}
 footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* walkthrough tools (v2) */
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wt-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.wt-search{flex:1 1 240px;display:flex;align-items:center;gap:8px;padding:0 12px;min-height:44px;border:1px solid var(--border);border-radius:var(--r1);background:var(--surface);color:var(--muted)}
+.wt-search:focus-within{border-color:var(--brand)}
+.wt-search input{flex:1;min-width:0;border:0;background:transparent;font:inherit;color:var(--fg);outline:none;padding:10px 0}
+.wt-check{display:inline-flex;align-items:center;gap:6px;font-size:14px;min-height:44px;padding:0 4px;cursor:pointer}
+.wt-check input{width:18px;height:18px;accent-color:var(--brand)}
+.wt-btn{font:700 13px/1 var(--body);min-height:44px;padding:0 14px;border-radius:var(--r1);border:1px solid var(--brand);background:var(--brand);color:var(--brand-fg);cursor:pointer;transition:filter var(--dur) var(--ease)}
+.wt-btn:hover{filter:brightness(1.08)}.wt-btn.quiet{background:transparent;color:var(--muted);border-color:var(--border)}
+.pbar{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin:4px 0 6px}
+.pbar i{display:block;height:100%;width:0;background:var(--ok);border-radius:99px;transition:width 300ms var(--ease)}
+.step{scroll-margin-top:72px}.card.boss,[id^="s-"]{scroll-margin-top:72px}
+td a{font-weight:700}
+@media (prefers-reduced-motion:reduce){.pbar i{transition:none}}
 </style></head>
 <body><main>
 
@@ -164,7 +180,7 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
       <div><b>Sakura</b><span>joins (Lv 33)</span></div>
     </div>
   </div>
-  <img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/4/4d/Finalfantasyresonance-scene-chapter-5.jpg/360px-Finalfantasyresonance-scene-chapter-5.jpg" alt="Chapter 5 title scene">
+  <img decoding="async" fetchpriority="high" width="360" height="203" src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/4/4d/Finalfantasyresonance-scene-chapter-5.jpg/360px-Finalfantasyresonance-scene-chapter-5.jpg" alt="Chapter 5 title scene">
 </header>
 
 <div class="bar"><div class="tabs" role="tablist" aria-label="Guide sections">
@@ -190,10 +206,10 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
 
   <h2>Who matters this chapter</h2>
   <div class="cast">
-    <div class="card who"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/0/0c/Finalfantasyresonance-character-sakura-v2.png/200px-Finalfantasyresonance-character-sakura-v2.png" alt="Sakura"><div><h3>Sakura</h3><p class="sm mut">Sage of Mysidia · staff · magic attacker</p><p class="sm">She looks like a child but speaks like an elder, and nobody knows how old she really is. She hits harder with magic than anyone else at level 1, using Lightning, Dark and non-elemental spells.</p></div></div>
-    <div class="card who"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/5/5f/Finalfantasyresonance-character-archwitch-fina-v2.png/200px-Finalfantasyresonance-character-archwitch-fina-v2.png" alt="Archwitch Fina"><div><h3>Fina &amp; Archwitch Fina</h3><p class="sm mut">Medic (bow) · Saboteur (whip)</p><p class="sm">Fina's other self first showed up in Chapter 3, when she healed Rain's arm. This chapter is about who these two really are.</p></div></div>
-    <div class="card who"><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/458cfe24c21b32c23056e1619c13df803607ee308de3bfce26bd5623e9c534a0.webp" alt="Tellus"><div><h3>Tellus</h3><p class="sm mut">Golden-armored warrior · weak to Wind</p><p class="sm">He fights by a code and keeps calling out whether he wants magic or martial skill from you. You meet him twice this chapter.</p></div></div>
-    <div class="card who"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/9/9d/Finalfantasyresonance-character-jake-v2.png/200px-Finalfantasyresonance-character-jake-v2.png" alt="Jake"><div><h3>Jake</h3><p class="sm mut">Commando · guns</p><p class="sm">He joins officially at the start of the chapter. He has both physical and magic Wind attacks, which makes him great against Slagworm and Tellus.</p></div></div>
+    <div class="card who"><img decoding="async" src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/0/0c/Finalfantasyresonance-character-sakura-v2.png/200px-Finalfantasyresonance-character-sakura-v2.png" alt="Sakura"><div><h3>Sakura</h3><p class="sm mut">Sage of Mysidia · staff · magic attacker</p><p class="sm">She looks like a child but speaks like an elder, and nobody knows how old she really is. She hits harder with magic than anyone else at level 1, using Lightning, Dark and non-elemental spells.</p></div></div>
+    <div class="card who"><img decoding="async" src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/5/5f/Finalfantasyresonance-character-archwitch-fina-v2.png/200px-Finalfantasyresonance-character-archwitch-fina-v2.png" alt="Archwitch Fina"><div><h3>Fina &amp; Archwitch Fina</h3><p class="sm mut">Medic (bow) · Saboteur (whip)</p><p class="sm">Fina's other self first showed up in Chapter 3, when she healed Rain's arm. This chapter is about who these two really are.</p></div></div>
+    <div class="card who"><img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/458cfe24c21b32c23056e1619c13df803607ee308de3bfce26bd5623e9c534a0.webp" alt="Tellus"><div><h3>Tellus</h3><p class="sm mut">Golden-armored warrior · weak to Wind</p><p class="sm">He fights by a code and keeps calling out whether he wants magic or martial skill from you. You meet him twice this chapter.</p></div></div>
+    <div class="card who"><img decoding="async" src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/9/9d/Finalfantasyresonance-character-jake-v2.png/200px-Finalfantasyresonance-character-jake-v2.png" alt="Jake"><div><h3>Jake</h3><p class="sm mut">Commando · guns</p><p class="sm">He joins officially at the start of the chapter. He has both physical and magic Wind attacks, which makes him great against Slagworm and Tellus.</p></div></div>
     <div class="card who"><div class="ph">L</div><div><h3>Lid</h3><p class="sm mut">Pilot of the Enterprise</p><p class="sm">She learns her Limit Break, <b>Enterprise Charge</b>, in the opening scene, and her radar is how you find Mysidia.</p></div></div>
     <div class="card who"><div class="ph">U</div><div><h3>Umbra</h3><p class="sm mut">You lost to him in Chapter 1</p><p class="sm">He has a camp inside the memory world. The guides don't explain his goals yet.</p></div></div>
   </div>
@@ -231,7 +247,17 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
     <button aria-pressed="false" data-f="optional">Optional</button>
     <button aria-pressed="false" data-f="setup">Setup</button>
   </div>
-  <p class="progress" id="prog"></p>
+  <div class="wt-tools">
+    <label class="wt-search"><span class="vh">Search the walkthrough</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="wtq" type="search" placeholder="Search steps: boss, item, place…" autocomplete="off"></label>
+    <label class="wt-check"><input type="checkbox" id="hideDone"> Hide done</label>
+    <button type="button" id="nextStep" class="wt-btn">Next step ↓</button>
+    <button type="button" id="resetSteps" class="wt-btn quiet">Reset</button>
+  </div>
+  <div class="pbar" aria-hidden="true"><i id="pfill"></i></div>
+  <p class="progress" id="prog" aria-live="polite"></p>
+  <p class="wt-none mut sm" id="wtnone" hidden>No steps match. Clear the search or pick "All".</p>
 
   <div class="act">I · TAKING TO THE SKY</div>
 
@@ -261,14 +287,14 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
     <h3>Find Mysidia</h3>
     <p>Fly over the ocean <b>south and slightly east of the Kingdom of Pharm</b> and use the radar pulse. Lid gives you hints, so keep scanning as you move. The city is hidden and you won't spot it just by flying over.</p>
     <p class="sm mut">You don't need the High-Power Generator or any radar upgrades for this. Lid's story detector is enough.</p></div>
-    <figure><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/8/80/Finalfantasyresonance-mysidia-the-magiapolis-screenshot.jpg/260px-Finalfantasyresonance-mysidia-the-magiapolis-screenshot.jpg" alt="Mysidia" loading="lazy"><figcaption>Mysidia, the Magiapolis (Fextralife)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/8/80/Finalfantasyresonance-mysidia-the-magiapolis-screenshot.jpg/260px-Finalfantasyresonance-mysidia-the-magiapolis-screenshot.jpg" alt="Mysidia" loading="lazy"><figcaption>Mysidia, the Magiapolis (Fextralife)</figcaption></figure></div>
 
   <div class="act">II · MYSIDIA &amp; THE SNOWFIELD</div>
 
   <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span></div>
     <h3>Go to Sakura's house</h3>
     <p>Cross the bridge to the west. After the scene, <b>Sakura joins the party</b>. Use the teleport stones to get around the districts.</p></div>
-    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-5-sakura.webp" alt="Sakura's house" loading="lazy"><figcaption>At Sakura's house (MeowDB)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-5-sakura.webp" alt="Sakura's house" loading="lazy"><figcaption>At Sakura's house (MeowDB)</figcaption></figure></div>
 
   <div class="step" data-k="loot"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k loot">Loot</span></div>
     <h3>Sweep Mysidia town</h3>
@@ -278,7 +304,7 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
       <li>The shop sells Turbo Ether, X-Potion, Rune Blade, Kiku-Ichimonji, Mythril Armor and Safety Bit.</li>
     </ul>
     <p class="sm mut">Guides disagree on the town's shard count: 3 (MeowDB/EliteGuías) or 5 (Fextralife).</p></div>
-    <figure><img src="https://ffresonanceguide.com/_astro/press-sakura-story.CmoERXtS_Z1fCmcp.webp" alt="Sakura with Rain's party" loading="lazy"><figcaption>Sakura guides the party (ffresonanceguide / Square Enix)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://ffresonanceguide.com/_astro/press-sakura-story.CmoERXtS_Z1fCmcp.webp" alt="Sakura with Rain's party" loading="lazy"><figcaption>Sakura guides the party (ffresonanceguide / Square Enix)</figcaption></figure></div>
 
   <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span></div>
     <h3>Potion factory: get the special medicine</h3>
@@ -287,7 +313,7 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
   <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">Lv 33</span></div>
     <h3>Slagworm, on the snowfield road to Sunioo</h3>
     <p>Use <span class="el wind">Wind</span>, and don't use Earth (it's immune). <b>Swallow</b> takes one party member out for a few turns. Stagger it when the warning shows, and keep a second healer ready. A Star Pendant protects against its poison acid. <a href="#" data-go="bosses">Full boss card →</a></p></div>
-    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/cb6b01c79b2c67e938c7b1b75cf1674898a2276edd17e19072e91bb89a9788ff.webp" alt="Slagworm" loading="lazy"><figcaption>Slagworm (MeowDB)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/cb6b01c79b2c67e938c7b1b75cf1674898a2276edd17e19072e91bb89a9788ff.webp" alt="Slagworm" loading="lazy"><figcaption>Slagworm (MeowDB)</figcaption></figure></div>
 
   <div class="step" data-k="loot"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k loot">Loot</span><span class="k missable">Missable-ish</span></div>
     <h3>Loot Sunioo before you talk to the elder</h3>
@@ -304,15 +330,15 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
     <h3>The statue chest (Tyr's Armor)</h3>
     <p>Examine the locked chest at the entrance first. Then activate the three statues in this order: <b>Broken Sword</b> (by the far save point) → <b>Withered Horse</b> (second area) → <b>Darkness Sealed</b> (next to the chest). Open the chest for <b>Tyr's Armor</b>. If you get the order wrong, start again from Broken Sword.</p>
     <p class="sm">Also here: <b>Magi-Blaster</b> on the west stairs, and a Tablet Shard with Magicite in the upper-west room (2 shards in the ruins).</p></div>
-    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-5-strategy-statue-chest.webp" alt="Statue and chest" loading="lazy"><figcaption>The statue chest (MeowDB)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-5-strategy-statue-chest.webp" alt="Statue and chest" loading="lazy"><figcaption>The statue chest (MeowDB)</figcaption></figure></div>
 
   <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">guardian 1 of 2</span></div>
-    <h3>Iron Giant (east room)</h3>
+    <h3 id="s-iron-giant">Iron Giant (east room)</h3>
     <p>Use <span class="el bolt">Lightning</span> <b>magic</b>. It counters physical hits, and a Lightning spellblade still counts as physical. Keep your caster and healer up.</p></div>
-    <figure><img src="https://images.keengamer.com/wp-content/uploads/2026/10/Fighting-Iron-Giant.jpg" alt="Iron Giant fight" loading="lazy"><figcaption>Fighting the Iron Giant (KeenGamer)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://images.keengamer.com/wp-content/uploads/2026/10/Fighting-Iron-Giant.jpg" alt="Iron Giant fight" loading="lazy"><figcaption>Fighting the Iron Giant (KeenGamer)</figcaption></figure></div>
 
   <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">guardian 2 of 2</span></div>
-    <h3>Liquid Flame (west room)</h3>
+    <h3 id="s-liquid-flame">Liquid Flame (west room)</h3>
     <p>Use <span class="el water">Water</span> or <span class="el ice">Ice</span>, and <b>never Fire</b>, which heals it. It counters physical hits and puts <b>Reflect</b> on itself, so check its buffs before casting and remove Reflect with Dispel or Magicide. The room also has Vitalizing Fluid ×3.</p></div></div>
 
   <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span><span class="k boss">Scripted</span></div>
@@ -340,7 +366,7 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
   <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">Lv 36</span></div>
     <h3>Forbidden Text Wing: Byblos</h3>
     <p>Take the restored blue teleporter. The tome on the wall has its own guardian. Use <span class="el fire">Fire</span> or <span class="el dark">Dark</span>. Carbuncle's Reflect helps against its spells. Before the final bookshelf, check the balcony for a Tablet Shard (left) and the <b>Book of Strength</b> (right). Afterward, tell Sakura <b>"yes"</b> to go in.</p></div>
-    <figure><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/6/69/Finalfantasyresonance-boss-428.png" alt="Byblos" loading="lazy"><figcaption>Byblos (Fextralife)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://static0.fextralifeimages.com/file/finalfantasyresonance/6/69/Finalfantasyresonance-boss-428.png" alt="Byblos" loading="lazy"><figcaption>Byblos (Fextralife)</figcaption></figure></div>
 
   <div class="act">V · FINA'S MEMORIES</div>
 
@@ -348,7 +374,7 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
     <h3>First visit to Fina's psyche (no fights)</h3>
     <p>Follow Fina west through the scenes, check the large gate, then go to the cliff in the east. <b>The gate will not open on this visit</b>, and that's normal. Leave through the open book when the game tells you to.</p>
     <p class="sm"><b>Grab:</b> a Tablet Shard by the chain, a Tablet Shard in the left shop, a Tablet Shard at the end of the forest path, and Ultra Potion ×2 in the center shop.</p></div>
-    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-5-fina.webp" alt="Fina on the forest path" loading="lazy"><figcaption>Fina's memories (MeowDB)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/guides/chapters/chapter-5-fina.webp" alt="Fina on the forest path" loading="lazy"><figcaption>Fina's memories (MeowDB)</figcaption></figure></div>
 
   <div class="step" data-k="story"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k story">Story</span><span class="k choice">Answer order</span></div>
     <h3>Climb the Tower of Mysidia (west side)</h3>
@@ -377,12 +403,12 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
     <h3>The battlefield: follow the flowers to Dark Fina</h3>
     <p>Random fights start here. Check the flowers along the path. Then use <span class="el water">Water</span> and <span class="el light">Light</span> against her, and don't use Dark. Stagger her to cancel <b>Dystopia</b>. <b>Paradise Lost</b> boosts her Dark attacks, but it does <i>not</i> make her weak to Dark. <a href="#" data-go="bosses">Full card →</a></p>
     <div class="r">Drop: <b>Ribbon</b> · Trophy for having the full party back: <b>Defying Fate</b></div></div>
-    <figure><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/66575658562e11ba104cb8284e2c390c33ea05c1f0525422963866fff2ffcd12.webp" alt="Dark Fina" loading="lazy"><figcaption>Archwitch / Dark Fina (MeowDB)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/66575658562e11ba104cb8284e2c390c33ea05c1f0525422963866fff2ffcd12.webp" alt="Dark Fina" loading="lazy"><figcaption>Archwitch / Dark Fina (MeowDB)</figcaption></figure></div>
 
   <div class="step" data-k="boss"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k boss">Boss</span><span class="pr">Lv 39</span></div>
     <h3>Tellus, the real fight</h3>
     <p>Bring <span class="el wind">Wind</span> in <b>both physical and magic</b> forms (Jake has both). Follow his call: <i>"Show me majestic magic"</i> means use magic, and <i>"Show me magnificent martial skill"</i> means use physical attacks. While he's fully broken (Full Break) he can't counter, so throw everything at him then. Stagger him to stop Crushing Breath. Some guides say you can field up to 8 party members and rearrange your formation here.</p></div>
-    <figure><img src="https://ffresonanceguide.com/_astro/press-forest-confrontation.q0zR20CW_ZGja5C.webp" alt="Tellus blocking the party" loading="lazy"><figcaption>Tellus blocks the party (ffresonanceguide / Square Enix)</figcaption></figure></div>
+    <figure><img decoding="async" src="https://ffresonanceguide.com/_astro/press-forest-confrontation.q0zR20CW_ZGja5C.webp" alt="Tellus blocking the party" loading="lazy"><figcaption>Tellus blocks the party (ffresonanceguide / Square Enix)</figcaption></figure></div>
 
   <div class="step" data-k="finale"><input type="checkbox" aria-label="Done"><div><div class="meta"><span class="k finale">Finale</span></div>
     <h3>Back to Sakura's house</h3>
@@ -396,45 +422,45 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
   <div class="tw"><table>
     <thead><tr><th>Boss</th><th>Where</th><th class="num">Lv</th><th class="num">HP</th><th>Use</th><th>Avoid</th></tr></thead>
     <tbody>
-      <tr><td>Slagworm</td><td>Snowfield near Sunioo</td><td class="num">33</td><td class="num">90,000</td><td><span class="el wind">Wind</span></td><td>Earth (immune)</td></tr>
-      <tr><td>Iron Giant</td><td>Nameless Ruins, east</td><td class="num">–</td><td class="num">–</td><td><span class="el bolt">Lightning</span> magic</td><td>Physical (counters)</td></tr>
-      <tr><td>Liquid Flame</td><td>Nameless Ruins, west</td><td class="num">–</td><td class="num">–</td><td><span class="el water">Water</span> / <span class="el ice">Ice</span></td><td>Fire (absorbs), Reflect</td></tr>
-      <tr><td>Byblos</td><td>Forbidden Text Wing</td><td class="num">36</td><td class="num">95,000</td><td><span class="el fire">Fire</span> / <span class="el dark">Dark</span></td><td>–</td></tr>
-      <tr><td>Dark Fina</td><td>Fina's psyche, battlefield</td><td class="num">38</td><td class="num">100,000</td><td><span class="el water">Water</span> / <span class="el light">Light</span></td><td>Dark (resists)</td></tr>
-      <tr><td>Tellus</td><td>Ruins (scripted) → finale</td><td class="num">39</td><td class="num">135,000</td><td><span class="el wind">Wind</span></td><td>Earth (resists), wrong attack type</td></tr>
+      <tr><td><a href="#b-slagworm">Slagworm</a></td><td>Snowfield near Sunioo</td><td class="num">33</td><td class="num">90,000</td><td><span class="el wind">Wind</span></td><td>Earth (immune)</td></tr>
+      <tr><td><a href="#s-iron-giant">Iron Giant</a></td><td>Nameless Ruins, east</td><td class="num">–</td><td class="num">–</td><td><span class="el bolt">Lightning</span> magic</td><td>Physical (counters)</td></tr>
+      <tr><td><a href="#s-liquid-flame">Liquid Flame</a></td><td>Nameless Ruins, west</td><td class="num">–</td><td class="num">–</td><td><span class="el water">Water</span> / <span class="el ice">Ice</span></td><td>Fire (absorbs), Reflect</td></tr>
+      <tr><td><a href="#b-byblos">Byblos</a></td><td>Forbidden Text Wing</td><td class="num">36</td><td class="num">95,000</td><td><span class="el fire">Fire</span> / <span class="el dark">Dark</span></td><td>–</td></tr>
+      <tr><td><a href="#b-dark-fina">Dark Fina</a></td><td>Fina's psyche, battlefield</td><td class="num">38</td><td class="num">100,000</td><td><span class="el water">Water</span> / <span class="el light">Light</span></td><td>Dark (resists)</td></tr>
+      <tr><td><a href="#b-tellus">Tellus</a></td><td>Ruins (scripted) → finale</td><td class="num">39</td><td class="num">135,000</td><td><span class="el wind">Wind</span></td><td>Earth (resists), wrong attack type</td></tr>
     </tbody></table></div>
 
   <h2>Boss cards</h2>
   <div class="stack">
-  <div class="card boss"><div>
+  <div class="card boss" id="b-slagworm"><div>
     <h3>Slagworm</h3><div class="stat"><span>Lv 33</span><span>90,000 HP</span><span>Stagger 450</span><span>Insect</span></div>
     <ul><li><b>Swallow</b> (devastating): takes one party member out for a couple of turns. Stagger it to stop this.</li>
     <li>Secrete Acid poisons the whole party (50%), so give everyone a Star Pendant. Snowstorm and Blizzara hit with Ice. Bonebreaker inflicts Deprotect.</li>
     <li>Immune to Earth and most status effects. Drops a <b>Mist X-Potion</b>.</li></ul></div>
-    <img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/cb6b01c79b2c67e938c7b1b75cf1674898a2276edd17e19072e91bb89a9788ff.webp" alt="Slagworm" loading="lazy"></div>
+    <img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/cb6b01c79b2c67e938c7b1b75cf1674898a2276edd17e19072e91bb89a9788ff.webp" alt="Slagworm" loading="lazy"></div>
 
-  <div class="card boss"><div>
+  <div class="card boss" id="b-byblos"><div>
     <h3>Byblos</h3><div class="stat"><span>Lv 36</span><span>95,000 HP</span><span>Stagger 1,200</span><span>Animal</span></div>
     <ul><li><b>Burn to Ashes</b> (devastating Fire, whole party). Also uses Cyclone, Stonera, Darkra, Graviga and Drain.</li>
     <li>Confuse (80%) and Crushing Grasp (Paralysis) can wreck your plan, so bring a Ribbon or Remedies.</li>
     <li>Weak to Fire and Dark. Drops <b>Wind Scroll II</b>. <span class="mut sm">Fextralife lists it as a side-quest boss, but every route guide puts it on the main path.</span></li></ul></div>
-    <img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/6/69/Finalfantasyresonance-boss-428.png" alt="Byblos" loading="lazy"></div>
+    <img decoding="async" src="https://static0.fextralifeimages.com/file/finalfantasyresonance/6/69/Finalfantasyresonance-boss-428.png" alt="Byblos" loading="lazy"></div>
 
-  <div class="card boss"><div>
+  <div class="card boss" id="b-dark-fina"><div>
     <h3>Dark Fina / Archwitch Fina</h3><div class="stat"><span>Lv 38</span><span>100,000 HP</span><span>Stagger 800</span><span>Human</span></div>
     <ul><li><b>Dystopia</b> (devastating Dark, whole party): stagger her to cancel it. If you can't, heal up first.</li>
     <li><b>Paradise Lost</b>: for 3 turns her Dark damage goes up 50% and other elements do 25% less. Keep using Water and Light anyway.</li>
     <li>Allure Charms the whole party, Queenly Whip inflicts Debrave/Defaith, and she also casts Death, Doom, Bio, Flare and Graviga. Use Ribbon or Monk's Prayer Beads.</li>
     <li>Drops a <b>Ribbon</b>.</li></ul></div>
-    <img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/66575658562e11ba104cb8284e2c390c33ea05c1f0525422963866fff2ffcd12.webp" alt="Dark Fina" loading="lazy"></div>
+    <img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/66575658562e11ba104cb8284e2c390c33ea05c1f0525422963866fff2ffcd12.webp" alt="Dark Fina" loading="lazy"></div>
 
-  <div class="card boss"><div>
+  <div class="card boss" id="b-tellus"><div>
     <h3>Tellus</h3><div class="stat"><span>Lv 39</span><span>135,000 HP</span><span>Stagger 1,050</span><span>Human</span></div>
     <ul><li><b>Rules of engagement</b>: he tells you which attack type he wants (magic or martial), and using the other type triggers a counter. Full Break turns his counters off.</li>
     <li><b>Crushing Breath</b> (devastating physical, whole party). He also uses Stonega (3 hits), Charge (Paralysis 50%), Guarding Smite and Protect.</li>
     <li>Drops: Golem Core (ffresonanceguide) <i>or</i> Earth Scroll II (Fextralife). The sources disagree.</li>
     <li>He comes back stronger in Chapter 7 on the Forest Path.</li></ul></div>
-    <img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/458cfe24c21b32c23056e1619c13df803607ee308de3bfce26bd5623e9c534a0.webp" alt="Tellus" loading="lazy"></div>
+    <img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/458cfe24c21b32c23056e1619c13df803607ee308de3bfce26bd5623e9c534a0.webp" alt="Tellus" loading="lazy"></div>
   </div>
 
   <h2>Optional fights that open now</h2>
@@ -525,7 +551,7 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
   <p class="mut sm">No guide or review talks about these characters' writing, so this is my read of how the chapter uses them, especially their fights and their role in the story.</p>
 
   <div class="card stack">
-    <div class="who"><img src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/458cfe24c21b32c23056e1619c13df803607ee308de3bfce26bd5623e9c534a0.webp" alt="Tellus"><div><h3>Tellus</h3><p class="sm mut">The golden-armored duelist</p></div></div>
+    <div class="who"><img decoding="async" src="https://meowdb.com/db/final-fantasy-resonance/catalog-assets/458cfe24c21b32c23056e1619c13df803607ee308de3bfce26bd5623e9c534a0.webp" alt="Tellus"><div><h3>Tellus</h3><p class="sm mut">The golden-armored duelist</p></div></div>
     <p><b>His role:</b> he's the wall that stands between the party and the truth about Fina. You lose to him at the start of the mystery and beat him at the end of it, so he's how you can tell the party has grown.</p>
     <div class="grid2">
       <div><h3 class="sm">Why it works</h3><ul class="sm">
@@ -541,7 +567,7 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
   </div>
 
   <div class="card stack" style="margin-top:12px">
-    <div class="who"><img src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/0/0c/Finalfantasyresonance-character-sakura-v2.png/200px-Finalfantasyresonance-character-sakura-v2.png" alt="Sakura"><div><h3>Sakura</h3><p class="sm mut">The ageless sage</p></div></div>
+    <div class="who"><img decoding="async" src="https://static0.fextralifeimages.com/file/finalfantasyresonance/thumb/0/0c/Finalfantasyresonance-character-sakura-v2.png/200px-Finalfantasyresonance-character-sakura-v2.png" alt="Sakura"><div><h3>Sakura</h3><p class="sm mut">The ageless sage</p></div></div>
     <p><b>Her role:</b> she's your guide to Mysidia's magic, and the person whose memories unlock the chapter's last act.</p>
     <div class="grid2">
       <div><h3 class="sm">Why it works</h3><ul class="sm">
@@ -557,7 +583,7 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
 </section>
 
 <footer>
-  <p>Compiled from (ffresonanceguide.com, Fextralife) plus <a href="https://meowdb.com/db/final-fantasy-resonance/guides/chapter-5">MeowDB</a>, <a href="https://finalfantasyresonance.wiki.fextralife.com/Chapter_5:_Scars_of_Time">Fextralife</a>, <a href="https://www.keengamer.com/articles/guides/final-fantasy-resonance-complete-walkthrough-all-8-chapters/">KeenGamer</a>, <a href="https://www.eliteguias.com/guias/f/ffres/final-fantasy-resonance-p38.php">EliteGuías (ES)</a> and <a href="https://www.gamingdeputy.com/france/final-fantasy-resonance-soluce-chapitre-5/">GamingDeputy (FR)</a>. Images load from those sites, © Square Enix. Fan-made summary; all game names, art and screenshots belong to Square Enix.</p>
+  <p>Compiled from ffresonanceguide.com and Fextralife, plus <a href="https://meowdb.com/db/final-fantasy-resonance/guides/chapter-5">MeowDB</a>, <a href="https://finalfantasyresonance.wiki.fextralife.com/Chapter_5:_Scars_of_Time">Fextralife</a>, <a href="https://www.keengamer.com/articles/guides/final-fantasy-resonance-complete-walkthrough-all-8-chapters/">KeenGamer</a>, <a href="https://www.eliteguias.com/guias/f/ffres/final-fantasy-resonance-p38.php">EliteGuías (ES)</a> and <a href="https://www.gamingdeputy.com/france/final-fantasy-resonance-soluce-chapitre-5/">GamingDeputy (FR)</a>. Images load from those sites, © Square Enix. Fan-made summary; all game names, art and screenshots belong to Square Enix.</p>
 </footer>
 </main>
 <script>
@@ -581,18 +607,35 @@ footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--border);font-
   // steps: checkboxes + filters
   var steps=[].slice.call(document.querySelectorAll('.step'));
   var saved={};try{saved=JSON.parse(store('ffr5-done')||'{}')}catch(e){}
-  var prog=document.getElementById('prog');
-  function count(){var n=steps.filter(function(s){return s.classList.contains('done')}).length;prog.textContent=n+' of '+steps.length+' steps done';}
-  steps.forEach(function(s,i){var c=s.querySelector('input');if(saved[i]){c.checked=true;s.classList.add('done')}
-    c.addEventListener('change',function(){s.classList.toggle('done',c.checked);saved[i]=c.checked;store('ffr5-done',JSON.stringify(saved));count()})});
-  count();
-  var fb=[].slice.call(document.querySelectorAll('.filters button'));
-  fb.forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;
-    fb.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
-    steps.forEach(function(s){var ks=s.dataset.k+' '+[].map.call(s.querySelectorAll('.k'),function(k){return k.className}).join(' ');
-      s.classList.toggle('hide',f!=='all'&&ks.indexOf(f)===-1)});
-    [].forEach.call(document.querySelectorAll('.act'),function(a){a.classList.toggle('hide',f!=='all')});
-  })});
+  var prog=document.getElementById('prog'),pfill=document.getElementById('pfill');
+  var norm=function(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')};
+  steps.forEach(function(s,i){s.id='step-'+(i+1);s._t=norm(s.textContent);
+    s._k=s.dataset.k+' '+[].map.call(s.querySelectorAll('.k'),function(k){return k.className}).join(' ')});
+  function count(){var n=steps.filter(function(s){return s.classList.contains('done')}).length;
+    prog.textContent=n+' of '+steps.length+' steps done'+(n===steps.length?' · chapter complete':'');
+    pfill.style.width=(100*n/steps.length)+'%';}
+  steps.forEach(function(s,i){var c=s.querySelector('input');c.setAttribute('aria-label','Done: '+(s.querySelector('h3')||{}).textContent);
+    if(saved[i]){c.checked=true;s.classList.add('done')}
+    c.addEventListener('change',function(){s.classList.toggle('done',c.checked);saved[i]=c.checked;store('ffr5-done',JSON.stringify(saved));count();apply()})});
+  // filters: kind + search + hide done, all combined
+  var fb=[].slice.call(document.querySelectorAll('.filters button')),q=document.getElementById('wtq'),hd=document.getElementById('hideDone'),none=document.getElementById('wtnone');
+  var kind='all';
+  function apply(){var terms=norm(q.value).split(/\s+/).filter(Boolean),shown=0;
+    steps.forEach(function(s){var ok=(kind==='all'||s._k.indexOf(kind)!==-1)&&terms.every(function(t){return s._t.indexOf(t)!==-1})&&!(hd.checked&&s.classList.contains('done'));
+      s.classList.toggle('hide',!ok);if(ok)shown++});
+    var plain=kind==='all'&&!terms.length&&!hd.checked;
+    [].forEach.call(document.querySelectorAll('.act'),function(a){a.classList.toggle('hide',!plain)});
+    none.hidden=shown>0;}
+  fb.forEach(function(b){b.addEventListener('click',function(){kind=b.dataset.f;fb.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});apply()})});
+  q.addEventListener('input',apply);hd.addEventListener('change',function(){store('ffr5-hide',hd.checked?'1':'0');apply()});
+  if(store('ffr5-hide')==='1')hd.checked=true;
+  document.getElementById('nextStep').addEventListener('click',function(){var s=steps.filter(function(x){return !x.classList.contains('done')&&!x.classList.contains('hide')})[0];
+    if(!s){prog.textContent='Every visible step is done.';return}
+    s.scrollIntoView({block:'center'});s.classList.remove('gg-flash');void s.offsetWidth;s.classList.add('gg-flash');s.querySelector('input').focus({preventScroll:true})});
+  document.getElementById('resetSteps').addEventListener('click',function(){if(!confirm('Untick all '+steps.length+' steps?'))return;
+    saved={};store('ffr5-done','{}');steps.forEach(function(s){s.classList.remove('done');s.querySelector('input').checked=false});count();apply()});
+  count();apply();
 })();
 </script>
+<script src="ff.js"></script>
 </body></html>
