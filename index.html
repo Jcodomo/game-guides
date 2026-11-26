@@ -141,7 +141,7 @@ input[type=checkbox]{width:20px;height:20px;accent-color:var(--gta);margin:0;cur
 .vid{display:inline-flex;align-items:center;gap:6px;font-size:var(--t-sm);font-weight:700;text-decoration:none;margin-top:var(--s2)}
 .vid svg{flex:none}
 .done{opacity:.55}.done h4,.done .tt{text-decoration:line-through;text-decoration-thickness:1px}
-.side{position:sticky;top:84px;display:flex;flex-direction:column;gap:var(--s4)}
+.side{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 100px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-gutter:stable;padding-right:4px;display:flex;flex-direction:column;gap:var(--s4)}
 @media(max-width:1100px){.side{position:static}}
 .box{border:1px solid var(--border);border-radius:var(--r2);background:var(--surface);padding:var(--s4)}
 .box.end{border-color:var(--border-strong)}
