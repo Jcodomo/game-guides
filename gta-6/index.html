@@ -140,7 +140,7 @@ input[type=checkbox]{width:20px;height:20px;accent-color:var(--gta);margin:0;cur
 .rew{font-size:var(--t-sm)}.rew b{font-weight:700}
 .vid{display:inline-flex;align-items:center;gap:6px;font-size:var(--t-sm);font-weight:700;text-decoration:none;margin-top:var(--s2)}
 .vid svg{flex:none}
-.done{opacity:.55}.done h4,.done .tt{text-decoration:line-through;text-decoration-thickness:1px}
+.done:not(.step){opacity:.55}.step.done>.n,.step.done>div>:not(.aft){opacity:.55}.done h4,.done .tt{text-decoration:line-through;text-decoration-thickness:1px}
 .side{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 100px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-gutter:stable;padding-right:4px;display:flex;flex-direction:column;gap:var(--s4)}
 @media(max-width:1100px){.side{position:static}}
 .box{border:1px solid var(--border);border-radius:var(--r2);background:var(--surface);padding:var(--s4)}
@@ -708,7 +708,8 @@ function paint(){document.querySelectorAll('input[data-ck]').forEach(function(i)
  document.querySelectorAll('.chapter').forEach(function(c){var all=c.querySelectorAll('ol.steps input[data-ck]'),n=0;all.forEach(function(i){if(i.checked)n++});
   var b=c.querySelector('.prog i');if(b)b.style.width=(all.length?100*n/all.length:0)+'%';var t=c.querySelector('.progtxt');if(t)t.textContent=n+' of '+all.length+' steps done';
   var chip=document.querySelector('[data-chip="'+c.id+'"] b');if(chip)chip.textContent=n+'/'+all.length})}
-document.addEventListener('change',function(e){var i=e.target;if(!i.dataset||!i.dataset.ck)return;if(i.checked)st[i.dataset.ck]=1;else delete st[i.dataset.ck];save();paint()});
+document.addEventListener('change',function(e){var i=e.target;if(!i.dataset||!i.dataset.ck)return;if(i.checked)st[i.dataset.ck]=1;else delete st[i.dataset.ck];save();paint();
+ if(i.checked){var s=i.closest('.step');var a=s&&s.querySelector('details.aft');if(a)a.open=true}});
 paint();
 var links=[].slice.call(document.querySelectorAll('.toc a[href^="#"]')),secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1))});
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){var id=x.target.id;links.forEach(function(a){a.setAttribute('aria-current',a.getAttribute('href')==='#'+id?'true':'false')})}})},{rootMargin:'-30% 0px -65% 0px'});
